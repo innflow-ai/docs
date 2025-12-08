@@ -1,0 +1,43 @@
+---
+title: "Workflows"
+description: "Understanding workflow structure and execution"
+---
+
+## What is a Workflow?
+
+A workflow is an automated sequence of actions that executes when triggered. Workflows are built visually by connecting nodes together in the editor.
+
+## Workflow Structure
+
+Every workflow consists of:
+
+1. **Trigger** - The starting point that initiates execution
+2. **Nodes** - Individual actions or operations
+3. **Connections** - Links that define the execution order
+4. **Context** - Shared data passed between nodes
+
+## Execution Flow
+
+When a workflow runs:
+
+1. The trigger node activates
+2. Each connected node executes in sequence
+3. Output from each node is added to the context
+4. Subsequent nodes can access previous outputs via variables
+
+## Workflow States
+
+| State | Description |
+|-------|-------------|
+| Draft | Workflow is being edited |
+| Active | Workflow is ready to run |
+| Running | Workflow is currently executing |
+| Completed | Workflow finished successfully |
+| Failed | Workflow encountered an error |
+
+## Best Practices
+
+- **Keep workflows focused** - Each workflow should do one thing well
+- **Use descriptive names** - Name nodes and workflows clearly
+- **Test incrementally** - Run and verify after adding each node
+- **Handle errors** - Add error handling for critical operations

@@ -1,33 +1,43 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'API Introduction'
+description: 'Integrate Innflow into your applications'
 ---
 
+## Overview
+
+The Innflow API allows you to programmatically interact with workflows, executions, and integrations.
+
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+  API documentation is coming soon. Contact support@innflow.ai for early access.
 </Note>
-
-## Welcome
-
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API requests require authentication using a Bearer token.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.innflow.ai/v1/workflows
 ```
+
+## Base URL
+
+```
+https://api.innflow.ai/v1
+```
+
+## Rate Limits
+
+| Plan | Requests per minute |
+|------|---------------------|
+| Free | 60 |
+| Pro | 300 |
+| Enterprise | Custom |
+
+## Endpoints
+
+Documentation for the following endpoints is in progress:
+
+- **Workflows** - Create, list, update, delete workflows
+- **Executions** - Trigger and monitor workflow runs
+- **Integrations** - Manage connected services

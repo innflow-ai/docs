@@ -1,0 +1,58 @@
+---
+title: "Variables"
+description: "Use dynamic values with template variables"
+---
+
+## Template Variables
+
+Variables allow you to pass data dynamically between nodes using the `{{variable}}` syntax.
+
+## Basic Syntax
+
+Reference a variable by wrapping its path in double curly braces:
+
+```
+{{nodeName.output.fieldName}}
+```
+
+## Examples
+
+### Accessing Node Output
+
+If you have a node named `ai_generate` that outputs text:
+
+```
+{{ai_generate.output.text}}
+```
+
+### Accessing Trigger Data
+
+For webhook triggers with JSON payload:
+
+```
+{{trigger.body.email}}
+{{trigger.body.name}}
+```
+
+### Nested Objects
+
+Access nested properties with dot notation:
+
+```
+{{airtable.output.record.fields.Name}}
+{{slack.output.message.ts}}
+```
+
+## Variable Picker
+
+The editor includes a variable picker that shows available variables from previous nodes. Click the `{ }` button in any text field to open it.
+
+## Type Coercion
+
+Variables are automatically converted to strings when used in text fields. For nodes expecting specific types (numbers, arrays), the value is passed as-is.
+
+## Best Practices
+
+- **Use descriptive node names** - Makes variables easier to understand
+- **Check for existence** - Some outputs may be undefined
+- **Keep paths simple** - Extract nested data in intermediate nodes if needed
