@@ -1,0 +1,75 @@
+---
+title: "Nodes"
+description: "Explore the different node types available in Innflow"
+---
+
+## Node Types
+
+Nodes are the building blocks of your workflows. Each node performs a specific action.
+
+## Trigger Nodes
+
+Trigger nodes start your workflow execution.
+
+<Columns cols={2}>
+  <Card title="Manual Trigger" icon="hand-pointer">
+    Run workflows on demand from the dashboard.
+  </Card>
+  <Card title="Webhook Trigger" icon="webhook">
+    Trigger workflows via HTTP POST requests.
+  </Card>
+</Columns>
+
+## AI Nodes
+
+Leverage AI capabilities in your workflows.
+
+<Columns cols={2}>
+  <Card title="AI Generate" icon="wand-magic-sparkles">
+    Generate text using AI models (OpenAI, Anthropic, etc.).
+  </Card>
+  <Card title="AI Analyze" icon="brain">
+    Analyze and extract information from content.
+  </Card>
+</Columns>
+
+## Integration Nodes
+
+Connect to external services.
+
+<Columns cols={2}>
+  <Card title="Slack" icon="slack">
+    Send messages, create channels, and more.
+  </Card>
+  <Card title="Airtable" icon="table">
+    Read and write records to Airtable bases.
+  </Card>
+  <Card title="Google Docs" icon="file-lines">
+    Create and modify Google documents.
+  </Card>
+  <Card title="Email" icon="envelope">
+    Send emails via your connected account.
+  </Card>
+</Columns>
+
+## Logic Nodes
+
+Control the flow of your workflow.
+
+<Columns cols={2}>
+  <Card title="Condition" icon="code-branch">
+    Branch execution based on conditions.
+  </Card>
+  <Card title="Loop" icon="rotate">
+    Iterate over arrays of data.
+  </Card>
+</Columns>
+
+## Node Configuration
+
+Each node has specific configuration options. Click on a node in the editor to open its configuration panel.
+
+Common configuration fields:
+- **Name** - A label for the node
+- **Input fields** - Data the node needs to operate
+- **Output** - What the node produces for downstream nodes
