@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Innflow Documentation",
   "colors": {
-    "primary": "#6366F1",
+    "primary": "#233dff",
     "light": "#818CF8",
-    "dark": "#4F46E5"
+    "dark": "#121212"
   },
   "favicon": "/favicon.svg",
   "navigation": {
