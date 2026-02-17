@@ -1,0 +1,160 @@
+---
+title: "Logic and Utility"
+description: "Control workflow flow with conditions, routers, code, and more"
+---
+
+## Condition
+
+Branch your workflow based on true/false conditions. The Condition node evaluates a JavaScript expression and routes execution to either the **true** or **false** output.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | Name for the condition output |
+| **Condition** | A JavaScript expression that evaluates to `true` or `false` |
+
+**Example conditions:**
+```javascript
+{{gmail.output.subject}}.includes("urgent")
+```
+```javascript
+{{inputTrigger.amount}} > 100
+```
+
+The node has two output handles. Connect the **true** handle to nodes that should run when the condition passes, and the **false** handle to the alternative path.
+
+---
+
+## Router
+
+AI powered routing that analyzes input and sends it to the most appropriate branch. Define named routes with descriptions, and the router uses AI to decide which route best matches the input.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Routes** | Named routes, each with a description of when to use it |
+| **Input** | The data to analyze for routing decisions |
+
+Each route creates a separate output handle on the node.
+
+---
+
+## Code
+
+Execute custom code within your workflow. Write Python, JavaScript, or Java to transform data, perform calculations, or implement custom logic.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | Name for the code output |
+| **Language** | Python, JavaScript, or Java |
+| **Code** | Your code to execute |
+| **Timeout** | Maximum execution time |
+
+Your code runs in a sandboxed environment. The result of the last expression is returned as the node output.
+
+---
+
+## HTTP Request
+
+Make HTTP requests to any API endpoint. Supports all standard HTTP methods.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | Name for the response output |
+| **URL** | The endpoint to call |
+| **Method** | GET, POST, PUT, PATCH, or DELETE |
+| **Headers** | Custom request headers (as JSON) |
+| **Body** | Request body for POST/PUT/PATCH |
+
+**Accessing output:** `{{variableName.output.data}}` for response body, `{{variableName.output.status}}` for status code.
+
+---
+
+## Transform Array
+
+Apply map, filter, or reduce operations to arrays of data.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | Name for the transformed output |
+| **Operation** | Map, Filter, or Reduce |
+| **Input** | The array to transform (template variable) |
+| **Expression** | The transformation expression |
+
+---
+
+## CSV Export
+
+Convert data into CSV format for download or further processing.
+
+---
+
+## Webhook Action
+
+Send data to an external webhook URL. Unlike the Webhook Trigger (which receives data), this node sends data out.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **URL** | The webhook endpoint to call |
+| **Payload** | Data to send (supports template variables) |
+
+---
+
+## Sleep
+
+Pause workflow execution for a specified duration.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Duration** | How long to wait (e.g., `5s`, `1m`, `1h`) |
+
+---
+
+## Tables Node
+
+Read from, query, add to, update, or delete rows in your [Innflow Tables](/features/tables) directly from a workflow.
+
+**Operations:**
+- **Read Table** — Get all rows from a table
+- **Query Rows** — Search for specific rows
+- **Add Row** — Insert a new row
+- **Update Row** — Modify an existing row
+- **Delete Row** — Remove a row
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | Name for the output |
+| **Table** | Which table to operate on |
+| **Operation** | The action to perform |
+| **Row Data** | JSON data for add/update operations |
+| **Row ID** | Target row for update/delete operations |
+
+---
+
+## Knowledge Base Node
+
+Search your uploaded documents using semantic search. Returns the most relevant passages from your [Knowledge Base](/features/knowledge-base).
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | Name for the search results |
+| **Query** | What to search for (supports template variables) |
+| **Top K** | Number of results to return |
+
+**Accessing output:** `{{variableName.output.results}}`

@@ -1,0 +1,39 @@
+---
+title: "Environment Variables"
+description: "Store secrets and configuration values that your workflows can reference"
+---
+
+Environment variables let you store sensitive values (API keys, tokens, configuration strings) outside of your workflow definitions. Reference them in any node without hardcoding secrets.
+
+## Creating an Environment Variable
+
+<Steps>
+  <Step title="Go to Settings">
+    Navigate to **Settings → Environment Variables**.
+  </Step>
+  <Step title="Add a variable">
+    Click **New Variable**. Enter a name and value.
+  </Step>
+  <Step title="Use in workflows">
+    Reference the variable in any node configuration field.
+  </Step>
+</Steps>
+
+## Naming Rules
+
+Environment variable names must:
+- Start with an **uppercase letter**
+- Contain only **uppercase letters, numbers, and underscores**
+- Be at most **100 characters**
+
+**Examples:** `API_KEY`, `SLACK_TOKEN`, `DATABASE_URL`
+
+## Security
+
+- Values are **encrypted at rest** and never displayed in plain text after creation
+- When editing a variable, you must re enter the value (the current value is not shown)
+- Variables are scoped to your workspace and not shared across workspaces
+
+## Using in Workflows
+
+Environment variables are available through the variable picker in any node configuration field. Select from the environment variables section to inject the value at runtime.

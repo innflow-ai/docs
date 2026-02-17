@@ -1,0 +1,52 @@
+---
+title: "AI Nodes"
+description: "Generate text, analyze content, and make decisions with AI models"
+---
+
+## AI Agent
+
+The AI Agent node is a powerful, configurable AI node that can generate text, answer questions, summarize content, and more. It supports multiple model providers and can use tools to interact with other services.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | Name used to reference the output in downstream nodes |
+| **Messages** | The conversation messages to send to the model (system prompt, user message, etc.) |
+| **Model** | Choose from available AI models |
+
+**Available models:**
+- **Gemini 2.5 Flash** — Fast, cost effective, great for most tasks
+- **Gemini 2.5 Pro** — Higher quality for complex reasoning
+- **Gemini 2.0 Flash** — Previous generation, still performant
+
+<Callout type="info">
+  Additional model providers (OpenAI, Anthropic, DeepSeek) are temporarily unavailable while compliance reviews are in progress.
+</Callout>
+
+**Using template variables in prompts:**
+
+You can inject data from previous nodes into your AI prompts:
+
+```
+Summarize the following email:
+{{gmail.output.body}}
+```
+
+**Accessing output:** `{{variableName.output.text}}`
+
+## Label Fields
+
+The Label Fields node uses AI to extract structured data from unstructured text. Define the fields you want to extract and their types, and the AI will parse the input accordingly.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | Name used to reference the extracted data |
+| **Input** | The text to extract data from (supports template variables) |
+| **Fields** | Define each field to extract with a name and type |
+
+**Example:** Extract `name` (string), `email` (string), and `sentiment` (string) from a customer support email.
+
+**Accessing output:** `{{variableName.output.name}}`, `{{variableName.output.email}}`, etc.

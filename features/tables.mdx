@@ -1,0 +1,61 @@
+---
+title: "Tables"
+description: "Built in structured data storage you can use directly in your workflows"
+---
+
+Tables give you a simple, spreadsheet like database right inside Innflow. Use them to store, query, and manage structured data without connecting an external service.
+
+## Creating a Table
+
+<Steps>
+  <Step title="Navigate to Tables">
+    Go to the **Tables** section from the main navigation.
+  </Step>
+  <Step title="Create a new table">
+    Click **New Table** and give it a name and optional description.
+  </Step>
+  <Step title="Add columns">
+    Click **Add Field** and choose a column type. Give it a name and configure any options.
+  </Step>
+  <Step title="Add rows">
+    Click **Add Row** to start entering data, or import from CSV.
+  </Step>
+</Steps>
+
+## Column Types
+
+| Type | Description |
+|------|-------------|
+| **Text** | Free form text |
+| **Number** | Numeric values |
+| **Boolean** | True/false checkbox |
+| **Date** | Date picker |
+| **Select** | Dropdown with predefined options |
+
+## Working with Data
+
+- **Edit cells** by clicking directly on them in the table view
+- **Rename columns** from the column header menu
+- **Change column types** after creation
+- **Delete columns** from the header menu
+- **Delete rows** by selecting them and using bulk delete
+- **Import CSV** to populate a table from a CSV file
+
+## Using Tables in Workflows
+
+Add a **Tables** node to your workflow to interact with your tables programmatically:
+
+- **Read Table** — Get all rows
+- **Query Rows** — Search for specific rows
+- **Add Row** — Insert new data
+- **Update Row** — Modify existing data
+- **Delete Row** — Remove data
+
+## Plan Limits
+
+| Plan | Max Tables | Max Rows per Table |
+|------|-----------|-------------------|
+| Free | 3 | 100 |
+| Pro | 25 | 5,000 |
+| Team | Unlimited | 10,000 |
+| Enterprise | Unlimited | 10,000 |

@@ -1,57 +1,74 @@
 ---
 title: "Quickstart"
-description: "Create your first workflow in minutes"
+description: "Create your first workflow in under five minutes"
 ---
 
-## Create Your First Workflow
+## Sign Up and Onboard
 
-Follow these steps to build and run your first automation.
+<Steps>
+  <Step title="Create your account">
+    Head to [innflow.ai](https://innflow.ai) and sign up. You can use email, Google, or GitHub to create your account.
+  </Step>
+  <Step title="Answer a few questions">
+    Innflow will ask about your role and what you plan to automate. This helps personalize your experience and surface relevant templates.
+  </Step>
+  <Step title="Pick a plan">
+    Choose the plan that fits your needs. The **Free** tier gives you $5 in usage to explore. You can upgrade anytime.
+  </Step>
+</Steps>
 
-### 1. Create a New Workflow
+## Build Your First Workflow
 
-From the dashboard, click **New Workflow** to open the visual editor.
+<Steps>
+  <Step title="Create a new workflow">
+    From the **Workflows** page, click **New Workflow**. This opens the visual editor where you build automations by connecting nodes on a canvas.
+  </Step>
+  <Step title="Add a trigger">
+    Every workflow starts with a trigger. Click the starting node and choose one:
 
-### 2. Add a Trigger
+    - **Manual Trigger** — Run the workflow on demand with the **Run** button
+    - **Input Trigger** — Define a form with custom fields that users fill out before each run
+    - **Webhook Trigger** — Start the workflow when an external system sends an HTTP request
+    - **Chat Trigger** — Start the workflow from a conversational chat interface
+    - **Schedule Trigger** — Run automatically on a recurring schedule (daily, weekly, monthly, hourly)
+    - **Stripe, Typeform, Notion, Google Forms** — Start when events happen in those services
 
-Every workflow starts with a trigger. Choose from:
+    For your first workflow, **Manual Trigger** is the simplest choice.
+  </Step>
+  <Step title="Add action nodes">
+    Click the **+** button below your trigger to add nodes. Browse by category or search for what you need:
 
-- **Manual Trigger** - Run workflows on demand
-- **Webhook Trigger** - Trigger via HTTP requests
-- **Schedule Trigger** - Run on a schedule (coming soon)
+    - **AI** — Generate text with Gemini models
+    - **Communication** — Send messages via Slack, Discord, Gmail, Teams, Telegram, or Resend
+    - **Google Suite** — Work with Docs, Sheets, Calendar, Drive, Slides, Forms, and Groups
+    - **Microsoft** — Excel, Word, OneDrive, Outlook, Planner, SharePoint, and Teams
+    - **Data** — Airtable, HubSpot, Apollo, Notion, Trello, GitHub
+    - **Search** — Tavily, Exa, Firecrawl, Ahrefs, Polymarket
+    - **Logic** — Conditions, routers, code execution, array transforms, sleep, CSV export
+  </Step>
+  <Step title="Connect and configure">
+    Drag from one node's output handle to another node's input handle to create connections. Click any node to open its configuration panel on the right side.
 
-### 3. Add Action Nodes
+    Use `{{variableName.output.field}}` syntax to reference data from previous nodes. The variable picker (click the `{ }` icon in any text field) shows all available variables.
+  </Step>
+  <Step title="Run your workflow">
+    Click the **Run** button in the editor toolbar. You will see each node execute in sequence, with status indicators showing progress. Click any completed node to inspect its output.
+  </Step>
+</Steps>
 
-Drag nodes from the sidebar to build your workflow:
-
-- **AI Nodes** - Generate text, analyze content
-- **Integration Nodes** - Connect to Slack, Airtable, etc.
-- **Logic Nodes** - Add conditions and branching
-
-### 4. Connect Nodes
-
-Click and drag from a node's output handle to another node's input handle to create connections.
-
-### 5. Configure and Run
-
-1. Click on each node to configure its settings
-2. Use `{{variable}}` syntax to reference data from previous nodes
-3. Click **Run** to execute your workflow
-
-## Next Steps
+## What to Try Next
 
 <Columns cols={2}>
-  <Card
-    title="Learn about Nodes"
-    icon="cube"
-    href="/essentials/nodes"
-  >
-    Explore all available node types.
+  <Card title="Use the Copilot" icon="sparkles" href="/features/copilot">
+    Describe what you want in plain English and let AI build or modify your workflow.
   </Card>
-  <Card
-    title="Using Variables"
-    icon="brackets-curly"
-    href="/essentials/variables"
-  >
-    Pass data between nodes dynamically.
+  <Card title="Browse Templates" icon="layout-template" href="/features/templates">
+    Start from a curated template instead of building from scratch.
+  </Card>
+  <Card title="Explore Triggers" icon="zap" href="/triggers">
+    Learn about all nine trigger types and when to use each one.
+  </Card>
+  <Card title="Learn about Variables" icon="brackets-curly" href="/essentials/variables">
+    Pass data dynamically between nodes using template variables.
   </Card>
 </Columns>

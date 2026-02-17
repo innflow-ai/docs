@@ -1,0 +1,121 @@
+---
+title: "Communication"
+description: "Send messages and emails through Slack, Discord, Gmail, Teams, Telegram, Outlook, and Resend"
+---
+
+## Slack
+
+Send messages to Slack channels or read recent messages from a channel.
+
+**Operations:**
+- **Send Message** — Post a message to a Slack channel
+- **Read Messages** — Fetch recent messages from a channel
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Operation** | Send Message or Read Messages |
+| **Channel** | The Slack channel to target |
+| **Content** | Message text (for Send Message). Supports template variables. |
+
+**Requires:** Slack OAuth connection
+
+---
+
+## Discord
+
+Send messages to Discord channels via webhooks.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Webhook URL** | The Discord webhook URL for the target channel |
+| **Content** | Message text. Supports template variables. |
+
+**Requires:** Discord OAuth connection
+
+---
+
+## Gmail
+
+Send emails or read your inbox through Gmail.
+
+**Operations:**
+- **Send Email** — Compose and send an email
+- **Read Emails** — Fetch recent emails from your inbox
+
+**Configuration (Send Email):**
+
+| Field | Description |
+|-------|-------------|
+| **To** | Recipient email address |
+| **Subject** | Email subject line |
+| **Body** | Email body (HTML supported) |
+
+**Requires:** Google OAuth connection
+
+---
+
+## Microsoft Outlook
+
+Send emails or read your inbox through Microsoft Outlook.
+
+**Operations:**
+- **Send Email** — Compose and send an email
+- **Read Emails** — Fetch recent emails
+
+**Configuration (Send Email):**
+
+| Field | Description |
+|-------|-------------|
+| **To** | Recipient email address |
+| **Subject** | Email subject line |
+| **Body** | Email body |
+
+**Requires:** Microsoft OAuth connection
+
+---
+
+## Microsoft Teams
+
+Send messages to Microsoft Teams channels.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Channel** | The Teams channel to post to |
+| **Content** | Message text |
+
+**Requires:** Microsoft OAuth connection
+
+---
+
+## Telegram
+
+Send messages through Telegram.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Chat ID** | The Telegram chat or group to message |
+| **Content** | Message text |
+
+---
+
+## Resend
+
+Send transactional emails using the Resend email API.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **To** | Recipient email address |
+| **Subject** | Email subject |
+| **Body** | Email body (HTML supported) |
+
+Resend is a good choice when you need to send emails from a custom domain without connecting a personal Gmail or Outlook account.

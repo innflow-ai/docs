@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Innflow Documentation",
   "colors": {
-    "primary": "#233dff",
+    "primary": "#6366F1",
     "light": "#818CF8",
-    "dark": "#121212"
+    "dark": "#4F46E5"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -21,17 +21,50 @@
             ]
           },
           {
-            "group": "Workflows",
+            "group": "Essentials",
             "pages": [
               "essentials/workflows",
               "essentials/nodes",
-              "essentials/variables"
+              "essentials/variables",
+              "essentials/integrations"
             ]
           },
           {
-            "group": "Integrations",
+            "group": "Triggers",
             "pages": [
-              "essentials/integrations"
+              "triggers"
+            ]
+          },
+          {
+            "group": "Action Nodes",
+            "pages": [
+              "tools/ai",
+              "tools/communication",
+              "tools/google-suite",
+              "tools/microsoft",
+              "tools/crm-sales",
+              "tools/project-management",
+              "tools/search-data",
+              "tools/logic-utility"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/copilot",
+              "features/knowledge-base",
+              "features/tables",
+              "features/templates",
+              "features/teams"
+            ]
+          },
+          {
+            "group": "Settings",
+            "pages": [
+              "features/credentials",
+              "features/environment-variables",
+              "features/api-keys",
+              "features/billing"
             ]
           }
         ]

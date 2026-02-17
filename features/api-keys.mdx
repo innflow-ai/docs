@@ -1,0 +1,39 @@
+---
+title: "API Keys"
+description: "Programmatic access to Innflow for triggering workflows and managing resources"
+---
+
+API keys let you interact with Innflow programmatically. Use them to trigger workflows from your own applications, scripts, or external services.
+
+## Creating an API Key
+
+<Steps>
+  <Step title="Go to Settings">
+    Navigate to **Settings → API Keys**.
+  </Step>
+  <Step title="Create a key">
+    Click **New API Key**. Give it a descriptive name and choose an expiration period.
+  </Step>
+  <Step title="Copy the key">
+    The full API key is shown **only once** after creation. Copy it and store it securely.
+  </Step>
+</Steps>
+
+## Expiration Options
+
+| Option | Duration |
+|--------|----------|
+| 30 days | Short lived, good for temporary integrations |
+| 90 days | Medium term access |
+| 1 year | Long term access |
+| Never | Does not expire (use with caution) |
+
+## Managing Keys
+
+- View all your API keys with their creation date, last used date, and request count
+- **Revoke** a key to immediately disable it
+- Keys show a masked preview (first few characters) for identification
+
+<Callout type="warning">
+  Treat API keys like passwords. Do not commit them to version control or share them publicly. If a key is compromised, revoke it immediately and create a new one.
+</Callout>
