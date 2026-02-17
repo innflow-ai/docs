@@ -1,67 +1,72 @@
 ---
 title: "Integrations"
-description: "Connect external services to your workflows"
+description: "Connect external services to power your workflows"
 ---
 
-## Available Integrations
-
-Innflow connects with popular services to extend your workflow capabilities.
+Innflow integrates with dozens of external services. Each integration is powered by an OAuth credential that you connect once and use across all your workflows.
 
 ## Setting Up Integrations
 
-1. Go to **Settings > Integrations**
-2. Click **Connect** next to the service
-3. Authorize Innflow to access your account
-4. The integration is now available in your workflows
+<Steps>
+  <Step title="Go to Credentials">
+    Navigate to **Settings → Credentials** from the sidebar.
+  </Step>
+  <Step title="Connect a service">
+    Click **New Credential** and choose the service. You will be redirected to authorize Innflow.
+  </Step>
+  <Step title="Use in workflows">
+    Any node that needs that service will automatically have access to the credential.
+  </Step>
+</Steps>
 
-## Supported Services
+For full details on managing credentials, see [Credentials](/features/credentials).
 
-### Slack
+## Available Integrations
 
-<Card title="Slack" icon="slack">
-  **Actions available:**
-  - Send messages to channels or users
-  - Create channels
-  - Update messages
-  - React to messages
-</Card>
+### Communication
+- [Slack](/tools/communication#slack) — Send and read channel messages
+- [Discord](/tools/communication#discord) — Webhook messaging
+- [Gmail](/tools/communication#gmail) — Send and read emails
+- [Microsoft Outlook](/tools/communication#microsoft-outlook) — Send and read emails
+- [Microsoft Teams](/tools/communication#microsoft-teams) — Channel messaging
+- [Telegram](/tools/communication#telegram) — Send messages
+- [Resend](/tools/communication#resend) — Transactional email API
 
-### Airtable
+### Google Suite
+- [Google Sheets](/tools/google-suite#google-sheets) — Spreadsheet read/write
+- [Google Docs](/tools/google-suite#google-docs) — Document creation and editing
+- [Google Calendar](/tools/google-suite#google-calendar) — Event management
+- [Google Drive](/tools/google-suite#google-drive) — File storage
+- [Google Slides](/tools/google-suite#google-slides) — Presentations
+- [Google Forms](/tools/google-suite#google-forms) — Form responses
+- [Google Groups](/tools/google-suite#google-groups) — Group management
 
-<Card title="Airtable" icon="table">
-  **Actions available:**
-  - List records from a table
-  - Create new records
-  - Update existing records
-  - Delete records
-</Card>
+### Microsoft
+- [Excel](/tools/microsoft#microsoft-excel) — Spreadsheet read/write
+- [Word](/tools/microsoft#microsoft-word) — Document creation
+- [OneDrive](/tools/microsoft#microsoft-onedrive) — File storage
+- [Planner](/tools/microsoft#microsoft-planner) — Task management
+- [SharePoint](/tools/microsoft#microsoft-sharepoint) — File and list management
 
-### Google Docs
+### CRM and Sales
+- [Airtable](/tools/crm-sales#airtable) — Database records
+- [HubSpot](/tools/crm-sales#hubspot) — CRM objects
+- [Apollo](/tools/crm-sales#apollo) — Lead enrichment
 
-<Card title="Google Docs" icon="file-lines">
-  **Actions available:**
-  - Create new documents
-  - Update document content
-  - Read document text
-</Card>
+### Project Management
+- [Notion](/tools/project-management#notion) — Pages and databases
+- [Trello](/tools/project-management#trello) — Boards and cards
+- [GitHub](/tools/project-management#github) — Repos and issues
+- [Cal.com](/tools/project-management#calcom) — Scheduling
+- [Calendly](/tools/project-management#calendly) — Scheduling
 
-### Email (Resend)
-
-<Card title="Email" icon="envelope">
-  **Actions available:**
-  - Send transactional emails
-  - Use HTML templates
-</Card>
+### Search and Data
+- [Tavily](/tools/search-data#tavily-search) — AI web search
+- [Exa](/tools/search-data#exa) — Semantic search
+- [Firecrawl](/tools/search-data#firecrawl) — Web scraping
+- [Ahrefs](/tools/search-data#ahrefs) — SEO data
+- [Polymarket](/tools/search-data#polymarket) — Prediction markets
 
 ## Authentication
 
-Integrations use OAuth 2.0 for secure authentication. Your credentials are encrypted and stored securely.
-
-To disconnect an integration:
-1. Go to **Settings > Integrations**
-2. Click **Disconnect** next to the service
-3. Confirm the disconnection
-
-## Requesting New Integrations
-
-Need an integration we don't support yet? Contact us at support@innflow.ai with your request.
+All integrations use **OAuth 2.0** for secure authentication. Your tokens are encrypted at rest and refreshed automatically. To disconnect a service, remove it from the [Credentials](/features/credentials) page.

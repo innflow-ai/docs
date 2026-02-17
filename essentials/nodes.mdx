@@ -1,75 +1,73 @@
 ---
 title: "Nodes"
-description: "Explore the different node types available in Innflow"
+description: "Explore the building blocks of your workflows"
 ---
 
-## Node Types
-
-Nodes are the building blocks of your workflows. Each node performs a specific action.
+Nodes are the building blocks of every workflow. Each node performs a specific action — generating AI text, sending an email, querying a database, or controlling the execution flow.
 
 ## Trigger Nodes
 
-Trigger nodes start your workflow execution.
+Every workflow starts with exactly one trigger. See the [Triggers](/triggers) page for full details on all nine types.
 
-<Columns cols={2}>
-  <Card title="Manual Trigger" icon="hand-pointer">
-    Run workflows on demand from the dashboard.
-  </Card>
-  <Card title="Webhook Trigger" icon="webhook">
-    Trigger workflows via HTTP POST requests.
-  </Card>
+<Columns cols={3}>
+  <Card title="Manual" icon="play" href="/triggers#manual-trigger">Run on demand</Card>
+  <Card title="Webhook" icon="webhook" href="/triggers#webhook-trigger">HTTP requests</Card>
+  <Card title="Chat" icon="message-square" href="/triggers#chat-trigger">Conversational</Card>
+  <Card title="Schedule" icon="calendar-clock" href="/triggers#schedule-trigger">Recurring</Card>
+  <Card title="Input" icon="text-cursor-input" href="/triggers#input-trigger">Custom form</Card>
+  <Card title="Stripe" icon="credit-card" href="/triggers#stripe-trigger">Payment events</Card>
+  <Card title="Typeform" icon="file-text" href="/triggers#typeform-trigger">Form submissions</Card>
+  <Card title="Notion" icon="book-open" href="/triggers#notion-trigger">Page/DB changes</Card>
+  <Card title="Google Forms" icon="file-check" href="/triggers#google-forms-trigger">Form responses</Card>
 </Columns>
 
-## AI Nodes
+## Action Nodes
 
-Leverage AI capabilities in your workflows.
-
-<Columns cols={2}>
-  <Card title="AI Generate" icon="wand-magic-sparkles">
-    Generate text using AI models (OpenAI, Anthropic, etc.).
-  </Card>
-  <Card title="AI Analyze" icon="brain">
-    Analyze and extract information from content.
-  </Card>
-</Columns>
-
-## Integration Nodes
-
-Connect to external services.
+Action nodes do the work in your workflow. They are organized by category:
 
 <Columns cols={2}>
-  <Card title="Slack" icon="slack">
-    Send messages, create channels, and more.
+  <Card title="AI" icon="sparkles" href="/tools/ai">
+    AI Agent, Label Fields — Generate text, extract structured data
   </Card>
-  <Card title="Airtable" icon="table">
-    Read and write records to Airtable bases.
+  <Card title="Communication" icon="mail" href="/tools/communication">
+    Slack, Discord, Gmail, Outlook, Teams, Telegram, Resend
   </Card>
-  <Card title="Google Docs" icon="file-lines">
-    Create and modify Google documents.
+  <Card title="Google Suite" icon="file-text" href="/tools/google-suite">
+    Sheets, Docs, Calendar, Drive, Slides, Forms, Groups
   </Card>
-  <Card title="Email" icon="envelope">
-    Send emails via your connected account.
+  <Card title="Microsoft" icon="laptop" href="/tools/microsoft">
+    Excel, Word, OneDrive, Outlook, Planner, SharePoint, Teams
   </Card>
-</Columns>
-
-## Logic Nodes
-
-Control the flow of your workflow.
-
-<Columns cols={2}>
-  <Card title="Condition" icon="code-branch">
-    Branch execution based on conditions.
+  <Card title="CRM and Sales" icon="users" href="/tools/crm-sales">
+    Airtable, HubSpot, Apollo
   </Card>
-  <Card title="Loop" icon="rotate">
-    Iterate over arrays of data.
+  <Card title="Project Management" icon="kanban" href="/tools/project-management">
+    Notion, Trello, GitHub, Cal.com, Calendly
+  </Card>
+  <Card title="Search and Data" icon="search" href="/tools/search-data">
+    Tavily, Exa, Firecrawl, Ahrefs, Polymarket
+  </Card>
+  <Card title="Logic and Utility" icon="git-branch" href="/tools/logic-utility">
+    Condition, Router, Code, HTTP Request, Sleep, Transform Array, CSV Export
   </Card>
 </Columns>
 
 ## Node Configuration
 
-Each node has specific configuration options. Click on a node in the editor to open its configuration panel.
+Click or double click any node to open its configuration panel. Common fields include:
 
-Common configuration fields:
-- **Name** - A label for the node
-- **Input fields** - Data the node needs to operate
-- **Output** - What the node produces for downstream nodes
+- **Variable name** — How downstream nodes reference this node's output
+- **Operation** — Which action to perform (for multi operation nodes)
+- **Input fields** — The data the node needs to operate
+- **Connection** — Which credential to use (for nodes requiring OAuth)
+
+## Node Status
+
+During execution, each node shows a status indicator:
+
+| Status | Meaning |
+|--------|---------|
+| ⏳ Pending | Waiting to execute |
+| 🔄 Running | Currently executing |
+| ✅ Completed | Finished successfully |
+| ❌ Failed | Encountered an error |

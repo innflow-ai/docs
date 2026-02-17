@@ -1,0 +1,53 @@
+---
+title: "Knowledge Base"
+description: "Upload documents and search them with AI powered semantic search"
+---
+
+The Knowledge Base lets you upload documents (PDFs, text files, markdown) and search them using semantic search. Use it to give your workflows access to your own data, company documentation, or reference materials.
+
+## Creating a Knowledge Base
+
+<Steps>
+  <Step title="Navigate to Knowledge Base">
+    Go to the **Knowledge Base** section from the main navigation.
+  </Step>
+  <Step title="Create a new base">
+    Click **New Knowledge Base** and give it a name and optional description.
+  </Step>
+  <Step title="Upload documents">
+    Click **Upload** to add documents. Supported formats include PDF, TXT, and MD files.
+  </Step>
+  <Step title="Wait for processing">
+    Documents are automatically chunked and indexed for semantic search. The status badge shows processing progress.
+  </Step>
+</Steps>
+
+## Document Status
+
+Each uploaded document has a status:
+
+| Status | Meaning |
+|--------|---------|
+| **Processing** | Document is being chunked and indexed |
+| **Ready** | Document is searchable |
+| **Failed** | Processing encountered an error (retry available) |
+
+## Searching Your Knowledge Base
+
+You can search directly from the Knowledge Base detail page using the search bar. Results show the most relevant passages from your documents.
+
+## Using in Workflows
+
+Add a **Knowledge Base** node to your workflow to search your documents programmatically. Configure it with a query (which can use template variables from previous nodes) and the number of results to return.
+
+```
+{{kb_results.output.results}}
+```
+
+This is especially powerful when combined with an AI Agent node — feed the search results into the AI to answer questions grounded in your own data.
+
+## Managing Documents
+
+- **Delete** individual documents from the document list
+- **Retry** failed documents to reprocess them
+- **Search** across all documents within a knowledge base

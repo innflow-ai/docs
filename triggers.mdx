@@ -1,0 +1,231 @@
+---
+title: "Triggers"
+description: "Every workflow starts with a trigger. Choose the right one for your use case."
+---
+
+Triggers are the entry point of every workflow. When a trigger fires, the workflow begins executing from that node. Each workflow can have exactly one trigger.
+
+## Manual Trigger
+
+<Card title="Manual Trigger" icon="play">
+  Run your workflow on demand by clicking the **Run** button in the editor toolbar.
+</Card>
+
+The simplest trigger type. No configuration required. Click **Run** in the editor and the workflow executes immediately. Best for workflows you want to run yourself, like one off tasks or testing.
+
+**Variable name:** Not applicable (no input data)
+
+---
+
+## Input Trigger
+
+<Card title="Input Trigger" icon="text-cursor-input">
+  Define a custom form with typed fields. Users fill it out before each run.
+</Card>
+
+Create a form with custom fields that must be filled out before the workflow runs. This is ideal when your workflow needs specific information each time, like a name, URL, or file.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | How you reference the input data in downstream nodes (default: `inputTrigger`) |
+| **Fields** | Add as many fields as you need. Each has a name and a type. |
+
+**Supported field types:**
+
+- **String** — Single line text
+- **Number** — Numeric value
+- **Boolean** — True or false toggle
+- **Object** — JSON object
+- **Array** — JSON array
+- **Files** — File attachments (base64 encoded)
+
+**Accessing input data:** `{{inputTrigger.fieldName}}`
+
+---
+
+## Webhook Trigger
+
+<Card title="Webhook Trigger" icon="webhook">
+  Receive HTTP POST requests from any external system to start your workflow.
+</Card>
+
+Innflow generates a unique webhook URL for your workflow. When an external system sends a POST request to that URL, the workflow triggers with the request payload as input data.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | How you reference the webhook payload (default: `webhookTrigger`) |
+| **Name** | A friendly label for this webhook |
+| **Description** | What this webhook is used for |
+| **Payload schema** | Define expected input fields with names and types for validation |
+| **Authentication** | Optionally require an auth token via a custom header (default header: `X-Secret-Key`) |
+
+**Features:**
+- Copy the generated webhook URL from the configuration panel
+- Pause and resume the webhook without deleting it
+- Regenerate the auth token or webhook secret at any time
+
+**Accessing data:** `{{webhookTrigger.body.fieldName}}`
+
+---
+
+## Chat Trigger
+
+<Card title="Chat Trigger" icon="message-square">
+  Start your workflow from a conversational chat interface inside the editor.
+</Card>
+
+Opens a chat window in the configuration panel where you can type messages. Each message triggers the workflow with the chat content as input. The workflow's output is displayed back as an assistant response, creating a conversational experience.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | How you reference the chat message (default: `chatTrigger`) |
+
+This trigger is great for building AI powered chatbots and assistants. Each message starts a new workflow execution, and the conversation history is maintained in the chat window.
+
+**Accessing data:** `{{chatTrigger.message}}`
+
+---
+
+## Schedule Trigger
+
+<Card title="Schedule Trigger" icon="calendar-clock">
+  Run your workflow automatically on a recurring schedule.
+</Card>
+
+<Callout type="info">
+  The Schedule Trigger is currently being rebuilt. Configuration options may change.
+</Callout>
+
+Set your workflow to run automatically at fixed intervals. Choose from preset frequencies or write a custom cron expression.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Frequency** | Daily, Weekly, Monthly, or Hourly |
+| **Time** | What time to run (hour and minute) |
+| **Timezone** | Timezone for the schedule (supports major timezones worldwide) |
+| **Day of week** | Which day to run (for weekly frequency) |
+| **Day of month** | Which day to run (for monthly frequency) |
+
+**Examples:**
+- Daily at 9:00 AM Eastern
+- Every Monday at 8:30 AM UTC
+- First of every month at midnight
+
+---
+
+## Stripe Trigger
+
+<Card title="Stripe Trigger" icon="credit-card">
+  Start your workflow when payment events happen in Stripe.
+</Card>
+
+Listens for Stripe webhook events like successful payments, new subscriptions, or failed charges. You configure the webhook endpoint in your Stripe Dashboard.
+
+**Setup:**
+
+<Steps>
+  <Step title="Copy the webhook URL">
+    Open the Stripe Trigger configuration panel and copy the generated webhook URL.
+  </Step>
+  <Step title="Add to Stripe">
+    In your Stripe Dashboard, go to **Developers → Webhooks** and click **Add endpoint**. Paste the URL.
+  </Step>
+  <Step title="Select events">
+    Choose which Stripe events should trigger your workflow (e.g., `checkout.session.completed`, `invoice.paid`).
+  </Step>
+  <Step title="Activate">
+    Save the endpoint in Stripe. Your workflow will now trigger on matching events.
+  </Step>
+</Steps>
+
+**Accessing data:** `{{trigger.body}}` contains the full Stripe event payload.
+
+---
+
+## Typeform Trigger
+
+<Card title="Typeform Trigger" icon="file-text">
+  Start your workflow when someone submits a Typeform response.
+</Card>
+
+Connects to your Typeform account and triggers the workflow whenever a form submission is received.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | How you reference the submission data (default: `typeform`) |
+| **Form ID** | The Typeform form to listen to |
+| **Access Token** | Your Typeform personal access token |
+| **Webhook Secret** | Optional secret for verifying webhook authenticity |
+
+**Features:**
+- Pause and resume without reconfiguring
+- View setup instructions directly in the panel
+
+**Accessing data:** `{{typeform.answers}}`
+
+---
+
+## Notion Trigger
+
+<Card title="Notion Trigger" icon="book-open">
+  Start your workflow when pages or databases change in Notion.
+</Card>
+
+Watches for changes in your Notion workspace and triggers the workflow when specific events occur.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Connection** | Select your connected Notion account |
+| **Entity** | Choose a specific page or database to watch (searchable) |
+| **Event types** | Select which events should trigger the workflow |
+
+**Supported events:**
+
+| Event | Description |
+|-------|-------------|
+| Page content updated | When page content (blocks) changes |
+| Page properties updated | When page properties change |
+| Page created | When a new page is created |
+| Page deleted | When a page is moved to trash |
+| Database row created | When a new row is added |
+| Database row updated | When a database row is modified |
+| Database row deleted | When a database row is deleted |
+| Comment created | When a new comment is added |
+| Comment updated | When a comment is edited |
+| Comment deleted | When a comment is removed |
+
+**Accessing data:** `{{trigger.body}}` contains the Notion event payload.
+
+---
+
+## Google Forms Trigger
+
+<Card title="Google Forms Trigger" icon="file-check">
+  Start your workflow when someone submits a Google Form.
+</Card>
+
+Triggers the workflow whenever a new response is submitted to a connected Google Form.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Google Account** | Select your connected Google account |
+| **Webhook URL** | Auto generated URL to use in your Google Form's Apps Script |
+
+**Setup:**
+The trigger uses a Google Apps Script to forward form submissions to Innflow. Copy the generated script from the configuration panel and add it to your Google Form via **Extensions → Apps Script**.
+
+**Accessing data:** `{{trigger.body}}` contains the form response data.

@@ -1,0 +1,85 @@
+---
+title: "Microsoft"
+description: "Work with Excel, Word, OneDrive, Outlook, Planner, SharePoint, and Teams"
+---
+
+All Microsoft nodes require a **Microsoft OAuth connection**. Connect your Microsoft account from **Settings → Credentials**.
+
+## Microsoft Excel
+
+Read from or write to Excel files stored in OneDrive.
+
+**Operations:**
+- **Read Range** — Fetch data from a range of cells
+- **Write Range** — Write data to a range of cells
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Workbook ID** | The Excel workbook in OneDrive |
+| **Range** | Cell range to read or write |
+
+---
+
+## Microsoft Word
+
+Create or read Word documents stored in OneDrive.
+
+**Operations:**
+- **Create** — Create a new Word document
+- **Read** — Read content from an existing document
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Document ID** | The document to read (for Read) |
+| **Title** | Document title (for Create) |
+| **Content** | Document content |
+
+---
+
+## Microsoft OneDrive
+
+Upload, download, or list files in OneDrive.
+
+**Operations:**
+- **List Files** — Browse files in a folder
+- **Upload** — Upload a file
+- **Download** — Download a file by ID
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Folder ID** | Target folder (for List/Upload) |
+| **File ID** | Specific file (for Download) |
+
+---
+
+## Microsoft Outlook
+
+See the [Communication](/tools/communication#microsoft-outlook) page for Outlook email configuration.
+
+---
+
+## Microsoft Teams
+
+See the [Communication](/tools/communication#microsoft-teams) page for Teams messaging configuration.
+
+---
+
+## Microsoft Planner
+
+Create and manage tasks in Microsoft Planner.
+
+**Requires:** Microsoft OAuth connection
+
+---
+
+## Microsoft SharePoint
+
+Access and manage files and lists in SharePoint sites.
+
+**Requires:** Microsoft OAuth connection

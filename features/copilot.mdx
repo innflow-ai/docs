@@ -1,0 +1,43 @@
+---
+title: "Copilot"
+description: "Build and modify workflows using natural language with the AI Copilot"
+---
+
+The Copilot is an AI assistant built into the workflow editor. Describe what you want in plain English and the Copilot will create nodes, connect them, and configure your workflow for you.
+
+## Opening the Copilot
+
+Click the **sparkles icon** in the editor sidebar to open the Copilot panel. You can have multiple conversation threads and switch between them.
+
+## What the Copilot Can Do
+
+<Columns cols={2}>
+  <Card title="Build workflows" icon="hammer">
+    Describe what you want to automate and the Copilot will create the full workflow with appropriate triggers, actions, and connections.
+  </Card>
+  <Card title="Add nodes" icon="plus">
+    Ask the Copilot to add specific nodes to your existing workflow.
+  </Card>
+  <Card title="Configure nodes" icon="settings">
+    Tell the Copilot how to set up a node and it will fill in the configuration fields.
+  </Card>
+  <Card title="Get suggestions" icon="lightbulb">
+    The Copilot analyzes your current workflow and suggests next steps based on what you have built so far.
+  </Card>
+</Columns>
+
+## Context Aware Suggestions
+
+When you open the Copilot, it reads your current workflow state (what nodes you have, how they are connected, what is configured) and tailors its suggestions. For example:
+
+- **Empty workflow:** "Add a trigger to get started" or "Build a workflow from a description"
+- **Has trigger, no actions:** "Add an AI node to process the input" or "Connect to Slack to send notifications"
+- **Complete workflow:** "Run the workflow" or "Add error handling"
+
+## Conversation Threads
+
+The Copilot maintains separate conversation threads so you can work on different aspects of your workflow independently. Use the dropdown at the top of the panel to create a new thread or switch between existing ones.
+
+<Callout type="info">
+  The Copilot is available on **Pro**, **Team**, and **Enterprise** plans.
+</Callout>

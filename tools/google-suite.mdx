@@ -1,0 +1,116 @@
+---
+title: "Google Suite"
+description: "Work with Google Docs, Sheets, Calendar, Drive, Slides, Forms, and Groups"
+---
+
+All Google Suite nodes require a **Google OAuth connection**. Connect your Google account from **Settings → Credentials**.
+
+## Google Sheets
+
+Read from or write to Google Sheets spreadsheets.
+
+**Operations:**
+- **Read Rows** — Fetch data from a range of cells
+- **Append Row** — Add a new row to the end of a sheet
+- **Update Row** — Modify an existing row
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Spreadsheet ID** | The ID from the Google Sheets URL |
+| **Range** | Cell range in A1 notation (e.g., `Sheet1!A1:D10`) |
+| **Values** | Data to write (for Append/Update operations) |
+
+---
+
+## Google Docs
+
+Create, read, or update Google Docs documents.
+
+**Operations:**
+- **Create** — Create a new document with a title and content
+- **Read** — Retrieve the content of an existing document
+- **Update** — Modify document content
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Document ID** | The ID of the document (for Read/Update) |
+| **Title** | Document title (for Create) |
+| **Content** | Document content |
+
+---
+
+## Google Calendar
+
+Create or list events in Google Calendar.
+
+**Operations:**
+- **List Events** — Fetch upcoming events from a calendar
+- **Create Event** — Add a new event
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Calendar ID** | Which calendar to use (default: `primary`) |
+| **Title** | Event title (for Create) |
+| **Start Time** | Event start in ISO 8601 format |
+| **End Time** | Event end in ISO 8601 format |
+
+---
+
+## Google Drive
+
+Upload, download, or list files in Google Drive.
+
+**Operations:**
+- **List Files** — Browse files in a folder
+- **Upload** — Upload a file to Drive
+- **Download** — Download a file by ID
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Folder ID** | Target folder (for List/Upload) |
+| **File ID** | Specific file (for Download) |
+
+---
+
+## Google Slides
+
+Create or read Google Slides presentations.
+
+**Operations:**
+- **Create** — Create a new presentation
+- **Read** — Read slide content from an existing presentation
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Presentation ID** | The presentation to read (for Read) |
+| **Title** | Presentation title (for Create) |
+
+---
+
+## Google Forms
+
+Read form responses and metadata from Google Forms.
+
+**Requires:** Google OAuth connection
+
+<Callout type="tip">
+  To trigger a workflow when someone submits a Google Form, use the [Google Forms Trigger](/triggers#google-forms-trigger) instead.
+</Callout>
+
+---
+
+## Google Groups
+
+Manage Google Groups memberships and settings.
+
+**Requires:** Google OAuth connection with admin access

@@ -5,16 +5,26 @@ description: "Understanding workflow structure and execution"
 
 ## What is a Workflow?
 
-A workflow is an automated sequence of actions that executes when triggered. Workflows are built visually by connecting nodes together in the editor.
+A workflow is an automated sequence of actions that executes when triggered. Workflows are built visually by connecting nodes together in the drag and drop editor.
 
 ## Workflow Structure
 
 Every workflow consists of:
 
-1. **Trigger** - The starting point that initiates execution
-2. **Nodes** - Individual actions or operations
-3. **Connections** - Links that define the execution order
-4. **Context** - Shared data passed between nodes
+1. **Trigger** — The starting point that initiates execution. Each workflow has exactly one trigger.
+2. **Nodes** — Individual actions or operations (AI generation, sending emails, data lookups, etc.)
+3. **Connections** — Links between nodes that define the execution order
+4. **Context** — Shared data passed between nodes via [template variables](/essentials/variables)
+
+## The Visual Editor
+
+The editor is a canvas where you build workflows by placing and connecting nodes. Key interactions:
+
+- **Add nodes** — Click the **+** button on any node or drag from the sidebar
+- **Connect nodes** — Drag from an output handle to an input handle
+- **Configure nodes** — Click or double click a node to open its settings panel on the right
+- **Move nodes** — Drag nodes to rearrange the layout
+- **Delete nodes** — Select a node and press Delete, or use the context menu
 
 ## Execution Flow
 
@@ -22,8 +32,9 @@ When a workflow runs:
 
 1. The trigger node activates
 2. Each connected node executes in sequence
-3. Output from each node is added to the context
-4. Subsequent nodes can access previous outputs via variables
+3. Output from each node is added to the workflow context
+4. Subsequent nodes can access previous outputs via [variables](/essentials/variables)
+5. Branching nodes (Condition, Router) can split execution into parallel paths
 
 ## Workflow States
 
@@ -35,9 +46,21 @@ When a workflow runs:
 | Completed | Workflow finished successfully |
 | Failed | Workflow encountered an error |
 
+## Execution History
+
+Each workflow run is logged with the status of every node. Click on a completed execution to see what each node produced. Execution history retention depends on your [plan](/features/billing):
+
+- **Free:** 1 day
+- **Pro / Team:** 30 days
+- **Enterprise:** 90 days
+
+## Using the Copilot
+
+The [Copilot](/features/copilot) can build and modify workflows using natural language. Open it from the sidebar sparkles icon.
+
 ## Best Practices
 
-- **Keep workflows focused** - Each workflow should do one thing well
-- **Use descriptive names** - Name nodes and workflows clearly
-- **Test incrementally** - Run and verify after adding each node
-- **Handle errors** - Add error handling for critical operations
+- **Keep workflows focused** — Each workflow should do one thing well
+- **Use descriptive names** — Name nodes clearly so variables are easy to understand
+- **Test incrementally** — Run and verify after adding each node
+- **Use environment variables** — Store secrets in [environment variables](/features/environment-variables) instead of hardcoding them
