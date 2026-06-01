@@ -1,52 +1,86 @@
 ---
 title: "AI Nodes"
-description: "Generate text, analyze content, and make decisions with AI models"
+description: "Generate text, analyze content, extract data, and make decisions with AI"
 ---
+
+Innflow includes dedicated AI nodes for common automation patterns and flexible model nodes for custom prompts. AI nodes can use data from earlier workflow steps through [template variables](/essentials/variables).
 
 ## AI Agent
 
-The AI Agent node is a powerful, configurable AI node that can generate text, answer questions, summarize content, and more. It supports multiple model providers and can use tools to interact with other services.
+The AI Agent node runs an agentic loop with tool calling. Use it when the model needs to reason across multiple steps, call connected tools, or decide which operation to run next.
 
 **Configuration:**
 
 | Field | Description |
 |-------|-------------|
 | **Variable name** | Name used to reference the output in downstream nodes |
-| **Messages** | The conversation messages to send to the model (system prompt, user message, etc.) |
-| **Model** | Choose from available AI models |
-
-**Available models:**
-- **Gemini 2.5 Flash** — Fast, cost effective, great for most tasks
-- **Gemini 2.5 Pro** — Higher quality for complex reasoning
-- **Gemini 2.0 Flash** — Previous generation, still performant
-
-<Callout type="info">
-  Additional model providers (OpenAI, Anthropic, DeepSeek) are temporarily unavailable while compliance reviews are in progress.
-</Callout>
-
-**Using template variables in prompts:**
-
-You can inject data from previous nodes into your AI prompts:
-
-```
-Summarize the following email:
-{{gmail.output.body}}
-```
+| **Instructions** | System-level guidance for the agent |
+| **Input** | User message or task payload, often with template variables |
+| **Tools** | Tool nodes connected to the agent |
+| **Model** | The model used for reasoning and tool calls |
 
 **Accessing output:** `{{variableName.output.text}}`
 
+---
+
+## AI Model
+
+The AI Model node is the general purpose LLM node. Use it for summarization, classification, rewriting, extraction, drafting, and other prompt-based work.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | Name used to reference the output in downstream nodes |
+| **Model** | Choose the model for the task |
+| **Messages** | System, user, and assistant messages to send to the model |
+| **Temperature** | Controls response variability when available |
+
+**Example prompt:**
+
+```txt
+Summarize this support request and identify the next action:
+{{gmail.output.body}}
+```
+
+---
+
+## Provider Nodes
+
+Provider-specific nodes are available when you want to route work to a specific model family or provider configuration.
+
+| Node | Use for |
+|------|---------|
+| **OpenAI** | General text generation and structured reasoning |
+| **Anthropic** | Long-form analysis and careful drafting |
+| **Gemini** | Fast multimodal-friendly generation and reasoning |
+| **DeepSeek** | Cost-conscious reasoning and coding tasks |
+| **Kimi** | Moonshot/Kimi model access |
+| **Grok** | xAI model access |
+| **Qwen** | Alibaba Cloud/Qwen model access |
+
+---
+
 ## Label Fields
 
-The Label Fields node uses AI to extract structured data from unstructured text. Define the fields you want to extract and their types, and the AI will parse the input accordingly.
+The Label Fields node extracts structured data from unstructured text. Define the fields you want to extract and their types, then use the extracted values in later nodes.
 
 **Configuration:**
 
 | Field | Description |
 |-------|-------------|
 | **Variable name** | Name used to reference the extracted data |
-| **Input** | The text to extract data from (supports template variables) |
-| **Fields** | Define each field to extract with a name and type |
+| **Input** | The text to extract data from |
+| **Fields** | Field names and expected types |
 
-**Example:** Extract `name` (string), `email` (string), and `sentiment` (string) from a customer support email.
+**Example:** Extract `name`, `email`, and `sentiment` from a customer support email.
 
-**Accessing output:** `{{variableName.output.name}}`, `{{variableName.output.email}}`, etc.
+**Accessing output:** `{{variableName.output.name}}`, `{{variableName.output.email}}`
+
+---
+
+## Router
+
+The Router node uses AI to choose the best branch for an input. Define named routes with descriptions, then connect each route to the workflow path that should run.
+
+Router configuration is covered in [Logic and Utility](/tools/logic-utility#router).

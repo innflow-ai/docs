@@ -5,7 +5,7 @@ description: 'Integrate Innflow into your applications'
 
 ## Overview
 
-The Innflow API allows you to programmatically interact with workflows, executions, and integrations.
+The Innflow API allows you to programmatically manage workflows and monitor executions.
 
 <Note>
   API documentation is coming soon. Contact support@innflow.ai for early access.
@@ -13,10 +13,10 @@ The Innflow API allows you to programmatically interact with workflows, executio
 
 ## Authentication
 
-All API requests require authentication using a Bearer token.
+All API requests require an API key in the `Authorization` header. Innflow API keys start with `inf_sk_` and are shown only once when created.
 
 ```bash
-curl -H "Authorization: Bearer YOUR_API_KEY" \
+curl -H "Authorization: Bearer inf_sk_..." \
   https://api.innflow.ai/v1/workflows
 ```
 
@@ -28,16 +28,30 @@ https://api.innflow.ai/v1
 
 ## Rate Limits
 
-| Plan | Requests per minute |
-|------|---------------------|
-| Free | 60 |
-| Pro | 300 |
-| Enterprise | Custom |
+API keys allow up to **60 requests per minute** by default.
 
 ## Endpoints
 
-Documentation for the following endpoints is in progress:
+Available API groups:
 
-- **Workflows** - Create, list, update, delete workflows
-- **Executions** - Trigger and monitor workflow runs
-- **Integrations** - Manage connected services
+- **Workflows** — List, create, update, delete, import, duplicate, deploy, undeploy, and execute workflows
+- **Executions** — List executions and fetch execution details, output, and node logs
+- **Portal events** — Receive portal event payloads for external surfaces
+
+## Execute a Workflow
+
+Workflows must be deployed before they can be executed through the API.
+
+```bash
+curl -X POST https://api.innflow.ai/v1/workflows/{workflowId}/execute \
+  -H "Authorization: Bearer inf_sk_..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "input": {
+      "email": "customer@example.com",
+      "message": "Need help with onboarding"
+    }
+  }'
+```
+
+The response includes the workflow ID, event IDs, and a `triggered` status.

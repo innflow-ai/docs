@@ -5,6 +5,8 @@ description: "Programmatic access to Innflow for triggering workflows and managi
 
 API keys let you interact with Innflow programmatically. Use them to trigger workflows from your own applications, scripts, or external services.
 
+Innflow API keys start with `inf_sk_`.
+
 ## Creating an API Key
 
 <Steps>
@@ -33,6 +35,15 @@ API keys let you interact with Innflow programmatically. Use them to trigger wor
 - View all your API keys with their creation date, last used date, and request count
 - **Revoke** a key to immediately disable it
 - Keys show a masked preview (first few characters) for identification
+
+## Example Request
+
+```bash
+curl -X POST https://api.innflow.ai/v1/workflows/{workflowId}/execute \
+  -H "Authorization: Bearer inf_sk_..." \
+  -H "Content-Type: application/json" \
+  -d '{"input":{"email":"customer@example.com"}}'
+```
 
 <Callout type="warning">
   Treat API keys like passwords. Do not commit them to version control or share them publicly. If a key is compromised, revoke it immediately and create a new one.

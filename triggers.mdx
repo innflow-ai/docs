@@ -45,6 +45,26 @@ Create a form with custom fields that must be filled out before the workflow run
 
 ---
 
+## Form Trigger
+
+<Card title="Form Trigger" icon="file-text">
+  Host a public form and run your workflow when someone submits it.
+</Card>
+
+The Form Trigger creates a shareable form endpoint backed by your workflow. Use it when people outside the editor need to submit structured data.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Variable name** | How you reference the submitted form data |
+| **Fields** | Form fields to collect from the submitter |
+| **Published workflow** | Public submissions only execute against deployed workflows |
+
+**Accessing data:** `{{formTrigger.fieldName}}`
+
+---
+
 ## Webhook Trigger
 
 <Card title="Webhook Trigger" icon="webhook">
@@ -229,3 +249,26 @@ Triggers the workflow whenever a new response is submitted to a connected Google
 The trigger uses a Google Apps Script to forward form submissions to Innflow. Copy the generated script from the configuration panel and add it to your Google Form via **Extensions → Apps Script**.
 
 **Accessing data:** `{{trigger.body}}` contains the form response data.
+
+---
+
+## Telegram Trigger
+
+<Card title="Telegram Trigger" icon="send">
+  Start your workflow when a message is sent to your Telegram bot.
+</Card>
+
+Use the Telegram Trigger to turn bot messages into workflow executions.
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Bot token** | Telegram bot token used to receive messages |
+| **Webhook URL** | Generated URL that receives Telegram updates |
+| **Status** | Enable, pause, or reconnect the trigger |
+
+**Setup:**
+Create or choose a Telegram bot, add its token to the trigger configuration, then connect the generated webhook. New bot messages will start workflow executions.
+
+**Accessing data:** `{{trigger.body}}` contains the Telegram update payload.

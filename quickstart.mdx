@@ -28,23 +28,26 @@ description: "Create your first workflow in under five minutes"
 
     - **Manual Trigger** — Run the workflow on demand with the **Run** button
     - **Input Trigger** — Define a form with custom fields that users fill out before each run
+    - **Form Trigger** — Host a public form and run the workflow when someone submits it
     - **Webhook Trigger** — Start the workflow when an external system sends an HTTP request
     - **Chat Trigger** — Start the workflow from a conversational chat interface
     - **Schedule Trigger** — Run automatically on a recurring schedule (daily, weekly, monthly, hourly)
-    - **Stripe, Typeform, Notion, Google Forms** — Start when events happen in those services
+    - **Stripe, Typeform, Notion, Google Forms, Telegram** — Start when events happen in those services
 
     For your first workflow, **Manual Trigger** is the simplest choice.
   </Step>
   <Step title="Add action nodes">
     Click the **+** button below your trigger to add nodes. Browse by category or search for what you need:
 
-    - **AI** — Generate text with Gemini models
+    - **AI** — Generate text, extract fields, route work, or call tools with AI agents and model nodes
     - **Communication** — Send messages via Slack, Discord, Gmail, Teams, Telegram, or Resend
     - **Google Suite** — Work with Docs, Sheets, Calendar, Drive, Slides, Forms, and Groups
     - **Microsoft** — Excel, Word, OneDrive, Outlook, Planner, SharePoint, and Teams
-    - **Data** — Airtable, HubSpot, Apollo, Notion, Trello, GitHub
-    - **Search** — Tavily, Exa, Firecrawl, Ahrefs, Polymarket
-    - **Logic** — Conditions, routers, code execution, array transforms, sleep, CSV export
+    - **Data and project work** — Airtable, HubSpot, Apollo, Notion, Trello, GitHub, ClickUp
+    - **Search and research** — Tavily, Exa, Perplexity, Firecrawl, Ahrefs, Polymarket
+    - **Storage, commerce, and analytics** — Dropbox, Shopify, LinkedIn, PostHog, Dub, ElevenLabs
+    - **Advanced protocols** — MCP servers and A2A-compatible agents
+    - **Logic** — Conditions, routers, code execution, HTTP requests, array transforms, sleep, CSV export, tables, and knowledge base search
   </Step>
   <Step title="Connect and configure">
     Drag from one node's output handle to another node's input handle to create connections. Click any node to open its configuration panel on the right side.
@@ -66,7 +69,7 @@ description: "Create your first workflow in under five minutes"
     Start from a curated template instead of building from scratch.
   </Card>
   <Card title="Explore Triggers" icon="zap" href="/triggers">
-    Learn about all nine trigger types and when to use each one.
+    Learn about every trigger type and when to use each one.
   </Card>
   <Card title="Learn about Variables" icon="brackets-curly" href="/essentials/variables">
     Pass data dynamically between nodes using template variables.

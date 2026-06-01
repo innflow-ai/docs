@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Innflow Documentation",
   "colors": {
-    "primary": "#6366F1",
-    "light": "#818CF8",
-    "dark": "#4F46E5"
+    "primary": "#3B82F6",
+    "light": "#60A5FA",
+    "dark": "#2563EB"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -45,6 +45,8 @@
               "tools/crm-sales",
               "tools/project-management",
               "tools/search-data",
+              "tools/storage-commerce",
+              "tools/agents-protocols",
               "tools/logic-utility"
             ]
           },
@@ -90,7 +92,7 @@
         },
         {
           "anchor": "GitHub",
-          "href": "https://github.com/julianpatty/inflow",
+          "href": "https://github.com/innflow-ai/innflow",
           "icon": "github"
         }
       ]
@@ -128,7 +130,7 @@
   "footer": {
     "socials": {
       "x": "https://x.com/innflow",
-      "github": "https://github.com/julianpatty/inflow"
+      "github": "https://github.com/innflow-ai/innflow"
     }
   }
 }

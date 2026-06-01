@@ -1,0 +1,61 @@
+---
+title: "Agents and Protocols"
+description: "Connect external tools and delegate work to agent-compatible systems"
+---
+
+## MCP
+
+The MCP node connects Innflow to external Model Context Protocol servers. Use it when a workflow needs to discover or call tools exposed by another system.
+
+**Modes:**
+
+| Mode | Description |
+|------|-------------|
+| **Direct tool execution** | Select a server tool and call it directly from the workflow |
+| **Agentic use** | Connect MCP tools to an AI Agent so the agent can choose when to call them |
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Server URL** | Streamable HTTP endpoint for the MCP server |
+| **Authentication** | Credentials required by the server, if any |
+| **Tool** | Tool to call in direct execution mode |
+| **Input** | Tool input payload, with support for template variables |
+
+**Accessing output:** `{{variableName.output}}`
+
+---
+
+## A2A Agent
+
+The A2A Agent node delegates work to an external agent that supports the Agent-to-Agent protocol.
+
+**Common uses:**
+- Send a task to a specialized external agent
+- Poll for an agent result before continuing the workflow
+- Connect Innflow workflows to agent systems owned by another team or vendor
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Endpoint** | A2A-compatible agent endpoint |
+| **Mode** | Polling or task submission mode |
+| **Task** | Instructions or payload to send to the external agent |
+| **Authentication** | Credentials required by the endpoint |
+
+---
+
+## Tool-Only Nodes
+
+Some nodes can be connected to AI Agent nodes as callable tools instead of running as standalone workflow steps.
+
+| Tool node | Use for |
+|-----------|---------|
+| **Slack Tool** | Let an agent send or read Slack messages |
+| **Gmail Tool** | Let an agent send or read Gmail messages |
+| **HTTP Tool** | Let an agent call an HTTP API |
+| **Exa Tool** | Let an agent search or retrieve web content |
+
+Use tool-only nodes when the model should decide whether a tool call is needed during the agent run.

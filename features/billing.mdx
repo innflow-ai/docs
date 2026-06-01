@@ -5,20 +5,42 @@ description: "Understand Innflow's pricing tiers, usage credits, and billing"
 
 ## Plans
 
-Innflow offers four pricing tiers:
+Innflow plans are credit-based. Credits are included with each plan and refresh on the plan's billing cycle.
 
-| Plan | Price | Description |
-|------|-------|-------------|
-| **Free** | $0/mo | $5 in monthly usage credits. 1 workspace, limited tables. |
-| **Pro** | $20/mo | Unlimited workflows, all premium nodes, up to 3 team workspaces. |
-| **Team** | $40/mo | Everything in Pro plus unlimited workspaces and members. |
-| **Enterprise** | Custom | Extended retention, custom limits, dedicated support. |
+| Plan family | Starting price | Included credits | Best for |
+|-------------|----------------|------------------|----------|
+| **Free** | $0/mo | 400 credits | Exploring workflows and basic automation |
+| **Basic** | $24.99/mo | Starts at 5,000 credits | Individual automation with higher usage |
+| **Business** | $249.99/mo | Starts at 70,000 credits | Teams with pooled usage and higher throughput |
+| **Enterprise** | Custom | Custom | Dedicated support, custom limits, and advanced requirements |
+
+Annual plans are available for paid tiers at a lower monthly equivalent.
+
+## Credit Allowances
+
+Paid plans are available in multiple credit sizes.
+
+| Plan | Monthly credits | Included seats |
+|------|-----------------|----------------|
+| Free | 400 | 1 |
+| Basic 5,000 | 5,000 | 1 |
+| Basic 8,500 | 8,500 | 1 |
+| Basic 12,500 | 12,500 | 1 |
+| Basic 16,500 | 16,500 | 1 |
+| Basic 21,000 | 21,000 | 1 |
+| Basic 26,000 | 26,000 | 1 |
+| Business 70,000 | 70,000 | 5 |
+| Business 120,000 | 120,000 | 7 |
+| Business 175,000 | 175,000 | 10 |
+| Business 250,000 | 250,000 | 12 |
+| Business 350,000 | 350,000 | 13 |
+| Business 500,000 | 500,000 | 15 |
 
 ## Usage Credits
 
-Innflow uses a credit system based on actual usage. Each workflow execution consumes credits depending on the nodes it runs, especially AI and external API calls.
+Each workflow execution consumes credits based on the nodes it runs. AI, external API calls, research, code execution, and advanced integrations typically cost more than basic trigger or utility nodes.
 
-Your credit balance is visible in the sidebar. It shows your remaining balance out of your monthly allowance.
+Your credit balance is visible in the app sidebar and billing settings.
 
 ### Low Balance Warnings
 
@@ -27,21 +49,21 @@ Your credit balance is visible in the sidebar. It shows your remaining balance o
 
 ## Feature Comparison
 
-| Feature | Free | Pro | Team | Enterprise |
-|---------|------|-----|------|------------|
+| Feature | Free | Basic | Business | Enterprise |
+|---------|------|-------|----------|------------|
 | Workflows | Unlimited | Unlimited | Unlimited | Unlimited |
-| Premium nodes | No | Yes | Yes | Yes |
-| Workspaces | 1 | Up to 3 | Unlimited | Unlimited |
-| Members per workspace | 2 | Unlimited | Unlimited | Unlimited |
-| Tables | 3 | 25 | Unlimited | Unlimited |
-| Rows per table | 100 | 5,000 | 10,000 | 10,000 |
-| Public templates | 2 | Unlimited | Unlimited | Unlimited |
-| Execution history | 1 day | 30 days | 30 days | 90 days |
+| Premium nodes | Limited | Yes | Yes | Yes |
+| Code node | No | Higher Basic tiers | Yes | Yes |
+| Exclusive model access | No | No | Yes | Yes |
+| Included seats | 1 | 1 | 5-15 | Custom |
+| Execution history | 1 day | 30 days | 90 days | 90 days |
+| Rate limits | Shared starter limits | Higher usage limits | Higher team limits | Custom |
 
 ## Managing Your Subscription
 
 Navigate to **Settings → Billing** to:
 
-- View your current plan and usage
+- View your current plan and credit usage
 - Upgrade or downgrade your plan
+- Manage annual or monthly billing
 - View transaction history showing what each execution cost
