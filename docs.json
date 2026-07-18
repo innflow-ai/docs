@@ -39,6 +39,7 @@
             "group": "Action Nodes",
             "pages": [
               "tools/ai",
+              "tools/browser-automation",
               "tools/communication",
               "tools/google-suite",
               "tools/microsoft",

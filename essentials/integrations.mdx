@@ -3,7 +3,7 @@ title: "Integrations"
 description: "Connect external services to power your workflows"
 ---
 
-Innflow integrates with dozens of external services. Each integration is powered by an OAuth credential that you connect once and use across all your workflows.
+Innflow integrates with dozens of external services. Depending on the service, an integration can use an OAuth connection, an API credential, or a connection managed by Innflow.
 
 ## Setting Up Integrations
 
@@ -12,7 +12,7 @@ Innflow integrates with dozens of external services. Each integration is powered
     Navigate to **Settings → Credentials** from the sidebar.
   </Step>
   <Step title="Connect a service">
-    Click **New Credential** and choose the service. You will be redirected to authorize Innflow.
+    Click **New Credential** and choose the service. OAuth integrations redirect you to authorize Innflow; API-based integrations ask for the required credential. Platform-managed integrations do not need a workspace credential.
   </Step>
   <Step title="Use in workflows">
     Any node that needs that service will automatically have access to the credential.
@@ -69,6 +69,9 @@ For full details on managing credentials, see [Credentials](/features/credential
 - [Ahrefs](/tools/search-data#ahrefs) — SEO data
 - [Polymarket](/tools/search-data#polymarket) — Prediction markets
 
+### Browser Automation
+- [Browser Agent](/tools/browser-automation) — Run interactive, multi-step website tasks with Stagehand and Browserbase
+
 ### Storage, Commerce, and Analytics
 - [Dropbox](/tools/storage-commerce#dropbox) — Files, folders, and shared links
 - [Shopify](/tools/storage-commerce#shopify) — Products, orders, customers, and inventory
@@ -83,4 +86,4 @@ For full details on managing credentials, see [Credentials](/features/credential
 
 ## Authentication
 
-All integrations use **OAuth 2.0** for secure authentication. Your tokens are encrypted at rest and refreshed automatically. To disconnect a service, remove it from the [Credentials](/features/credentials) page.
+OAuth integrations store tokens encrypted at rest and refresh them automatically when supported. Other integrations use encrypted API credentials or an Innflow-managed connection. To disconnect a workspace-owned service, remove it from the [Credentials](/features/credentials) page.
