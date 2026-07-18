@@ -45,6 +45,14 @@ The A2A Agent node delegates work to an external agent that supports the Agent-t
 | **Task** | Instructions or payload to send to the external agent |
 | **Authentication** | Credentials required by the endpoint |
 
+The node supports polling and streaming modes. Use polling when Innflow should wait for a completed task result, and streaming when the external agent exposes incremental progress.
+
+---
+
+## Browser Agent
+
+Browser Agent is a separate workflow node that uses Stagehand and Browserbase for interactive web tasks. It is not an MCP or A2A transport. See [Browser Automation](/tools/browser-automation).
+
 ---
 
 ## Tool-Only Nodes

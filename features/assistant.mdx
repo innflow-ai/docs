@@ -1,0 +1,43 @@
+---
+title: "Assistant"
+description: "Configure a shared AI assistant with workspace context, skills, and permissions"
+---
+
+The Assistant is a dedicated AI workspace for ongoing conversations grounded in your Innflow resources. Unlike Copilot, which focuses on building and changing workflows, the Assistant is configured as a reusable teammate with persistent context and server-enforced permissions.
+
+<Callout type="info">
+  Assistant availability depends on your workspace plan.
+</Callout>
+
+## Configure the Assistant
+
+In **Exclusive → Assistant**, workspace members with configuration access can set:
+
+- Name, description, and system instructions
+- Default model
+- Private or workspace visibility
+- Whether the Assistant can search accessible workspace content
+- Whether web research is available
+
+The selected model can also be changed for an individual message without changing the saved default.
+
+## Persistent knowledge
+
+Link files, workflows, tables, or knowledge bases to make them available in every conversation. This differs from a one-time chat attachment: linked resources remain part of the Assistant's saved workspace configuration.
+
+## Skills
+
+Skills are reusable instruction packages enabled for the Assistant. Workspace administrators control which skills are installed and available.
+
+## Access and permissions
+
+Assistant permissions are enforced on the server. Administrators can control workspace visibility and enable or deny tool capabilities by risk level, including actions that modify workspace resources.
+
+Read-only members can use a shared Assistant but cannot change its configuration. The **Activity** tab records a redacted history of configuration, context, skill, permission, and runtime events.
+
+## Assistant versus Copilot
+
+| Surface | Best for |
+| --- | --- |
+| [Copilot](/features/copilot) | Building, explaining, testing, and repairing a specific workflow |
+| **Assistant** | Ongoing workspace questions and permitted actions using persistent shared context |

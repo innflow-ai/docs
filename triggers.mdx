@@ -13,6 +13,8 @@ Triggers are the entry point of every workflow. When a trigger fires, the workfl
 
 The simplest trigger type. No configuration required. Click **Run** in the editor and the workflow executes immediately. Best for workflows you want to run yourself, like one off tasks or testing.
 
+This node appears as **Trigger manually** in the node picker.
+
 **Variable name:** Not applicable (no input data)
 
 ---
@@ -118,10 +120,6 @@ This trigger is great for building AI powered chatbots and assistants. Each mess
   Run your workflow automatically on a recurring schedule.
 </Card>
 
-<Callout type="info">
-  The Schedule Trigger is currently being rebuilt. Configuration options may change.
-</Callout>
-
 Set your workflow to run automatically at fixed intervals. Choose from preset frequencies or write a custom cron expression.
 
 **Configuration:**
@@ -133,11 +131,14 @@ Set your workflow to run automatically at fixed intervals. Choose from preset fr
 | **Timezone** | Timezone for the schedule (supports major timezones worldwide) |
 | **Day of week** | Which day to run (for weekly frequency) |
 | **Day of month** | Which day to run (for monthly frequency) |
+| **Cron expression** | Custom recurring schedule for advanced timing |
 
 **Examples:**
 - Daily at 9:00 AM Eastern
 - Every Monday at 8:30 AM UTC
 - First of every month at midnight
+
+Schedules also appear in the [Scheduled Tasks calendar](/features/scheduled-tasks), where you can inspect and manage recurring work across the workspace.
 
 ---
 

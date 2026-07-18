@@ -1,0 +1,36 @@
+---
+title: "Forms"
+description: "Create forms, collect responses, and connect form submissions to workflows"
+---
+
+## Typeform
+
+The Typeform action node manages forms and reads response data through the Typeform API.
+
+**Operations:**
+
+- List, get, create, update, and delete forms
+- Retrieve form responses
+- Read form insights
+
+Use the [Typeform Trigger](/triggers#typeform-trigger) when a new response should start the workflow.
+
+**Requires:** Typeform credentials
+
+---
+
+## Google Forms
+
+The Google Forms action node retrieves responses from a connected Google Form. See [Google Suite](/tools/google-suite#google-forms) for configuration details.
+
+Use the [Google Forms Trigger](/triggers#google-forms-trigger) when each new submission should start a workflow.
+
+**Requires:** Google OAuth connection
+
+---
+
+## Innflow Forms
+
+The [Form Trigger](/triggers#form-trigger) publishes a form backed by an Innflow workflow. Use it for intake flows where people outside your workspace need to submit structured data without a separate form provider.
+
+The workflow must be deployed before its public form can execute.

@@ -37,6 +37,9 @@ Action nodes do the work in your workflow. They are organized by category:
   <Card title="Communication" icon="mail" href="/tools/communication">
     Slack, Discord, Gmail, Outlook, Teams, Telegram, Resend
   </Card>
+  <Card title="Forms" icon="file-text" href="/tools/forms">
+    Typeform, Google Forms, and public Innflow forms
+  </Card>
   <Card title="Google Suite" icon="file-text" href="/tools/google-suite">
     Sheets, Docs, Calendar, Drive, Slides, Forms, Groups
   </Card>
@@ -55,6 +58,9 @@ Action nodes do the work in your workflow. They are organized by category:
   <Card title="Storage, Commerce, and Analytics" icon="boxes" href="/tools/storage-commerce">
     Dropbox, Shopify, LinkedIn, PostHog, Dub, ElevenLabs
   </Card>
+  <Card title="Social Publishing" icon="send" href="/tools/social-publishing">
+    LinkedIn, Meta, X, Reddit, Bluesky, Threads, Telegram, Pinterest, WhatsApp
+  </Card>
   <Card title="Agents and Protocols" icon="network" href="/tools/agents-protocols">
     MCP servers, A2A agents, agentic tool nodes
   </Card>
@@ -71,6 +77,20 @@ Click or double click any node to open its configuration panel. Common fields in
 - **Operation** — Which action to perform (for multi operation nodes)
 - **Input fields** — The data the node needs to operate
 - **Connection** — Which credential to use (for nodes requiring OAuth)
+
+Nodes that change external systems can create real side effects during testing. Add [Human Approval](/tools/logic-utility#human-approval) before irreversible actions when review is required.
+
+## Control and long-running nodes
+
+| Node | Use for |
+| --- | --- |
+| **Condition** | Split into true and false paths using a deterministic rule |
+| **Router** | Let AI select one of several named branches |
+| **Wait** | Pause for a duration or until a specific time |
+| **Human Approval** | Pause until a workspace member approves or rejects |
+| **Wait for Event** | Pause until an external callback arrives |
+| **Edit Fields** | Reshape an object without writing code |
+| **Transform Array** | Map, filter, or reduce a list |
 
 ## Node Status
 

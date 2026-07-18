@@ -1,0 +1,48 @@
+---
+title: "Executions, Analytics, and Inbox"
+description: "Inspect workflow runs, review performance, and act on notifications"
+---
+
+## Execution logs
+
+Every workflow run creates an execution record. Open **Workspace → Logs** to review runs across the workspace, then select an execution to inspect its status, duration, workflow path, node output, and errors.
+
+Execution states include running, successful, failed, and cancelled. While a run is active, Innflow streams status changes so you can follow progress without refreshing.
+
+Execution-history retention depends on your [plan](/features/billing):
+
+| Plan family | Retention |
+| --- | --- |
+| Free | 1 day |
+| Basic | 30 days |
+| Business | 90 days |
+| Enterprise | 90 days |
+
+## Debug a failed run
+
+1. Open the failed execution.
+2. Find the first node with an error state.
+3. Inspect its input, output, and error message.
+4. Correct the workflow or credential.
+5. Run the workflow again and compare the new execution.
+
+Browser Agent output can also include a complete Browserbase session URL. See [Browser Automation](/tools/browser-automation#sessions-and-replay).
+
+## Analytics
+
+The Home analytics tab summarizes workflow activity over the last 24 hours, 7 days, 30 days, or 3 months. It includes execution count, success rate, average successful-run duration, deployed workflow count, credit usage, trends over time, and the most active or failure-prone workflows.
+
+Use Logs for a single execution's evidence and Analytics for workspace-level trends.
+
+## Inbox
+
+The Inbox collects items that need attention, including:
+
+- Successful or failed workflows
+- Failed nodes
+- Agent and model responses
+- Copilot replies
+- Human approval requests
+- Workflows waiting for an external event
+
+Filter the Inbox by **All**, **Unread**, **Workflows**, or **Agents**. Opening an item marks it as read and links to the related execution, workflow, or approval page. You can also mark everything read or delete individual notifications.

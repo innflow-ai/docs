@@ -1,0 +1,51 @@
+---
+title: "CLI"
+description: "Manage workflows and executions from a terminal or CI job"
+---
+
+The Innflow CLI uses the public API to manage workspaces, workflows, deployments, and executions.
+
+## Run the CLI
+
+```bash
+npx @innflow/cli auth login
+npx @innflow/cli workflow list
+npx @innflow/cli workflow import --file workflow.json
+npx @innflow/cli workflow run <workflow-id> --input input.json
+```
+
+Browser login uses a device authorization flow and stores the session in your operating-system credential store. For CI or other non-interactive environments, set `INNFLOW_API_KEY` or pass the key through standard input:
+
+```bash
+printf '%s' "$INNFLOW_API_KEY" | npx @innflow/cli auth login --api-key-stdin
+```
+
+## Commands
+
+| Group | Commands |
+| --- | --- |
+| `auth` | `login`, `logout`, `status`, `key` |
+| `workspace` | `list`, `current`, `use` |
+| `workflow` | `list`, `get`, `pull`, `create`, `update`, `import`, `duplicate`, `delete`, `deploy`, `undeploy`, `run` |
+| `run` | `list`, `get`, `watch` |
+| `config` | `list`, `get`, `set` |
+
+Every command supports `--json` for machine-readable output. Destructive commands require confirmation unless `--yes` is provided.
+
+## Profiles and environment variables
+
+- `INNFLOW_API_KEY` authenticates non-interactive requests.
+- `INNFLOW_API_URL` targets a preview or local Innflow deployment.
+- `INNFLOW_WORKSPACE` selects a personal or organization workspace.
+- `--profile` keeps independent host, credential, and workspace selections.
+
+## Exit codes
+
+| Code | Meaning |
+| ---: | --- |
+| 0 | Success |
+| 1 | Command, network, or server failure |
+| 2 | Invalid input or usage |
+| 3 | Authentication or authorization failure |
+| 4 | Missing, conflicting, or invalid resource state |
+| 130 | Interrupted |

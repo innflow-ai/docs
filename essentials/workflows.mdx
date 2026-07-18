@@ -25,6 +25,12 @@ The editor is a canvas where you build workflows by placing and connecting nodes
 - **Configure nodes** — Click or double click a node to open its settings panel on the right
 - **Move nodes** — Drag nodes to rearrange the layout
 - **Delete nodes** — Select a node and press Delete, or use the context menu
+- **Undo and redo** — Reverse or restore editor changes
+- **Copy and paste** — Reuse nodes or sections of a workflow
+- **Lock the canvas** — Prevent accidental movement while reviewing
+- **Add sticky notes** — Document the workflow directly on the canvas
+
+Changes autosave while you work. Use Copilot when you want to add, configure, explain, test, or repair a workflow through conversation.
 
 ## Execution Flow
 
@@ -41,10 +47,24 @@ When a workflow runs:
 | State | Description |
 |-------|-------------|
 | Draft | Workflow is being edited |
-| Active | Workflow is ready to run |
+| Deployed | Workflow can accept production triggers and API executions |
 | Running | Workflow is currently executing |
 | Completed | Workflow finished successfully |
 | Failed | Workflow encountered an error |
+
+Deploying or undeploying from the workflow library requires confirmation. A draft can still be tested manually from the editor; service triggers, public forms, schedules, and API execution require the appropriate deployed state.
+
+## Organize the workflow library
+
+The Workflows page supports:
+
+- Search by workflow name
+- Create colored folders
+- Drag workflows between folders or move them from the item menu
+- Rename, duplicate, or delete a workflow
+- Import a workflow JSON definition
+- Publish a workflow as a reusable template
+- See and change draft/deployed state
 
 ## Execution History
 
@@ -53,6 +73,8 @@ Each workflow run is logged with the status of every node. Click on a completed 
 - **Free:** 1 day
 - **Basic:** 30 days
 - **Business / Enterprise:** 90 days
+
+For workspace-wide logs, live status, debugging, and notifications, see [Executions and Inbox](/features/executions-inbox).
 
 ## Using the Copilot
 

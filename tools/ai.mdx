@@ -23,9 +23,9 @@ The AI Agent node runs an agentic loop with tool calling. Use it when the model 
 
 ---
 
-## AI Model
+## OpenRouter
 
-The AI Model node is the general purpose LLM node. Use it for summarization, classification, rewriting, extraction, drafting, and other prompt-based work.
+The OpenRouter node is the general purpose LLM node. It provides access to more than 200 models through one node. Use it for summarization, classification, rewriting, extraction, drafting, and other prompt-based work.
 
 **Configuration:**
 
@@ -58,6 +58,23 @@ Provider-specific nodes are available when you want to route work to a specific 
 | **Kimi** | Moonshot/Kimi model access |
 | **Grok** | xAI model access |
 | **Qwen** | Alibaba Cloud/Qwen model access |
+
+---
+
+## Image Generation
+
+The Image Generation node creates images with supported Kie.ai image models. Use it for product concepts, campaign assets, thumbnails, and workflow-generated creative.
+
+**Configuration:**
+
+| Field | Description |
+| --- | --- |
+| **Variable name** | Name used to reference the generated result downstream |
+| **Model** | Image model used for generation |
+| **Prompt** | Description of the image to create; supports template variables |
+| **Model options** | Size, aspect ratio, or other controls supported by the selected model |
+
+Generated image output can be passed into approval, file-storage, or social-publishing steps.
 
 ---
 

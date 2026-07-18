@@ -76,6 +76,22 @@ Make HTTP requests to any API endpoint. Supports all standard HTTP methods.
 
 ---
 
+## Human Approval
+
+Pause a workflow until a selected workspace member approves or rejects the request. Approval requests appear in the [Inbox](/features/executions-inbox#inbox) and open a dedicated approval page.
+
+Use Human Approval before sending customer-facing messages, publishing content, changing important records, or taking another action that needs review.
+
+---
+
+## Wait for Event
+
+Pause a workflow until an external system sends an event to a unique callback URL. Use this for long-running processes where the next step depends on something that happens later, such as a signed document, completed job, or external status change.
+
+The wait request appears in the Inbox. Callback requests are signed when a workflow wait signing secret is configured by the deployment administrator.
+
+---
+
 ## Transform Array
 
 Apply map, filter, or reduce operations to arrays of data.
@@ -88,6 +104,12 @@ Apply map, filter, or reduce operations to arrays of data.
 | **Operation** | Map, Filter, or Reduce |
 | **Input** | The array to transform (template variable) |
 | **Expression** | The transformation expression |
+
+---
+
+## Edit Fields
+
+Create, rename, remove, and reshape fields for downstream nodes without writing code. Use Edit Fields to normalize an app response or prepare a clean object for a table, webhook, or integration action.
 
 ---
 
