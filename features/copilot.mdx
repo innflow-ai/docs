@@ -3,11 +3,17 @@ title: "Copilot"
 description: "Build and modify workflows using natural language with the AI Copilot"
 ---
 
-The Copilot is an AI assistant built into the workflow editor. Describe what you want in plain English and the Copilot will create nodes, connect them, and configure your workflow for you.
+Copilot is Innflow's workflow-building assistant. Use it from Home to turn a request into a new workflow or table, or inside the editor to understand and change the workflow already on the canvas.
 
-## Opening the Copilot
+## Home
 
-Click the **sparkles icon** in the editor sidebar to open the Copilot panel. You can have multiple conversation threads and switch between them.
+The Home composer is the fastest way to start. Describe the system you want, select relevant apps, and attach workspace resources, files, or pasted text. Copilot can draft a workflow or table and hand it into the appropriate editor for review.
+
+You can choose a chat model, dictate a prompt with the microphone, and continue the same conversation as generated artifacts appear.
+
+## Editor Copilot
+
+Open Copilot from the workflow editor to work against the live canvas. It receives a redacted snapshot of the workflow's nodes, connections, and configuration so its suggestions stay grounded in the current state.
 
 ## What the Copilot Can Do
 
@@ -24,6 +30,12 @@ Click the **sparkles icon** in the editor sidebar to open the Copilot panel. You
   <Card title="Get suggestions" icon="lightbulb">
     The Copilot analyzes your current workflow and suggests next steps based on what you have built so far.
   </Card>
+  <Card title="Explain workflows" icon="message-square">
+    Ask for a plain-language explanation of an unfamiliar workflow or node path.
+  </Card>
+  <Card title="Test and repair" icon="wrench">
+    Run an approved test, monitor the exact execution, and apply bounded safe configuration repairs when enabled.
+  </Card>
 </Columns>
 
 ## Context Aware Suggestions
@@ -34,10 +46,30 @@ When you open the Copilot, it reads your current workflow state (what nodes you 
 - **Has trigger, no actions:** "Add an AI node to process the input" or "Connect to Slack to send notifications"
 - **Complete workflow:** "Run the workflow" or "Add error handling"
 
-## Conversation Threads
+## Context and continuity
 
-The Copilot maintains separate conversation threads so you can work on different aspects of your workflow independently. Use the dropdown at the top of the panel to create a new thread or switch between existing ones.
+Copilot supports:
+
+- Separate conversation threads
+- File and pasted-text attachments
+- App and workspace-resource references
+- Model selection
+- Voice dictation
+- Persistent conversation history
+- Relevant saved preferences and corrections
+- Visible activity and tool traces for actions it takes
+- Positive or negative response feedback
+
+Live workflow state takes precedence over saved conversation memory.
+
+## Test & Repair
+
+When Test & Repair is enabled for the deployment, Copilot can start a real workflow execution after you approve the warning. A session can make up to three real attempts and can automatically change only explicitly safe configuration fields.
+
+<Callout type="warning">
+  Test & Repair runs are real executions. They can send messages, update external systems, and consume credits. Structural changes, credentials, destinations, operations, schedules, deployment state, and other sensitive changes require separate confirmation.
+</Callout>
 
 <Callout type="info">
-  Copilot is available on paid plans.
+  Copilot availability and advanced capabilities depend on your plan and workspace configuration.
 </Callout>

@@ -3,7 +3,7 @@ title: "Integrations"
 description: "Connect external services to power your workflows"
 ---
 
-Innflow integrates with dozens of external services. Each integration is powered by an OAuth credential that you connect once and use across all your workflows.
+Innflow integrates with dozens of external services. Depending on the service, an integration can use an OAuth connection, an API credential, or a connection managed by Innflow.
 
 ## Setting Up Integrations
 
@@ -12,7 +12,7 @@ Innflow integrates with dozens of external services. Each integration is powered
     Navigate to **Settings → Credentials** from the sidebar.
   </Step>
   <Step title="Connect a service">
-    Click **New Credential** and choose the service. You will be redirected to authorize Innflow.
+    Click **New Credential** and choose the service. OAuth integrations redirect you to authorize Innflow; API-based integrations ask for the required credential. Platform-managed integrations do not need a workspace credential.
   </Step>
   <Step title="Use in workflows">
     Any node that needs that service will automatically have access to the credential.
@@ -50,6 +50,7 @@ For full details on managing credentials, see [Credentials](/features/credential
 
 ### CRM and Sales
 - [Airtable](/tools/crm-sales#airtable) — Database records
+- [Attio](/tools/crm-sales#attio) — CRM records, notes, tasks, and metadata
 - [HubSpot](/tools/crm-sales#hubspot) — CRM objects
 - [Apollo](/tools/crm-sales#apollo) — Lead enrichment
 
@@ -68,6 +69,10 @@ For full details on managing credentials, see [Credentials](/features/credential
 - [Firecrawl](/tools/search-data#firecrawl) — Web scraping
 - [Ahrefs](/tools/search-data#ahrefs) — SEO data
 - [Polymarket](/tools/search-data#polymarket) — Prediction markets
+- [Web Scraper](/tools/search-data#web-scraper) — Focused URL and search-based page extraction
+
+### Browser Automation
+- [Browser Agent](/tools/browser-automation) — Run interactive, multi-step website tasks with Stagehand and Browserbase
 
 ### Storage, Commerce, and Analytics
 - [Dropbox](/tools/storage-commerce#dropbox) — Files, folders, and shared links
@@ -77,10 +82,21 @@ For full details on managing credentials, see [Credentials](/features/credential
 - [Dub](/tools/storage-commerce#dub) — Short links and analytics
 - [ElevenLabs](/tools/storage-commerce#elevenlabs) — Text to speech
 
+### Forms
+- [Typeform](/tools/forms#typeform) — Manage forms, responses, and insights
+- [Google Forms](/tools/forms#google-forms) — Retrieve responses or trigger on submissions
+- [Innflow Forms](/tools/forms#innflow-forms) — Publish a form backed by a workflow
+
+### Social Publishing
+- [LinkedIn](/tools/social-publishing#available-channels) — Posts and profile data
+- [Meta](/tools/social-publishing#available-channels) — Facebook Page and Instagram publishing
+- [X, Reddit, Bluesky, Threads, Telegram, Pinterest, and WhatsApp](/tools/social-publishing#available-channels) — Channel-specific publishing and messaging
+
 ### Agents and Protocols
 - [MCP](/tools/agents-protocols#mcp) — Connect to external Model Context Protocol servers
 - [A2A Agent](/tools/agents-protocols#a2a-agent) — Delegate tasks to A2A-compatible agents
+- [Browser Agent](/tools/browser-automation) — Run interactive web tasks with Stagehand and Browserbase
 
 ## Authentication
 
-All integrations use **OAuth 2.0** for secure authentication. Your tokens are encrypted at rest and refreshed automatically. To disconnect a service, remove it from the [Credentials](/features/credentials) page.
+OAuth integrations store tokens encrypted at rest and refresh them automatically when supported. Other integrations use encrypted API credentials or an Innflow-managed connection. To disconnect a workspace-owned service, remove it from the [Credentials](/features/credentials) page.

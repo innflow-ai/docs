@@ -1,0 +1,30 @@
+---
+title: "Social Publishing"
+description: "Publish, draft, or schedule content across social and messaging channels"
+---
+
+Innflow includes publishing nodes for social networks and messaging channels. Connect an approval step before a publishing node when a person should review generated content.
+
+## Available channels
+
+| Node | Capability | Connection |
+| --- | --- | --- |
+| **LinkedIn** | Share a post or retrieve profile data | LinkedIn OAuth |
+| **Meta** | Publish a Facebook Page post or Instagram image post | Meta connection |
+| **X/Twitter** | Create, draft, or schedule a post | X OAuth |
+| **Reddit** | Create, draft, or schedule a post | Connected publishing account |
+| **Bluesky** | Create, draft, or schedule a post | Connected publishing account |
+| **Threads** | Create, draft, or schedule a post | Connected publishing account |
+| **Telegram Post** | Create, draft, or schedule a Telegram channel post | Connected publishing account |
+| **Pinterest** | Create, draft, or schedule a pin | Connected publishing account |
+| **WhatsApp** | Send an approved WhatsApp template message | WhatsApp connection |
+
+<Callout type="warning">
+  Publishing operations can create public or customer-facing content. Test with a non-production account and use [Human Approval](/tools/logic-utility#human-approval) when review is required.
+</Callout>
+
+## Draft and schedule behavior
+
+Publishing nodes can expose draft or scheduling choices when supported by the selected channel. The destination account and operation are configured in the node; downstream output includes the provider response or published item details.
+
+Account capabilities differ by provider. For example, Meta publishing requires an eligible Facebook Page or Instagram account, and WhatsApp sends an existing approved message template rather than arbitrary free-form text.

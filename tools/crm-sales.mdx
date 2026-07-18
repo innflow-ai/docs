@@ -1,6 +1,6 @@
 ---
 title: "CRM and Sales"
-description: "Connect to HubSpot, Apollo, and Airtable for customer data and outreach"
+description: "Connect Airtable, Attio, HubSpot, and Apollo for customer data and outreach"
 ---
 
 ## Airtable
@@ -9,8 +9,10 @@ Read from or write to Airtable bases. Use Airtable as a lightweight database for
 
 **Operations:**
 - **List Records** — Fetch records from a table
+- **Read Record** — Retrieve one record
 - **Create Record** — Add a new record
 - **Update Record** — Modify an existing record
+- **Delete Record** — Remove a record
 
 **Configuration:**
 
@@ -26,14 +28,29 @@ Read from or write to Airtable bases. Use Airtable as a lightweight database for
 
 ## HubSpot
 
-Manage contacts, deals, and other CRM objects in HubSpot.
+Create, read, update, delete, list, and search HubSpot contacts, companies, deals, and other supported CRM records.
 
 **Requires:** HubSpot OAuth connection
 
 ---
 
+## Attio
+
+Manage Attio CRM records, notes, tasks, and object metadata.
+
+**Common operations:**
+
+- List, get, search, update, delete, or assert records
+- Create, read, list, and delete notes
+- Create and list tasks
+- Read object metadata
+
+**Requires:** Attio connection
+
+---
+
 ## Apollo
 
-Search for leads and enrich contact data with Apollo.io.
+Search and enrich people or organizations, perform bulk enrichment, and create or update Apollo contacts.
 
 **Requires:** Apollo API credentials

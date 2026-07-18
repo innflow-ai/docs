@@ -39,13 +39,16 @@
             "group": "Action Nodes",
             "pages": [
               "tools/ai",
+              "tools/browser-automation",
               "tools/communication",
+              "tools/forms",
               "tools/google-suite",
               "tools/microsoft",
               "tools/crm-sales",
               "tools/project-management",
               "tools/search-data",
               "tools/storage-commerce",
+              "tools/social-publishing",
               "tools/agents-protocols",
               "tools/logic-utility"
             ]
@@ -54,8 +57,12 @@
             "group": "Features",
             "pages": [
               "features/copilot",
+              "features/assistant",
               "features/knowledge-base",
               "features/tables",
+              "features/files",
+              "features/scheduled-tasks",
+              "features/executions-inbox",
               "features/templates",
               "features/teams"
             ]
@@ -63,8 +70,10 @@
           {
             "group": "Settings",
             "pages": [
+              "features/settings",
               "features/credentials",
               "features/environment-variables",
+              "features/advanced-settings",
               "features/api-keys",
               "features/billing"
             ]
@@ -77,7 +86,8 @@
           {
             "group": "API Documentation",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/cli"
             ]
           }
         ]

@@ -1,0 +1,43 @@
+---
+title: "BYOK, Skills, and MCP Servers"
+description: "Configure provider keys, reusable AI instructions, and external tool servers"
+---
+
+## Bring your own key
+
+Go to **Settings → BYOK** to add your own provider API key. Innflow supports keys for:
+
+- OpenRouter
+- OpenAI
+- Anthropic
+- Google Gemini
+- DeepSeek
+- Grok
+- Kimi
+- Qwen
+- Firecrawl
+- Exa
+- Tavily
+- Perplexity
+
+Keys are stored as encrypted workspace secrets. The settings page shows only whether a key is configured and its final four characters. Remove a key to return supported nodes to the platform-key behavior available on your plan.
+
+## Skills
+
+Go to **Settings → Skills** to create reusable Markdown instructions for Copilot or AI Agent nodes.
+
+A skill has a lowercase name, description, instruction content, enabled surfaces, and a side-effect level. Skills provide instruction context; they are not executable tools and do not grant additional permissions.
+
+Skills can be personal or shared with the active organization. Updating a selected skill takes effect on the next execution. A skill cannot be deleted while it is attached to active workflows or AI surfaces.
+
+## MCP servers
+
+Go to **Settings → MCP servers** to register a reusable Model Context Protocol server.
+
+| Field | Description |
+| --- | --- |
+| **Name** | Friendly name shown in workflow configuration |
+| **URL** | MCP server endpoint |
+| **API key** | Optional bearer token or API key, encrypted at rest |
+
+After registration, select the server from an [MCP node](/tools/agents-protocols#mcp). Editing a server without entering a new key preserves its existing credential. Removing a server requires workflows that reference it to be reconfigured.

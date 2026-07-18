@@ -5,11 +5,7 @@ description: 'Integrate Innflow into your applications'
 
 ## Overview
 
-The Innflow API allows you to programmatically manage workflows and monitor executions.
-
-<Note>
-  API documentation is coming soon. Contact support@innflow.ai for early access.
-</Note>
+The Innflow public API manages workspaces, workflow definitions, deployment state, and executions. It is also the API used by the [Innflow CLI](/api-reference/cli).
 
 ## Authentication
 
@@ -17,35 +13,59 @@ All API requests require an API key in the `Authorization` header. Innflow API k
 
 ```bash
 curl -H "Authorization: Bearer inf_sk_..." \
-  https://api.innflow.ai/v1/workflows
+  https://app.innflow.ai/api/v1/workflows
 ```
 
 ## Base URL
 
 ```
-https://api.innflow.ai/v1
+https://app.innflow.ai/api/v1
 ```
 
-## Rate Limits
+The machine-readable OpenAPI 3.1 document is available at:
 
-API keys allow up to **60 requests per minute** by default.
+```txt
+https://app.innflow.ai/api/v1/openapi.json
+```
+
+## Workspace selection
+
+Requests default to the personal workspace. Pass an organization ID in `X-Innflow-Workspace` to operate in another accessible workspace:
+
+```bash
+-H "X-Innflow-Workspace: org_123"
+```
+
+Read-only workspace members cannot use write endpoints.
+
+## Idempotent writes
+
+Create, import, duplicate, deploy, undeploy, and execute requests support an `Idempotency-Key` header. Repeating the same request with the same key replays the saved response for 24 hours; reusing a key with a different request returns a conflict.
 
 ## Endpoints
 
-Available API groups:
-
-- **Workflows** — List, create, update, delete, import, duplicate, deploy, undeploy, and execute workflows
-- **Executions** — List executions and fetch execution details, output, and node logs
-- **Portal events** — Receive portal event payloads for external surfaces
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| `GET` | `/workspaces` | List accessible workspaces |
+| `GET`, `POST` | `/workflows` | List or create workflows |
+| `POST` | `/workflows/import` | Import a workflow graph |
+| `GET`, `PATCH`, `DELETE` | `/workflows/{workflowId}` | Read, update, or delete one workflow |
+| `POST` | `/workflows/{workflowId}/duplicate` | Duplicate a workflow |
+| `POST` | `/workflows/{workflowId}/deploy` | Deploy a workflow |
+| `POST` | `/workflows/{workflowId}/undeploy` | Return a workflow to draft state |
+| `POST` | `/workflows/{workflowId}/execute` | Start a deployed workflow |
+| `GET` | `/executions` | List executions |
+| `GET` | `/executions/{executionId}` | Read execution details and node logs |
 
 ## Execute a Workflow
 
 Workflows must be deployed before they can be executed through the API.
 
 ```bash
-curl -X POST https://api.innflow.ai/v1/workflows/{workflowId}/execute \
+curl -X POST https://app.innflow.ai/api/v1/workflows/{workflowId}/execute \
   -H "Authorization: Bearer inf_sk_..." \
   -H "Content-Type: application/json" \
+  -H "Idempotency-Key: run-customer-onboarding-123" \
   -d '{
     "input": {
       "email": "customer@example.com",
@@ -55,3 +75,7 @@ curl -X POST https://api.innflow.ai/v1/workflows/{workflowId}/execute \
 ```
 
 The response includes the workflow ID, event IDs, and a `triggered` status.
+
+## Errors and request IDs
+
+JSON errors include a human-readable `error`, an optional machine-readable `code`, and a `requestId`. Responses also include `X-Request-Id`; provide it to support when investigating a failed request.
