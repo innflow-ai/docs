@@ -8,5 +8,3 @@ output/
 .env
 .env.*
 !.env.example
-.vercel
-.env*

@@ -46,6 +46,8 @@ The unprivileged Nginx container serves the site on `127.0.0.1:8080`. Put the se
 
 Production remains on Mintlify until the hostname is explicitly switched.
 
+The replacement is deployed at https://innflow-docs.vercel.app from branch `docs/self-hosted` (migration PR #6). GitHub build checks pass. The current cutover blocker is that `docs.innflow.ai` is assigned to Mintlify's Vercel project; release that custom domain in Mintlify before attaching it to the new `flowlabs-inc/innflow-docs` project. Keep the migration PR unmerged while the original Mintlify site is serving the domain.
+
 ## Structure
 
 - `src/content/docs/` contains the MDX documentation.
