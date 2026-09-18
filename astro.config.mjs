@@ -3,7 +3,7 @@ import starlight from '@astrojs/starlight';
 import { readFileSync } from 'node:fs';
 
 const navigation = JSON.parse(readFileSync(new URL('./navigation.json', import.meta.url), 'utf8'));
-const editBranch = process.env.VERCEL_GIT_COMMIT_REF || 'docs/self-hosted';
+const editBranch = process.env.VERCEL_GIT_COMMIT_REF || 'main';
 
 export default defineConfig({
   site: process.env.SITE_URL || 'https://docs.innflow.ai',

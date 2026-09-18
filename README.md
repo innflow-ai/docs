@@ -36,17 +36,13 @@ docker compose up -d --build
 
 The unprivileged Nginx container serves the site on `127.0.0.1:8080`. Put the server's HTTPS reverse proxy in front of that address. It must preserve directory routes and return the provided 404 page with HTTP 404 for unknown paths.
 
-### Move the live domain from Mintlify
+### Production deployment
 
-1. Deploy this migration branch to the chosen host and verify its preview, search, mobile navigation, and representative deep links.
-2. Configure `docs.innflow.ai` on that host and follow its DNS/TLS instructions.
-3. Switch DNS, then verify the public hostname and its old page URLs.
-4. Disable Mintlify's repository integration and merge the migration branch. Keep the previous service available until the domain has been verified.
-5. Cancel Mintlify only after the replacement is healthy.
+https://docs.innflow.ai is served by the `flowlabs-inc/innflow-docs` Vercel project. GitHub pushes to `main` publish production; pull requests receive previews. Edit `src/content/docs/`, open a pull request, and merge after the build checks pass.
 
-Production remains on Mintlify until the hostname is explicitly switched.
+The custom domain was released from Mintlify on 2026-09-18 and its CNAME now points to `bbc5a1816ac40fb3.vercel-dns-016.com.`. The alternate address is https://innflow-docs.vercel.app.
 
-The replacement is deployed at https://innflow-docs.vercel.app from branch `docs/self-hosted` (migration PR #6). GitHub build checks pass. The current cutover blocker is that `docs.innflow.ai` is assigned to Mintlify's Vercel project; release that custom domain in Mintlify before attaching it to the new `flowlabs-inc/innflow-docs` project. Keep the migration PR unmerged while the original Mintlify site is serving the domain.
+The previous Mintlify source is preserved on `archive/mintlify` at commit `4afb04a83863782c328882501e15654dc56ff338`. Mintlify tracks that archive branch instead of main. Its account and subscription were not deleted or cancelled. Rolling back the hostname requires releasing it from this Vercel project, attaching it in Mintlify, and restoring Mintlify's DNS target; changing DNS alone is insufficient.
 
 ## Structure
 

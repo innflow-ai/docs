@@ -9,4 +9,4 @@ Reviewed against `innflow-ai/innflow` origin/main commit `7c55d9e58e9927b9f728a7
 - Removed obsolete Basic plan sizes and associated seat counts. Current entitlement limits are in `src/features/subscriptions/lib/subscription-limits.ts`.
 - Free allowance discrepancy remains unresolved: latest origin/main specifies 500 credits, while the public pricing page advertises 1,200. Docs refer readers to their account allowance instead of choosing an unverified live value. Removed the old $5 and 400-credit claims.
 
-This is a focused review, not an accuracy audit of all documentation. Domain cutover remains blocked by Mintlify's assignment; the migration PR must stay unmerged until the old integration can be retired safely.
+This is a focused review, not an accuracy audit of all documentation. The custom domain was transferred to the replacement on 2026-09-18; Mintlify now tracks the preserved archive/mintlify branch.
