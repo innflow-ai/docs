@@ -1,0 +1,5 @@
+---
+interface Props { cols?: number }
+const { cols = 2 } = Astro.props;
+---
+<div class="doc-columns" style={`--columns: ${cols}`}><slot /></div>
