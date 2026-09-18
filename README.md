@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:4321. Edit pages in `src/content/docs/` and sidebar groups in `navigation.json`. The original 37 MDX pages retain their public paths. The homepage is `/`, with `/index` redirected there. Product prose was migrated unchanged; product accuracy still needs editorial review.
+Open http://localhost:4321. Edit pages in `src/content/docs/` and sidebar groups in `navigation.json`. The original 37 MDX pages retain their public paths. The homepage is `/`, with `/index` redirected there. The initial migration preserved product prose; subsequent content reviews are recorded in `CONTENT-REVIEW.md`.
 
 Validate and preview the production build:
 

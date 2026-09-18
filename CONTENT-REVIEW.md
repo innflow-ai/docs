@@ -1,0 +1,12 @@
+# Content review
+
+## 2026-09-18: signup and billing
+
+Reviewed against `innflow-ai/innflow` origin/main commit `7c55d9e58e9927b9f728a7bdf18054a6a007d7b4` and the public https://innflow.ai/pricing page.
+
+- `src/features/auth/components/register-form.tsx` and `auth-primitives.tsx`: signup uses email verification codes and Google; removed the GitHub signup claim and linked directly to `/signup`.
+- `src/config/pricing-tiers.ts`: current paid plans are Pro ($19.99/month, 10,000 credits) and Business ($199.99/month, 140,000 credits). Annual commitments are billed monthly at $16.99/$169.99. The public pricing page agrees.
+- Removed obsolete Basic plan sizes and associated seat counts. Current entitlement limits are in `src/features/subscriptions/lib/subscription-limits.ts`.
+- Free allowance discrepancy remains unresolved: latest origin/main specifies 500 credits, while the public pricing page advertises 1,200. Docs refer readers to their account allowance instead of choosing an unverified live value. Removed the old $5 and 400-credit claims.
+
+This is a focused review, not an accuracy audit of all documentation. Domain cutover remains blocked by Mintlify's assignment; the migration PR must stay unmerged until the old integration can be retired safely.
