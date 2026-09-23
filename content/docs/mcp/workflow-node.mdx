@@ -1,0 +1,37 @@
+---
+title: "Use MCP inside a workflow"
+description: "Register a remote server and choose how a workflow uses its capabilities."
+---
+
+## Register the connection
+
+Open **Settings → MCP Servers** and add a server with a name and public HTTPS URL. The current settings form supports an optional API key/bearer credential. The node uses a saved server connection rather than an arbitrary URL typed into each step.
+
+A shared server definition requires an active workspace and workspace-admin permissions. User connection credentials are stored separately from that shared definition; another member's connection does not grant your account access.
+
+## Choose an operation
+
+Add an **MCP** node and select its **MCP Server**.
+
+| Mode | Configuration |
+| --- | --- |
+| **Agentic** | Select a tool-capable model, provide instructions, and configure available tools and step limits |
+| **Call Tool** | Select a discovered tool and map its input fields |
+| **Read Resource** | Select or provide a resource URI supported by the server |
+| **Get Prompt** | Select a prompt and provide its arguments |
+
+Only use a capability if the remote server advertises it. Input variables can refer to outputs from earlier nodes.
+
+## Agentic tool permissions
+
+By default, agentic execution includes only tools explicitly annotated as read-only. Enabling write tools expands what the model may call. Review the discovered tools and their effects before doing so.
+
+## Read the result
+
+Agentic output includes the generated text and tool activity. A direct tool call exposes its result. Inspect a test execution and select the actual output using the variable picker rather than assuming every server returns the same shape.
+
+## Connection limitations
+
+Innflow's workflow client uses Streamable HTTP with public HTTPS validation. A local stdio command or a private-network URL is not interchangeable with a remote HTTPS connection. The user-facing settings form currently exposes bearer connection fields; do not assume every third-party OAuth flow can be completed through that form.
+
+See [troubleshooting](/mcp/troubleshooting) for expired connections and discovery failures.

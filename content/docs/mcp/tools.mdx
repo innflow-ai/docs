@@ -1,0 +1,59 @@
+---
+title: "Tool reference"
+description: "Workflow operations, execution inspection, and optional authoring tools."
+---
+
+## Core product tools
+
+| Tool | Purpose | Scope |
+| --- | --- | --- |
+| `innflow_list_workflows` | Search and paginate accessible workflows | `mcp:read` |
+| `innflow_get_workflow` | Inspect summary, full graph, or selected node configurations | `mcp:read` |
+| `innflow_run_workflow` | Execute a deployed workflow | `mcp:execute` |
+| `innflow_deploy_workflow` | Activate a workflow and its triggers | `mcp:manage` |
+| `innflow_undeploy_workflow` | Stop new triggers; does not cancel existing runs | `mcp:manage` |
+| `innflow_list_executions` | List workflow runs | `mcp:read` |
+| `innflow_get_execution` | Inspect execution status and result | `mcp:read` |
+| `innflow_get_execution_logs` | Read paginated node log metadata | `mcp:read` |
+| `innflow_get_execution_payload` | Retrieve input/output evidence for a log | `mcp:read` |
+| `innflow_get_operation` | Follow an asynchronous operation | `mcp:read` |
+
+Discover tools from the connected server to obtain the actual input schemas for that deployment. Start with summaries when polling, then retrieve logs and payloads as needed.
+
+## Example: find and inspect a workflow
+
+Call `innflow_list_workflows` with a search term:
+
+```json
+{
+  "search": "Support triage",
+  "page": 1,
+  "pageSize": 20
+}
+```
+
+Use an ID returned by that call with `innflow_get_workflow`. Select `view: "full"` when you need the graph; retain its revision before editing or deploying.
+
+## Writes and retries
+
+Run and deployment calls accept an `idempotencyKey`. Use a new key for a new intended action and reuse it only when retrying that same action. Preserve it when the outcome is uncertain.
+
+For a workflow with multiple eligible entry points, supply the intended `triggerNodeId` when running it. An accepted run is not a completed run: follow its `executionId`. A pending deployment operation must be followed with `innflow_get_operation`.
+
+## Authoring preview
+
+<Callout title="Gated preview">The following tools require <code>MCP_ENABLE_AUTHORING=true</code> on the MCP service and compatible application. Authoring is not assumed to be enabled on the hosted service.</Callout>
+
+| Tool | Purpose |
+| --- | --- |
+| `innflow_get_context` | Inspect workspace authoring context |
+| `innflow_search_node_types` | Find available node definitions |
+| `innflow_get_node_schema` | Read a node's configuration schema |
+| `innflow_list_connections` | Find accessible connections |
+| `innflow_list_node_options` | Resolve dynamic configuration options |
+| `innflow_create_workflow` | Create an empty draft |
+| `innflow_patch_workflow` | Apply graph changes |
+| `innflow_configure_trigger` | Configure a workflow entry point |
+| `innflow_validate_workflow` | Check the workflow before deployment |
+
+Creating or patching a draft does not deploy or execute it. Validation, deployment, and execution are separate operations.

@@ -1,0 +1,70 @@
+---
+title: "Variables"
+description: "Pass data dynamically between nodes using template variables"
+---
+
+## Template Variables
+
+Variables let you pass data from one node to another using double-curly-brace template paths. The exact path depends on the node name and its output schema; use the variable picker and inspect a test run instead of guessing an `output` prefix.
+
+## Basic Syntax
+
+Reference any value by wrapping its path in double curly braces:
+
+```
+{{nodeName.output.fieldName}}
+```
+
+## Common Patterns
+
+### Trigger Data
+
+```
+{{inputTrigger.name}}
+{{webhookTrigger.body.email}}
+{{chatTrigger.message}}
+```
+
+### Node Output
+
+```
+{{gemini_response.output.text}}
+{{search_results.output.results}}
+{{http_response.output.data}}
+```
+
+### Nested Properties
+
+Use dot notation to access nested values:
+
+```
+{{airtable.output.record.fields.Name}}
+{{gmail.output.messages[0].subject}}
+```
+
+## Variable Picker
+
+Every text field in the node configuration panel includes a **variable picker**. Click the `{ }` button to open it. The picker shows:
+
+- All upstream nodes and their output fields
+- Trigger data fields
+- [Environment variables](/features/environment-variables)
+
+Select a variable to insert it at your cursor position.
+
+## Variable Names
+
+Each node has a configurable **variable name** that determines how downstream nodes reference its output. Choose descriptive names to keep your workflows readable:
+
+- ✅ `customer_email` → `{{customer_email.output.text}}`
+- ❌ `node_7` → `{{node_7.output.text}}`
+
+## Type Handling
+
+Variables are automatically converted to strings when used in text fields. For nodes that expect specific types (numbers, arrays, objects), the raw value is passed through without conversion.
+
+## Best Practices
+
+- **Use descriptive variable names** — Makes your workflow self documenting
+- **Check for existence** — Some outputs may be undefined if a previous node was skipped
+- **Keep paths simple** — If you need deeply nested data, use a Code or Transform Array node to extract it first

@@ -1,0 +1,17 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "---Get started---",
+    "index",
+    "quickstart",
+    "---Build---",
+    "essentials",
+    "triggers",
+    "tools",
+    "---Workspace---",
+    "features",
+    "academy",
+    "api-reference",
+    "mcp"
+  ]
+}

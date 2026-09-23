@@ -1,0 +1,52 @@
+---
+title: "Server configuration"
+description: "Configure a self-hosted Innflow MCP service for product API access."
+---
+
+This page is for operators running the Innflow MCP service. If you only want to connect an AI client, use [Connect an MCP client](/mcp/connection).
+
+## Product mode
+
+```dotenv
+NODE_ENV=production
+MCP_ENABLE_API_TOOLS=true
+MCP_ENABLE_DB_TOOLS=false
+MCP_REQUIRE_AUTH=true
+INNFLOW_API_URL=https://app.innflow.ai
+MCP_OAUTH_ISSUER=https://app.innflow.ai
+MCP_OAUTH_JWKS_URL=https://app.innflow.ai/api/auth/jwks
+MCP_RESOURCE_URL=https://mcp.innflow.ai/mcp
+MCP_ENABLE_AUTHORING=false
+```
+
+Set `MCP_SERVICE_PRIVATE_KEY` separately in the server's secret environment. It must be a PKCS8 Ed25519 private key provisioned for the application's service-assertion trust configuration. The MCP service uses short-lived assertions for Product API requests; a URL configuration alone is not sufficient to establish that trust.
+
+Replace the example URLs together when using another deployment. The OAuth issuer, JWKS endpoint, and resource identifier must agree with the issuing application and client authorization flow.
+
+## Settings
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `PORT` | `3001` | HTTP listener port |
+| `MCP_ENABLE_API_TOOLS` | `true` | Register product tools |
+| `MCP_ENABLE_DB_TOOLS` | `false` in production | Local/admin database tools; rejected in production |
+| `MCP_ENABLE_AUTHORING` | `false` | Register optional authoring tools; app must also enable them |
+| `MCP_API_READ_TIMEOUT_MS` | `15000` | Product API read deadline |
+| `MCP_API_WRITE_TIMEOUT_MS` | `30000` | Product API write deadline |
+| `MCP_MAX_RESPONSE_BYTES` | `2000000` | Response size bound |
+| `MCP_MAX_CONCURRENT_REQUESTS` | `50` | Concurrent request limit |
+
+Deadline, byte-limit, and concurrency settings must be positive safe integers.
+
+## Health and discovery endpoints
+
+- `/health`: service identity and configured tool mode.
+- `/ready`: whether the process is accepting new work; returns 503 while draining.
+- `/.well-known/oauth-protected-resource/mcp`: resource, authorization server, and supported scope metadata.
+- `/mcp`: Streamable HTTP MCP endpoint.
+
+Health and readiness are process checks. Verify authenticated tool discovery and an authorized read before treating the connection as working.
+
+## Database tools
+
+The separate internal database mode exposes read-only inspection tools. It is not part of the public product setup and the server rejects it in production. Keep `MCP_ENABLE_DB_TOOLS=false` for production product access.

@@ -1,0 +1,35 @@
+---
+title: "Inspect and troubleshoot runs"
+description: "Follow the data through a workflow to find the first failing step."
+---
+
+<LearningGoals>
+- Distinguish a saved workflow from an execution.
+- Use node inputs and outputs to diagnose a problem.
+</LearningGoals>
+
+## A run is a record of what happened
+
+Editing a workflow changes its definition. Running it creates an execution. When the result is unexpected, inspect the execution instead of assuming the current editor shows exactly what ran.
+
+## Work from the first unexpected result
+
+1. Find the execution and its status.
+2. Identify the first node that failed or returned unexpected data.
+3. Check its input, selected credentials, and configuration.
+4. Compare its output with what the next node expects.
+5. Retest with a small input after correcting the issue.
+
+A missing downstream output can mean that the path was not selected. It does not always mean that node failed.
+
+## Before running again
+
+A workflow can create real side effects, such as sending a message or adding a record. Inspect which actions already completed before repeating the entire run.
+
+## Try it
+
+Remove a required value from a test workflow. Run it, locate the failure, restore the value, and verify a new execution succeeds.
+
+## Go deeper
+
+Read [executions and inbox](/features/executions-inbox).

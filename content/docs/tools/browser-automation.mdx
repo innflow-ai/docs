@@ -1,0 +1,95 @@
+---
+title: "Browser Automation"
+description: "Run interactive, multi-step browser tasks with Browser Agent"
+---
+
+The **Browser Agent** node opens a real cloud browser, navigates to a public website, and uses [Stagehand](https://www.stagehand.dev/) to complete a task written in plain language. Browser sessions run on [Browserbase](https://www.browserbase.com/) and return a session link for replay and debugging.
+
+Use Browser Agent when a workflow needs to interact with a website—for example, navigating between pages, clicking controls, or collecting information after several steps. For simple read-only page extraction, use [Firecrawl](/tools/search-data#firecrawl) instead.
+
+<Callout type="info">
+  Browser Agent is a premium node. Innflow manages the Browserbase connection, so you do not need to add a Browserbase credential or project ID to your workspace.
+</Callout>
+
+## Configure the node
+
+| Field | Description |
+| --- | --- |
+| **Variable name** | Name used to reference the browser result in later nodes. Defaults to `browserResult`. |
+| **Starting URL** | Public HTTP or HTTPS page where the browser should begin. Supports template variables. |
+| **Task** | One clear instruction for the browser agent. Supports template variables. |
+| **Max steps** | Maximum number of browser-agent actions before the run stops, from 1 to 20. Defaults to 20. |
+
+Keep the task specific and describe the completion condition. For example:
+
+```txt
+Open the pricing page, find the Pro plan, and return its monthly price.
+```
+
+You can make the URL or task dynamic with values from earlier nodes:
+
+```txt
+Find the support policy for {{company.output.productName}} and summarize the return window.
+```
+
+## What happens during a run
+
+<Steps>
+  <Step title="Innflow starts a browser session">
+    The node creates a fresh Browserbase session for this execution.
+  </Step>
+  <Step title="The browser opens the starting URL">
+    The URL must be publicly reachable and use HTTP or HTTPS.
+  </Step>
+  <Step title="Stagehand completes the task">
+    The agent can navigate and interact with the site until it completes the instruction or reaches the configured step limit.
+  </Step>
+  <Step title="Innflow stores the result">
+    The node returns the task result, provider and usage details, and the complete Browserbase session URL. The browser session is then closed.
+  </Step>
+</Steps>
+
+## Output
+
+The Browser Agent result includes:
+
+| Field | Description |
+| --- | --- |
+| `success` | Whether Stagehand reported a successful run. |
+| `completed` | Whether the agent completed the instruction. |
+| `message` | The agent's final result or explanation. |
+| `actionsTaken` | Number of browser actions performed. |
+| `finalUrl` | Page URL open when the task finished. |
+| `sessionId` | Browserbase session identifier. |
+| `sessionUrl` | Complete Browserbase session and replay URL. |
+| `providers` | Browserbase, Stagehand, and model attribution. |
+| `usage` | Browser session duration plus Stagehand action, token, cache, and inference usage. |
+
+Use the variable picker to insert any of these fields into a downstream node. With the default variable name, the final response is available as `{{browserResult.message}}` and the replay link as `{{browserResult.sessionUrl}}`.
+
+## Sessions and replay
+
+Every node execution uses a fresh browser session. Open the returned `sessionUrl` to inspect the run in Browserbase. Innflow currently returns this link in the node output; replay and browser logs are not yet embedded in Innflow's execution details.
+
+## Security and limits
+
+- Starting URLs must use HTTP or HTTPS.
+- Localhost, private network addresses, and internal hostnames are rejected.
+- The session closes after the node finishes or fails.
+- A single run can perform at most 20 agent actions.
+- Browser Agent does not currently reuse saved logins or browser sessions between executions.
+- Proxies, Verified sessions, and manual live-browser handoff are not currently configurable from this node.
+
+<Callout type="warning">
+  Avoid asking the browser to submit destructive or irreversible actions unless the workflow includes an explicit review step. A site can also change its interface or block automation, so test important workflows against the pages they will use.
+</Callout>
+
+## Troubleshooting
+
+| Problem | What to check |
+| --- | --- |
+| **Starting URL is rejected** | Confirm it is a public `http://` or `https://` URL and not a local or private network address. |
+| **The task reaches the step limit** | Make the task more focused, start closer to the target page, or raise **Max steps** up to 20. |
+| **The site blocks the browser** | The target may require anti-bot features that are not configurable in the current node. Try a less protected source or a read-only data integration. |
+| **The run fails after opening a session** | Open the complete session URL included in the error or node output to inspect the replay. |
+| **A quota error appears** | The Browserbase or model usage allowance may be exhausted. Contact your workspace administrator or Innflow support. |

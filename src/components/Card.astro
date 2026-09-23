@@ -1,9 +1,0 @@
----
-interface Props { title: string; href?: string; icon?: string; horizontal?: boolean }
-const { title, href } = Astro.props;
-const Tag = href ? 'a' : 'div';
----
-<Tag href={href} class="doc-card">
-  <strong>{title}<span aria-hidden="true">{href ? '↗' : ''}</span></strong>
-  <div><slot /></div>
-</Tag>

@@ -1,0 +1,32 @@
+---
+title: "Files"
+description: "Store, organize, edit, and reuse workspace files"
+---
+
+Files gives each workspace a shared place for documents and assets used by people, workflows, Copilot, and the Assistant.
+
+## Organize files
+
+From **Workspace → Files**, you can:
+
+- Create folders
+- Create Markdown files
+- Upload files from your device
+- Rename files and folders
+- Download stored files
+- Delete files or entire folders
+- Search and browse within the current folder
+
+Binary files can be stored and downloaded. Text, Markdown, and JSON content can also be opened in the built-in editor.
+
+## Use files as AI context
+
+Attach a workspace file to Home or Copilot when its contents should inform a request. Files can also be linked as persistent context for the [Assistant](/features/assistant).
+
+<Callout type="info">
+  A file attached to one prompt is temporary conversation context. A file linked to the Assistant remains available across Assistant conversations until it is removed.
+</Callout>
+
+## Security
+
+Files are scoped to the active workspace. Upload and download requests pass through authenticated Innflow routes; do not place credentials or secrets in a file when a workspace [secret](/features/environment-variables) is more appropriate.

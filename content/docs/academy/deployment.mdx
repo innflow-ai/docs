@@ -1,0 +1,29 @@
+---
+title: "Put a workflow into use"
+description: "Move from an editor test to the trigger your process actually needs."
+---
+
+<LearningGoals>
+- Choose a trigger for the real process.
+- Verify the deployed workflow with one controlled event.
+</LearningGoals>
+
+## Choose how work arrives
+
+A Manual trigger is useful for testing. A webhook can receive an event from another system, a schedule can start recurring work, and a form can collect structured input. Use the trigger reference to check configuration for your chosen entry point.
+
+## Review before deployment
+
+Check required fields, selected credentials, branch destinations, and sample outputs. Confirm that any messages or writes go to the intended destination. Deploy the workflow when the test matches the process you want to automate.
+
+## Trigger availability
+
+Workflows start from a configured trigger. Before adding another trigger to a legacy workflow, use **Triggers → Enable independent triggers** and follow the conversion review. The capability must also be enabled in the environment. If the menu is missing or the action is unavailable, contact support or your administrator. See [adding another trigger](/triggers#adding-another-trigger) for the conversion steps and the exact error message.
+
+## Try it
+
+Deploy a small test workflow with your selected trigger, send one controlled event, and verify the resulting execution. If the trigger does not start a run, check deployment state and the trigger's own setup.
+
+## Go deeper
+
+Read the [trigger reference](/triggers) and [scheduled tasks](/features/scheduled-tasks).

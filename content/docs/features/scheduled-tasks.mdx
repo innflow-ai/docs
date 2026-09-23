@@ -1,0 +1,40 @@
+---
+title: "Scheduled Tasks"
+description: "Create and manage one-time or recurring workflow schedules on a calendar"
+---
+
+Scheduled Tasks is a calendar for work created from prompts and schedules attached to workflows.
+
+## Create scheduled work
+
+<Steps>
+  <Step title="Open Scheduled Tasks">
+    Go to **Workspace → Scheduled Tasks**.
+  </Step>
+  <Step title="Describe the task">
+    Enter a prompt describing the workflow Innflow should draft. App mentions can be included in the prompt.
+  </Step>
+  <Step title="Choose when it runs">
+    Select a one-time date, daily schedule, or weekly schedule and choose the run time.
+  </Step>
+  <Step title="Review the workflow">
+    Innflow drafts the scheduled workflow in **Needs review**. Open it, confirm its nodes and connections, and deploy it to activate the schedule.
+  </Step>
+</Steps>
+
+## Calendar controls
+
+The calendar combines prompt-created scheduled tasks and workflow schedules. From an event you can:
+
+- Activate, pause, or resume a scheduled task
+- Run a scheduled task immediately
+- Reschedule a one-time task
+- Change an entire recurring series
+- Switch a recurring series between daily, weekly, or custom cron timing
+- Delete the schedule
+
+All times are stored with the schedule's timezone. Changing a recurring event updates the full series rather than only one occurrence.
+
+## Schedule Trigger
+
+Use the [Schedule Trigger](/triggers#schedule-trigger) when you are building the workflow directly in the editor. Use Scheduled Tasks when you want Innflow to draft scheduled work from a prompt and manage it from a calendar.

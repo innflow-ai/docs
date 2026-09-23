@@ -1,0 +1,30 @@
+---
+title: "Route incoming requests"
+description: "Combine intake, rules, table records, and notifications."
+---
+
+<LearningGoals>
+- Turn a request into a structured record.
+- Route complete and incomplete inputs separately.
+</LearningGoals>
+
+## The process
+
+Use a Form or Webhook trigger to receive a request. Keep the first version simple: request text, a contact address, and a request identifier.
+
+1. Check required values with a Condition node.
+2. Add complete requests to a workspace table.
+3. Connect a communication action to notify the intended team.
+4. Give incomplete requests a separate path for review.
+
+## Add AI only where it helps
+
+A summarization step can make a long request easier to scan. Preserve the original text and use explicit rules for required fields. If you introduce classification, test ambiguous requests and define a review path.
+
+## Validate the result
+
+Test a complete request, one with a missing contact address, and a duplicate event. Confirm the correct branch runs and check for duplicate records or notifications.
+
+## Related lessons
+
+[Branching](/academy/branching) · [Tables](/academy/tables) · [Integrations](/academy/integrations)

@@ -1,54 +1,57 @@
-# Innflow Docs
+# Innflow Docs and Academy
 
-Innflow's documentation, built with Astro and Starlight. The site produces static HTML, CSS, JavaScript, fonts, and a Pagefind search index. It runs without a Mintlify subscription or a hosted search service.
+Self-hostable documentation built with Next.js, Fumadocs, and MDX. No Mintlify account, database, paid search service, or API key is needed to run it.
 
-## Local Development
+## Develop
 
-Use Node.js 24 LTS and npm:
-
-```bash
+```sh
 npm ci
 npm run dev
 ```
 
-Open http://localhost:4321. Edit pages in `src/content/docs/` and sidebar groups in `navigation.json`. The original 37 MDX pages retain their public paths. The homepage is `/`, with `/index` redirected there. The initial migration preserved product prose; subsequent content reviews are recorded in `CONTENT-REVIEW.md`.
+Open http://localhost:3000/academy for the Academy, `/` for documentation, or `/api-reference/introduction` for the API reference.
 
-Validate and preview the production build:
+## Verify and run
 
-```bash
-npm run check
+```sh
+npm run types:check
 npm run build
-npm run verify
-npm run preview
+npm start
 ```
 
-`verify` checks every content page, navigation entry, local asset/link, search index, and the 404 output. GitHub Actions builds and uploads `dist/` on pull requests and pushes to main.
+`npm start` serves the production build. Set `PORT` as needed. Set `SITE_URL` at build time for canonical URLs, the sitemap, and robots.txt; it defaults to https://docs.innflow.ai. Any host that runs a supported Node.js version and Next.js can serve this application. Search runs locally using Fumadocs/Orama. No external search account is required.
+
+## Content
+
+- `content/docs/mcp/`: MCP connection, tool, workflow-node, operator configuration, and troubleshooting reference.
+- `content/docs/academy/`: 15 original lessons and exercises, grouped by workflows, AI, workspace resources, and use cases.
+- `content/docs/`: all 37 former Mintlify pages at their original public routes, plus the new AI Decision reference.
+- `meta.json` files control navigation order and section roots.
+- `components/mdx.tsx` provides MDX components, including compatibility for existing cards, steps, columns, and callouts.
+- `public/` contains served logos, images, and favicon.
+- `docs.json` is the previous Mintlify configuration retained as a migration reference; Fumadocs uses the content metadata instead.
+- `/api/search`, `/sitemap.xml`, `/robots.txt`, and `/llms.txt` are generated from the same content source.
+
+Add an MDX page with `title` and `description` frontmatter, then add its filename (without extension) to its folder's `meta.json`. Check links and run the build before publishing. The Academy is written instruction; no video course is claimed or embedded.
+
+## Content accuracy
+
+The Academy is newly written and selected behavior was checked against the application source. The migrated reference pages are preserved content, not a claim that every old instruction, price, or integration option has been reverified. See `MIGRATION.md` for evidence and the remaining content review.
 
 ## Publishing
 
-Publish `dist/` to a static host. Build command: `npm run build && npm run verify`. Output directory: `dist`. Set `SITE_URL` at build time if the canonical hostname differs from `https://docs.innflow.ai`.
+The existing repository deployment notes identify `flowlabs-inc/innflow-docs` as the Vercel project for `docs.innflow.ai`, with production publishing from `main`. This merge retains that setup and changes its checked-in framework configuration to Next.js. It does not change DNS or deploy anything itself. Confirm the project has no dashboard override still forcing Astro or `dist` before publishing.
+
+The earlier migration recorded the domain cutover on 2026-09-18 and preserved Mintlify on `archive/mintlify`. See `CONTENT-REVIEW.md` for that historical record; this local merge has not reverified live hosting or subscription state.
+
+GitHub Actions runs `npm ci`, `npm run check`, `npm run build`, and `npm run verify`. Verification starts the built standalone server and checks content routes, navigation, local links/assets, search, and the 404 response. Artifacts contain the standalone server, static chunks, and public assets; they are not a static HTML export.
 
 ### Run on your own server
 
-```bash
+```sh
 docker compose up -d --build
 ```
 
-The unprivileged Nginx container serves the site on `127.0.0.1:8080`. Put the server's HTTPS reverse proxy in front of that address. It must preserve directory routes and return the provided 404 page with HTTP 404 for unknown paths.
+The unprivileged Node container runs the standalone Next.js server on `127.0.0.1:8080` through the existing Compose port mapping. Place your HTTPS reverse proxy in front of it. Search requires the server runtime; do not serve this build with the previous static Nginx configuration.
 
-### Production deployment
-
-https://docs.innflow.ai is served by the `flowlabs-inc/innflow-docs` Vercel project. GitHub pushes to `main` publish production; pull requests receive previews. Edit `src/content/docs/`, open a pull request, and merge after the build checks pass.
-
-The custom domain was released from Mintlify on 2026-09-18 and its CNAME now points to `bbc5a1816ac40fb3.vercel-dns-016.com.`. The alternate address is https://innflow-docs.vercel.app.
-
-The previous Mintlify source is preserved on `archive/mintlify` at commit `4afb04a83863782c328882501e15654dc56ff338`. Mintlify tracks that archive branch instead of main. Its account and subscription were not deleted or cancelled. Rolling back the hostname requires releasing it from this Vercel project, attaching it in Mintlify, and restoring Mintlify's DNS target; changing DNS alone is insufficient.
-
-## Structure
-
-- `src/content/docs/` contains the MDX documentation.
-- `navigation.json` controls the sidebar.
-- `src/components/` supports the existing cards, columns, steps, and callouts.
-- `src/styles/brand.css` and `src/assets/` contain brand styles and canonical Innflow logos.
-- `public/` contains images and the favicon.
-- `docs.json` retains the previous Mintlify configuration for migration reference; it does not drive the new site.
+The default `npm start` command also runs the built application from a complete checkout. For a standalone bundle, copy `public/` and `.next/static/` into their corresponding locations under `.next/standalone/`, then run its `server.js`.

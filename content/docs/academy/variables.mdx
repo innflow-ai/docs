@@ -1,0 +1,33 @@
+---
+title: "Pass data between steps"
+description: "Use actual node outputs to configure the next action."
+---
+
+<LearningGoals>
+- Connect an upstream output to a downstream field.
+- Distinguish a template path from a literal value.
+</LearningGoals>
+
+## Start with an output
+
+Run an upstream step with sample data and inspect its result. Then use the variable picker in a downstream field to select the value you want. This avoids guessing output paths or node names.
+
+Template expressions use double curly braces. For example, a Tables node named `tables` can expose rows as:
+
+```text
+{{tables.rows}}
+```
+
+The correct expression depends on the node's actual name and output schema. Not every node adds an `output` level to its result.
+
+## Match the expected type
+
+A field that expects one email address cannot use an entire list of records directly. Select a field from one record, or use a Loop to process the list. Keep JSON objects as structured data when the receiving field expects an object.
+
+## Try it
+
+Read rows from a small test table. Inspect the returned rows and pass a single field into a message action. Check the preview before sending.
+
+## Go deeper
+
+See [variables](/essentials/variables) and [process lists with Loop](/academy/loops).

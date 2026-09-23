@@ -1,6 +1,9 @@
 node_modules
+.next
+.source
 dist
 .astro
 .git
 .env*
 .vercel
+*.tsbuildinfo

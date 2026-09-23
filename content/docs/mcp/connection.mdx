@@ -1,0 +1,41 @@
+---
+title: "Connect an MCP client"
+description: "Use Streamable HTTP and Innflow OAuth to authorize a client."
+---
+
+## Connection values
+
+| Setting | Default value |
+| --- | --- |
+| Transport | Streamable HTTP |
+| Server URL / resource | `https://mcp.innflow.ai/mcp` |
+| Authentication | OAuth bearer access token |
+| Authorization server | `https://app.innflow.ai` |
+| Protected resource metadata | `https://mcp.innflow.ai/.well-known/oauth-protected-resource/mcp` |
+
+These are source defaults, not a requirement to use those hostnames for a self-hosted deployment. A client's configuration file format varies; enter the URL in its remote HTTP MCP connection settings and use its supported OAuth flow.
+
+<Steps>
+<Step title="Add the remote server">Give the connection a recognizable name such as Innflow. Select a remote HTTP connection and enter your deployment's MCP URL.</Step>
+<Step title="Authorize your account">Complete the OAuth sign-in and review the requested permissions. Use the Innflow account and workspace you intend to access.</Step>
+<Step title="Discover the tools">Refresh the client's tool list. Start with <code>innflow_list_workflows</code> to verify read access.</Step>
+<Step title="Inspect before changing anything">Find the intended workflow and inspect its details before asking the client to run or deploy it.</Step>
+</Steps>
+
+## Permission scopes
+
+| Scope | Purpose |
+| --- | --- |
+| `mcp:read` | Read accessible workflows, executions, and related metadata |
+| `mcp:execute` | Execute a deployed workflow |
+| `mcp:manage` | Deploy/undeploy workflows and perform enabled authoring operations |
+
+A connected account does not automatically have every scope. Resource access also remains subject to the user's permissions. Authoring management tools declare both read and manage scopes.
+
+## Keep client and server credentials separate
+
+The MCP service's private signing key belongs only in the server environment. Do not put it in an MCP client configuration or paste it into a conversation. Ordinary clients use OAuth access tokens, not the service signing key or a database credential.
+
+## Verify a connection
+
+Tool discovery and a successful read are useful initial checks. They do not prove write permissions, deployment readiness, or completion of a workflow run. See [troubleshooting](/mcp/troubleshooting) if authorization succeeds but calls fail.

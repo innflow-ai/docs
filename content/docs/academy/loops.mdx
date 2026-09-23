@@ -1,0 +1,27 @@
+---
+title: "Process a list with Loop"
+description: "Run connected steps for each item in an array."
+---
+
+<LearningGoals>
+- Supply an array to a Loop.
+- Choose what happens when an item fails.
+</LearningGoals>
+
+## Configure the items
+
+Loop runs its connected body once for each item in the **Items** array. Use the variable picker to select a list from an earlier step, such as rows from a table query.
+
+## Choose the result and error behavior
+
+The optional **Result** expression is evaluated after each body run. If it is empty, the current item is collected. **If an item fails** lets you continue and collect the error, or stop the loop and fail the workflow.
+
+The advanced **Maximum iterations** setting bounds the work. Its default is 100 and the supported range is 1 to 1,000. Test with a few records before using a large list.
+
+## Try it
+
+Use a three-item list and a body that transforms each item. Inspect the collected results. Then test an invalid item and confirm that your selected error behavior fits the process.
+
+## Go deeper
+
+See [logic and utility nodes](/tools/logic-utility) and [variables](/academy/variables).
