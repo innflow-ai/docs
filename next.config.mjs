@@ -5,6 +5,7 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  output: 'standalone',
   turbopack: { root: process.cwd() },
   async redirects() { return [{ source: '/index', destination: '/', permanent: true }]; },
 };

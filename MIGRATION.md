@@ -48,3 +48,7 @@ These are local checks, not a claim of deployment or a complete content accuracy
 - Six MCP pages checked against `../mcp/src/config.ts`, `src/server.ts`, `src/tools/innflow/{workflows,executions,authoring}.ts`, and application `src/features/mcp-servers/{components/mcp-servers-settings.tsx,server/routers.ts}`, `src/tool-configs/mcp/block.ts`, and `src/features/tools/components/mcp/{mcp-client,executor}.ts`.
 - Current source overrides older MCP skill/README statements: the service has product API tools and gated authoring, and the application settings form currently exposes bearer credentials rather than a general OAuth connection flow.
 - MCP endpoint defaults are documented as configuration values; no live authentication or production enablement claim is made.
+
+## Reconciliation with the Astro migration on main
+
+Merged the independent content edits from `origin/main` into `content/docs/`, including signup and billing corrections. Retained Fumadocs, Academy, MCP reference, independent-trigger guidance, and the current logo. Removed the superseded Astro source/configuration and adapted CI, verification, Vercel configuration, and Docker to the Next.js standalone runtime. Historical hosting and content-review notes from main are preserved; deployment has not been performed by this merge.

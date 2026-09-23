@@ -38,14 +38,20 @@ Add an MDX page with `title` and `description` frontmatter, then add its filenam
 
 The Academy is newly written and selected behavior was checked against the application source. The migrated reference pages are preserved content, not a claim that every old instruction, price, or integration option has been reverified. See `MIGRATION.md` for evidence and the remaining content review.
 
-## Publishing and domain cutover
+## Publishing
 
-This change is local. Before switching the live site:
+The existing repository deployment notes identify `flowlabs-inc/innflow-docs` as the Vercel project for `docs.innflow.ai`, with production publishing from `main`. This merge retains that setup and changes its checked-in framework configuration to Next.js. It does not change DNS or deploy anything itself. Confirm the project has no dashboard override still forcing Astro or `dist` before publishing.
 
-1. Deploy a preview from this project using `npm ci`, `npm run build`, and `npm start` (or a compatible Next.js host).
-2. Check the preview's routes, search, mobile menu, theme, and assets.
-3. Check the existing Git publishing integration before merging: the old Mintlify integration expects root-level MDX files and must be disconnected or reconfigured as part of cutover.
-4. Configure the documentation domain on the chosen host and verify HTTPS before changing DNS.
-5. Switch `docs.innflow.ai`, verify key existing URLs, then retire the old hosting. Keep the previous Git revision and old hosting available for rollback until the new site is verified.
+The earlier migration recorded the domain cutover on 2026-09-18 and preserved Mintlify on `archive/mintlify`. See `CONTENT-REVIEW.md` for that historical record; this local merge has not reverified live hosting or subscription state.
 
-Git-triggered automatic deployment must be configured on the chosen host; this repository does not change DNS or cancel Mintlify.
+GitHub Actions runs `npm ci`, `npm run check`, `npm run build`, and `npm run verify`. Verification starts the built standalone server and checks content routes, navigation, local links/assets, search, and the 404 response. Artifacts contain the standalone server, static chunks, and public assets; they are not a static HTML export.
+
+### Run on your own server
+
+```sh
+docker compose up -d --build
+```
+
+The unprivileged Node container runs the standalone Next.js server on `127.0.0.1:8080` through the existing Compose port mapping. Place your HTTPS reverse proxy in front of it. Search requires the server runtime; do not serve this build with the previous static Nginx configuration.
+
+The default `npm start` command also runs the built application from a complete checkout. For a standalone bundle, copy `public/` and `.next/static/` into their corresponding locations under `.next/standalone/`, then run its `server.js`.

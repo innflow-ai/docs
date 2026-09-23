@@ -6,7 +6,9 @@
     "build": "next build",
     "dev": "next dev",
     "start": "next start",
-    "types:check": "next typegen && tsc --noEmit"
+    "types:check": "next typegen && tsc --noEmit",
+    "check": "npm run types:check",
+    "verify": "node scripts/verify-build.mjs"
   },
   "dependencies": {
     "cn": "^0.3.0",
