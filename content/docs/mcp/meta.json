@@ -1,0 +1,12 @@
+{
+  "title": "MCP Reference",
+  "root": true,
+  "pages": [
+    "index",
+    "connection",
+    "tools",
+    "workflow-node",
+    "server-configuration",
+    "troubleshooting"
+  ]
+}

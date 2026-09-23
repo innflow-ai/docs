@@ -1,0 +1,36 @@
+---
+title: "Troubleshooting"
+description: "Find whether a failure comes from transport, authentication, permissions, or the workflow."
+---
+
+## The client cannot connect
+
+Confirm the URL points to the MCP endpoint, including `/mcp`, and that the client supports Streamable HTTP. For a self-hosted service, check `/ready` and protected-resource metadata. An ordinary browser request to `/mcp` is not a complete MCP connection test.
+
+## Authentication fails
+
+Reconnect through the client's OAuth flow. For a self-hosted deployment, compare the resource URL, issuer, and JWKS settings. Do not substitute an Innflow REST API key or the server signing key for an OAuth access token.
+
+## Reads work but execution or deployment fails
+
+Check the operation's required scope and the user's resource permissions. Running a workflow requires an eligible deployed workflow. Deployment and undeployment use management permissions. Inspect the returned error rather than assuming every failure is an authentication issue.
+
+## Authoring tools are missing
+
+Authoring is disabled by default. It requires a compatible application and MCP server with the authoring gate enabled. Refresh tool discovery after an operator changes the deployment configuration.
+
+## A workflow node cannot find its server
+
+Verify the saved server definition is accessible to the workflow's user and workspace. If the connection has expired, reconnect it. Shared definitions do not share another user's access token.
+
+## Agentic mode has no usable tools
+
+Check whether the server returned any tools, whether your tool filter excluded them, and whether tools advertise `readOnlyHint: true`. Agentic mode excludes write tools by default. Do not enable writes merely to bypass a discovery problem.
+
+## A run or write times out
+
+Inspect the execution or operation before retrying. A timeout does not prove that the remote action did not happen. Retain the original idempotency key when retrying the same intended write, and use a new key only for a new intended action.
+
+## A tool result is too large
+
+Use summaries, pagination, selected nodes, and targeted execution payloads. Retrieve the smallest result needed to diagnose the issue instead of repeatedly requesting a complete graph or all logs.

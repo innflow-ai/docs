@@ -1,0 +1,27 @@
+---
+title: "Choose a path"
+description: "Use conditions to direct different inputs to different actions."
+---
+
+<LearningGoals>
+- Separate exact rules from judgments about text.
+- Test matching and non-matching inputs.
+</LearningGoals>
+
+## Use a rule when the answer is exact
+
+A Condition node branches based on configured conditions. Use rule-based conditions for facts such as a status, a numeric threshold, or the presence of a value. Connect the branch outputs to the actions that should follow.
+
+## Use AI deliberately
+
+The Condition configuration also supports LLM-based evaluation. This can help when a decision depends on the meaning of text, but it needs examples and review. Do not use a model judgment in place of access controls.
+
+AI Decision is a separate capability with availability controls. If it is enabled for your workspace, read its [reference](/tools/ai-decision) before building around its Decided and Needs review outputs.
+
+## Try it
+
+Create a rule that routes a sample record based on its status. Test an input that matches and another that does not. Confirm which connected node actually runs in the execution details.
+
+## Go deeper
+
+See [logic and utility nodes](/tools/logic-utility) and [inspect a run](/academy/executions).

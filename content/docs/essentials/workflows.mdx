@@ -11,7 +11,7 @@ A workflow is an automated sequence of actions that executes when triggered. Wor
 
 Every workflow consists of:
 
-1. **Trigger** — The starting point that initiates execution. Each workflow has exactly one trigger.
+1. **Trigger** — The starting point that initiates execution. Legacy workflows require **Triggers → Enable independent triggers** before another entry point can be added. Multiple-trigger authoring must also be enabled in the environment. See [adding another trigger](/triggers#adding-another-trigger).
 2. **Nodes** — Individual actions or operations (AI generation, sending emails, data lookups, etc.)
 3. **Connections** — Links between nodes that define the execution order
 4. **Context** — Shared data passed between nodes via [template variables](/essentials/variables)
@@ -40,7 +40,7 @@ When a workflow runs:
 2. Each connected node executes in sequence
 3. Output from each node is added to the workflow context
 4. Subsequent nodes can access previous outputs via [variables](/essentials/variables)
-5. Branching nodes (Condition, Router) can split execution into parallel paths
+5. Branching nodes select the connected paths according to their configured rules
 
 ## Workflow States
 

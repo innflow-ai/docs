@@ -1,0 +1,35 @@
+---
+title: "MCP overview"
+description: "Connect an AI client to Innflow, or use external MCP tools inside a workflow."
+---
+
+Innflow supports the Model Context Protocol in two directions. Choose the setup that matches what you want to connect.
+
+<Columns>
+<Card title="Connect to Innflow" href="/mcp/connection">Let an MCP client discover workflows, inspect executions, and perform authorized workflow operations.</Card>
+<Card title="Connect a workflow to an MCP server" href="/mcp/workflow-node">Register a remote server in Innflow and call its tools, read resources, or retrieve prompts.</Card>
+</Columns>
+
+## Innflow's MCP endpoint
+
+The server's configured default resource URL is:
+
+```text
+https://mcp.innflow.ai/mcp
+```
+
+The transport is **Streamable HTTP**. User-facing product tools authenticate with Innflow OAuth. Your deployment may use another hostname; use its configured resource URL.
+
+## What is available
+
+The core product tools cover workflow discovery, execution, deployment, and execution inspection. Workflow authoring is a separate preview controlled by rollout settings on both the server and application. See the [tool reference](/mcp/tools) for the distinction.
+
+<Callout title="Configuration reference">These notes describe the current implementation. Endpoint defaults and implemented tools do not prove that every capability is enabled on a hosted deployment.</Callout>
+
+## Configuration notes
+
+- [Client connection and scopes](/mcp/connection)
+- [Tools and authoring preview](/mcp/tools)
+- [MCP workflow node](/mcp/workflow-node)
+- [Self-hosted server configuration](/mcp/server-configuration)
+- [Troubleshooting](/mcp/troubleshooting)

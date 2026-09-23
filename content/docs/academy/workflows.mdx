@@ -1,0 +1,32 @@
+---
+title: "Build your first workflow"
+description: "Start small: one trigger, one action, and a result you can inspect."
+---
+
+<LearningGoals>
+- Recognize triggers, nodes, and connections.
+- Test a workflow and inspect the output before deploying it.
+</LearningGoals>
+
+## Choose a clear outcome
+
+A good first workflow answers a small question or transforms a sample input. Avoid starting with an automation that writes to several production systems.
+
+<Steps>
+<Step title="Create a workflow">Open Workflows and create a new workflow. Give it a name that describes its outcome.</Step>
+<Step title="Add a starting point">Use a Manual trigger for an initial test. Connect an action node and complete its required fields.</Step>
+<Step title="Run with sample data">Run the workflow from the editor. Open the execution details and inspect the node output.</Step>
+<Step title="Connect the next action">Use the variable picker to pass the first node's result to the next node. Run it again and inspect both steps.</Step>
+</Steps>
+
+## Connections describe execution
+
+A connection tells the workflow which node can run next. The output of a completed node becomes available to downstream steps. A branch or loop changes the path, so test each path your process depends on.
+
+## Try it
+
+Build a Manual trigger connected to an AI node. Ask it to summarize a short sample message. Check whether the actual output matches what the next step needs before connecting an email or messaging action.
+
+## Go deeper
+
+Read the [workflow guide](/essentials/workflows), [node overview](/essentials/nodes), and [AI node reference](/tools/ai).

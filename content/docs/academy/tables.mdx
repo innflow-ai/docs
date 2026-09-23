@@ -1,0 +1,31 @@
+---
+title: "Work with tables"
+description: "Store structured records that workflows can read and update."
+---
+
+<LearningGoals>
+- Choose tables for records with named fields.
+- Use the Tables node to read and change rows.
+</LearningGoals>
+
+## Model the record first
+
+A table is useful for leads, requests, tasks, and other structured records. Give each column a clear purpose. A support queue might contain a request ID, email address, status, and summary.
+
+## Connect a Tables node
+
+The available operations include **Read Table**, **Query Rows**, **Add Row**, **Update Row**, and **Delete Row**. Select the table and configure the fields needed by that operation.
+
+Use Query Rows when you need a matching subset. Use an existing row identifier when updating a particular record. Check the output before treating a write as successful.
+
+## Design for repeated events
+
+If the same event arrives twice, blindly adding a row may create duplicates. Decide how your process identifies an existing record and whether it should update or create one.
+
+## Try it
+
+Create a small test table. Add one row through a workflow, query it, and update its status. Verify the record after each run.
+
+## Go deeper
+
+Read [Tables](/features/tables) and [variables](/academy/variables).

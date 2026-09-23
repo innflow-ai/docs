@@ -1,0 +1,25 @@
+---
+title: "Connect your apps"
+description: "Choose credentials and operations for the services your workflow uses."
+---
+
+<LearningGoals>
+- Understand the difference between a connection and an action.
+- Test a connected service with a small, deliberate operation.
+</LearningGoals>
+
+## A connection supplies access
+
+Credentials connect Innflow to a service account. A node chooses what to do with that access, such as reading a record or sending a message. Use the account intended for the workflow and check the permissions it provides.
+
+## Configure one operation
+
+Select the integration node, choose its operation, and complete required fields. Connect a workspace credential where the node requires one. Output shapes vary between operations, so inspect the actual result before using it downstream.
+
+## Try it
+
+Start with a read operation against a known test record. Once it returns the expected fields, connect those fields to the next step. Test writes with a controlled destination.
+
+## Go deeper
+
+See [integrations](/essentials/integrations), [credentials](/features/credentials), and the nodes grouped by service in Documentation.

@@ -3,7 +3,27 @@ title: "Triggers"
 description: "Every workflow starts with a trigger. Choose the right one for your use case."
 ---
 
-Triggers are the entry point of every workflow. When a trigger fires, the workflow begins executing from that node. Each workflow can have exactly one trigger.
+Triggers are the entry point of every workflow. When a trigger fires, the workflow begins executing from that node. Legacy workflows must enable independent triggers before adding another entry point. Multiple-trigger authoring must also be enabled in the environment.
+
+## Adding another trigger
+
+If adding a second trigger shows this message:
+
+> Enable independent triggers from the Triggers menu before adding another entry point.
+
+Open **Triggers → Enable independent triggers**, when available. Before converting a legacy workflow:
+
+1. Undeploy the workflow and let active runs finish.
+2. Review its entry points in the conversion dialog.
+3. Update callers that could match more than one trigger to identify the intended entry point. Replace workflow-only Stripe and Google Forms callback URLs with the node-specific URLs shown in their settings.
+4. Acknowledge the review and complete the conversion, then add the additional trigger.
+5. Test each entry point before deploying again. Each event starts its selected trigger path rather than all root nodes.
+
+### The Triggers menu is missing or the action is disabled
+
+The same message also appears when multiple-trigger authoring is disabled for the environment. In that case, the menu may be hidden for a legacy workflow, or its conversion action may be unavailable. Contact your workspace administrator or support; repeatedly adding the node will not enable the capability. Editing restrictions can also disable the conversion action.
+
+For self-hosted operators, the editor checks `NEXT_PUBLIC_MULTI_TRIGGER_ENABLED=true` as well as the workflow's independent-trigger execution version. Changing only the workflow or only the environment does not satisfy both checks. Coordinate rollout with the compatible backend and worker configuration.
 
 ## Manual Trigger
 

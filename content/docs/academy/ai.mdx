@@ -1,0 +1,31 @@
+---
+title: "Add AI to a workflow"
+description: "Give an AI step a bounded job with a result you can check."
+---
+
+<LearningGoals>
+- Provide relevant input and a clear output requirement.
+- Separate text generation from exact business rules.
+</LearningGoals>
+
+## Define one job
+
+AI can summarize, extract, and transform text within a workflow. Select an available AI node, configure its model and credentials as required, and provide the input through a variable.
+
+A useful instruction is specific: summarize the supplied message in two sentences, preserve dates, and say when information is missing. Keep instructions separate from the content being processed.
+
+## Check the output contract
+
+If the next step needs a category or a JSON object, configure and test that output explicitly. Do not assume generated text always matches a schema. Include examples with missing or ambiguous information.
+
+## Keep deterministic work deterministic
+
+Use ordinary rules for exact comparisons and known thresholds. Use AI for language tasks where variation is expected and review is possible.
+
+## Try it
+
+Test a summarization step with a short message, a long message, and one that lacks key information. Inspect all three outputs before connecting a downstream action.
+
+## Go deeper
+
+See [AI nodes](/tools/ai), [branching](/academy/branching), and [agents and protocols](/tools/agents-protocols).

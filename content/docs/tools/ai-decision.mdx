@@ -1,0 +1,24 @@
+---
+title: "AI Decision"
+description: "Evaluate choices, Boolean questions, and scores with a review path."
+---
+
+<Callout title="Availability">AI Decision is controlled by workspace and rollout settings. This reference describes the implemented node; it does not imply it is enabled in every workspace.</Callout>
+
+## When to use it
+
+Use AI Decision for bounded judgments about supplied evidence. Questions can ask for a choice among categories, a Boolean assessment, or a score on an ordered rubric. Use ordinary Condition rules for exact comparisons.
+
+## Configure the evaluation
+
+Provide an input and between one and eight uniquely named questions. A choice question requires named options; a score question requires ordered descriptions. Set the confidence policy appropriate for review.
+
+## Connect both outcomes
+
+**Decided** means every question met its confidence policy. It does not mean every Boolean answer was yes. **Needs review** means at least one question did not meet policy. Connect a real review destination before deployment.
+
+Provider errors fail the node instead of returning a review decision. Downstream steps should inspect the returned answers and status.
+
+## Test before use
+
+Try clear, ambiguous, and incomplete evidence. Verify both output paths. Treat supplied text as evidence rather than instructions, and keep authorization decisions outside the model.
