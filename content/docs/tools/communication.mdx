@@ -8,19 +8,24 @@ description: "Send messages and emails through Slack, Discord, Gmail, Teams, Tel
 Send messages to Slack channels or read recent messages from a channel.
 
 **Operations:**
-- **Send Message** — Post a message to a Slack channel
-- **Read Messages** — Fetch recent messages from a channel
-- **Create Canvas** — Create a Slack canvas for structured shared content
+
+- **Send Message** (`SEND_MESSAGE`) — Send a message to a channel
+- **Read Messages** (`READ_MESSAGE`) — Read recent messages from a channel
+- **Create Canvas** (`CREATE_CANVAS`) — Listed in search, but the current Innflow implementation rejects this operation.
 
 **Configuration:**
 
 | Field | Description |
 |-------|-------------|
-| **Operation** | Send Message or Read Messages |
+| **Operation** | Send Message, Read Messages, or Create Canvas |
 | **Channel** | The Slack channel to target |
-| **Content** | Message text (for Send Message). Supports template variables. |
+| **Content** | Message text or the content required by the selected operation; supports template variables. |
+
+**Availability:** Create Canvas is discoverable but is not executable in the current Innflow implementation. Use Send Message or Read Messages for working Slack actions.
 
 **Requires:** Slack OAuth connection
+
+[All operations and configuration fields](/tools/reference#slack).
 
 ---
 
@@ -37,6 +42,8 @@ Send messages to Discord channels via webhooks.
 
 **Requires:** Discord OAuth connection
 
+[All operations and configuration fields](/tools/reference#discord).
+
 ---
 
 ## Gmail
@@ -44,11 +51,15 @@ Send messages to Discord channels via webhooks.
 Send, read, draft, search, move, mark, and archive email through Gmail.
 
 **Operations:**
-- **Send Email** — Compose and send an email
-- **Read Emails** — Fetch recent emails from your inbox
-- **Draft Email** — Save a draft without sending it
-- **Search Emails** — Find matching messages
-- **Move / Mark / Archive** — Organize message state
+
+- **Send Email** (`SEND_EMAIL`) — Send an email from your Gmail account
+- **Read Emails** (`READ_EMAILS`) — Read emails from a label/folder
+- **Draft Email** (`DRAFT_EMAIL`) — Create a draft email
+- **Search Emails** (`SEARCH_EMAILS`) — Search emails using Gmail query syntax
+- **Move Email** (`MOVE_EMAIL`) — Move an email by adding/removing labels
+- **Mark as Read** (`MARK_AS_READ`) — Mark a message as read
+- **Mark as Unread** (`MARK_AS_UNREAD`) — Mark a message as unread
+- **Archive Email** (`ARCHIVE_EMAIL`) — Archive an email (remove from inbox)
 
 **Configuration (Send Email):**
 
@@ -60,6 +71,8 @@ Send, read, draft, search, move, mark, and archive email through Gmail.
 
 **Requires:** Google OAuth connection
 
+[All operations and configuration fields](/tools/reference#gmail).
+
 ---
 
 ## Microsoft Outlook
@@ -67,11 +80,12 @@ Send, read, draft, search, move, mark, and archive email through Gmail.
 Send, read, draft, and search email through Microsoft Outlook.
 
 **Operations:**
-- **Send Email** — Compose and send an email
-- **Read Emails** — Fetch recent emails
-- **Read Email** — Retrieve one message
-- **Create Draft** — Save a draft without sending
-- **Search Emails** — Find matching messages
+
+- **Send Email** (`SEND_EMAIL`) — Send an email from your Outlook account
+- **Read Emails** (`READ_EMAILS`) — Read emails from a folder
+- **Read Email** (`READ_EMAIL`) — Read a single email by ID
+- **Create Draft** (`CREATE_DRAFT`) — Create a draft email
+- **Search Emails** (`SEARCH_EMAILS`) — Search emails using a query
 
 **Configuration (Send Email):**
 
@@ -83,11 +97,21 @@ Send, read, draft, and search email through Microsoft Outlook.
 
 **Requires:** Microsoft OAuth connection
 
+[All operations and configuration fields](/tools/reference#microsoft-outlook).
+
 ---
 
 ## Microsoft Teams
 
 Send or read channel messages, list teams and channels, and create a channel.
+
+**Operations:**
+
+- **Send Message** (`SEND_MESSAGE`) — Send a message to a Teams channel
+- **Read Messages** (`READ_MESSAGES`) — Read recent messages from a channel
+- **List Channels** (`LIST_CHANNELS`) — List channels in a team
+- **List Teams** (`LIST_TEAMS`) — List all teams you belong to
+- **Create Channel** (`CREATE_CHANNEL`) — Create a new channel in a team
 
 **Configuration:**
 
@@ -98,11 +122,23 @@ Send or read channel messages, list teams and channels, and create a channel.
 
 **Requires:** Microsoft OAuth connection
 
+[All operations and configuration fields](/tools/reference#microsoft-teams).
+
 ---
 
 ## Telegram
 
 Send messages, photos, videos, audio, animations, or documents through Telegram, and delete messages when needed. To start a workflow from incoming bot messages, use the [Telegram Trigger](/triggers#telegram-trigger).
+
+**Operations:**
+
+- **Send Message** (`SEND_MESSAGE`)
+- **Send Photo** (`SEND_PHOTO`)
+- **Send Video** (`SEND_VIDEO`)
+- **Send Audio** (`SEND_AUDIO`)
+- **Send Animation** (`SEND_ANIMATION`)
+- **Send Document** (`SEND_DOCUMENT`)
+- **Delete Message** (`DELETE_MESSAGE`)
 
 **Configuration:**
 
@@ -112,11 +148,17 @@ Send messages, photos, videos, audio, animations, or documents through Telegram,
 | **Chat ID** | The Telegram chat, channel, or group to message |
 | **Content** | Message text |
 
+[All operations and configuration fields](/tools/reference#telegram).
+
 ---
 
 ## Resend
 
 Send transactional emails using the Resend email API.
+
+**Operations:**
+
+- **Send Email** (`SEND_EMAIL`)
 
 **Configuration:**
 
@@ -127,3 +169,7 @@ Send transactional emails using the Resend email API.
 | **Body** | Email body (HTML supported) |
 
 Resend is a good choice when you need to send emails from a custom domain without connecting a personal Gmail or Outlook account.
+
+[All operations and configuration fields](/tools/reference#resend).
+
+---

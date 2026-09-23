@@ -55,3 +55,23 @@ docker compose up -d --build
 The unprivileged Node container runs the standalone Next.js server on `127.0.0.1:8080` through the existing Compose port mapping. Place your HTTPS reverse proxy in front of it. Search requires the server runtime; do not serve this build with the previous static Nginx configuration.
 
 The default `npm start` command also runs the built application from a complete checkout. For a standalone bundle, copy `public/` and `.next/static/` into their corresponding locations under `.next/standalone/`, then run its `server.js`.
+
+
+## Keep tool documentation aligned with Innflow
+
+See [the September 23 alignment audit](CONTENT-ALIGNMENT.md) for corrected behavior,
+source evidence, and the operation-level change list. With the application checkout
+at `../innflow` (or `INNFLOW_SOURCE` set to its path), run:
+
+```sh
+npm run docs:sync
+npm run docs:check
+npm run build
+npm run verify
+```
+
+`docs:sync` regenerates the complete tool reference and source snapshot.
+`docs:check` compares them with the current application and checks the operation
+lists in the handwritten guides. If a guide fails, update that guide to match the
+new operation contract before publishing. Review generated changes as well as
+handwritten guidance; a listed operation does not guarantee provider readiness.

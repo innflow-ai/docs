@@ -41,8 +41,10 @@ You can search directly from the Knowledge Base detail page using the search bar
 Add a **Knowledge Base** node to your workflow to search your documents programmatically. Configure it with a query (which can use template variables from previous nodes) and the number of results to return.
 
 ```
-{{kb_results.output.results}}
+{{kb_results.results}}
 ```
+
+The node also supports **Upload** using a file URL, file name, and file type. Upload starts asynchronous document processing; it does not make the document immediately searchable.
 
 This is especially powerful when combined with an AI Agent node — feed the search results into the AI to answer questions grounded in your own data.
 

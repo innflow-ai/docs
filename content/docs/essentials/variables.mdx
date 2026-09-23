@@ -1,70 +1,37 @@
 ---
 title: "Variables"
-description: "Pass data dynamically between nodes using template variables"
+description: "Pass actual node outputs into later workflow steps."
 ---
 
-## Template Variables
+## Template variables
 
-Variables let you pass data from one node to another using double-curly-brace template paths. The exact path depends on the node name and its output schema; use the variable picker and inspect a test run instead of guessing an `output` prefix.
+Use double curly braces around a path from an upstream node. A node’s **Variable name** determines the first segment; the remaining path depends on its output. There is no universal `output` prefix.
 
-## Basic Syntax
+## Verified output examples
 
-Reference any value by wrapping its path in double curly braces:
+These examples assume you assigned the variable names shown:
 
-```
-{{nodeName.output.fieldName}}
-```
+| Node | Expression | Value |
+| --- | --- | --- |
+| Tables (Read Table) | `{{tables.rows}}` | Returned rows |
+| API | `{{api.httpResponse.data}}` | Response body |
+| API | `{{api.httpResponse.status}}` | HTTP status code |
+| Code | `{{code.result}}` | Parsed code result |
+| Code | `{{code.stdout}}` | Printed output |
+| Knowledge Base (Search) | `{{kb.results}}` | Matching passages |
+| Tavily | `{{search.results}}` | Search results |
+| Label Fields | `{{labels.extractedData.email}}` | An extracted email field, if configured |
+| Transform Array | `{{transformArray.result}}` | Mapped/filtered array or reduced value |
+| Active trigger | `{{$trigger.nodeId}}` | Entry point selected for this run |
 
-## Common Patterns
+Provider responses and operation-specific results can differ. Run the upstream node, inspect its output, and select the value from the variable picker rather than copying a path from another integration.
 
-### Trigger Data
+## Variable picker
 
-```
-{{inputTrigger.name}}
-{{webhookTrigger.body.email}}
-{{chatTrigger.message}}
-```
+Supported configuration fields have a variable picker. Use it to insert upstream outputs, trigger data, and [environment variables](/features/environment-variables). Only connected and available upstream values can be used reliably. A branch that did not execute does not produce a usable result for that run.
 
-### Node Output
+## Names and types
 
-```
-{{gemini_response.output.text}}
-{{search_results.output.results}}
-{{http_response.output.data}}
-```
+Choose descriptive names such as `customerLookup` or `supportReply`. When multiple triggers are present, keep their output variable names distinct. `$trigger` is reserved for the active entry point.
 
-### Nested Properties
-
-Use dot notation to access nested values:
-
-```
-{{airtable.output.record.fields.Name}}
-{{gmail.output.messages[0].subject}}
-```
-
-## Variable Picker
-
-Every text field in the node configuration panel includes a **variable picker**. Click the `{ }` button to open it. The picker shows:
-
-- All upstream nodes and their output fields
-- Trigger data fields
-- [Environment variables](/features/environment-variables)
-
-Select a variable to insert it at your cursor position.
-
-## Variable Names
-
-Each node has a configurable **variable name** that determines how downstream nodes reference its output. Choose descriptive names to keep your workflows readable:
-
-- ✅ `customer_email` → `{{customer_email.output.text}}`
-- ❌ `node_7` → `{{node_7.output.text}}`
-
-## Type Handling
-
-Variables are automatically converted to strings when used in text fields. For nodes that expect specific types (numbers, arrays, objects), the raw value is passed through without conversion.
-
-## Best Practices
-
-- **Use descriptive variable names** — Makes your workflow self documenting
-- **Check for existence** — Some outputs may be undefined if a previous node was skipped
-- **Keep paths simple** — If you need deeply nested data, use a Code or Transform Array node to extract it first
+A template embedded in a longer string produces text. Some fields preserve an object, list, number, or boolean when the entire value is a template expression; this depends on that field’s parser. Check the expected type in the editor and inspect a test execution. Use Loop for per-item work or Transform Array to reshape a list before passing it on.

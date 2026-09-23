@@ -3,16 +3,17 @@ title: "Microsoft"
 description: "Work with Excel, Word, OneDrive, Outlook, Planner, SharePoint, and Teams"
 ---
 
-All Microsoft nodes require a **Microsoft OAuth connection**. Connect your Microsoft account from **Settings → Credentials**.
+All Microsoft nodes require a **Microsoft OAuth connection**. Connect your Microsoft account from [Credentials](https://app.innflow.ai/credentials).
 
 ## Microsoft Excel
 
 Read from or write to Excel files stored in OneDrive.
 
 **Operations:**
-- **Create Spreadsheet** — Create a workbook
-- **Read Range** — Fetch data from a range of cells
-- **Write Range** — Write data to a range of cells
+
+- **Create Spreadsheet** (`CREATE_SPREADSHEET`) — Create a new Microsoft Excel spreadsheet
+- **Read Rows** (`READ_ROWS`) — Read rows from an Excel spreadsheet
+- **Write Rows** (`WRITE_ROWS`) — Write rows to an Excel spreadsheet
 
 **Configuration:**
 
@@ -21,15 +22,19 @@ Read from or write to Excel files stored in OneDrive.
 | **Workbook ID** | The Excel workbook in OneDrive |
 | **Range** | Cell range to read or write |
 
+[All operations and configuration fields](/tools/reference#microsoft-excel).
+
 ---
 
 ## Microsoft Word
 
-Create or read Word documents stored in OneDrive.
+Create, read, or write Word documents stored in OneDrive.
 
 **Operations:**
-- **Create** — Create a new Word document
-- **Read** — Read content from an existing document
+
+- **Create Document** (`CREATE_DOCUMENT`) — Create a new Microsoft Word document
+- **Read Document** (`READ_DOCUMENT`) — Read content from a Microsoft Word document
+- **Update Document** (`UPDATE_DOCUMENT`) — Update content in an existing Microsoft Word document
 
 **Configuration:**
 
@@ -39,6 +44,8 @@ Create or read Word documents stored in OneDrive.
 | **Title** | Document title (for Create) |
 | **Content** | Document content |
 
+[All operations and configuration fields](/tools/reference#microsoft-word).
+
 ---
 
 ## Microsoft OneDrive
@@ -46,10 +53,11 @@ Create or read Word documents stored in OneDrive.
 List and retrieve files, create folders, or delete files in OneDrive.
 
 **Operations:**
-- **List Files** — Browse files in a folder
-- **Get File** — Retrieve a file
-- **Create Folder** — Add a folder
-- **Delete File** — Remove a file
+
+- **List Files** (`LIST_FILES`) — List files in a OneDrive folder
+- **Get File** (`GET_FILE`) — Get a file from OneDrive
+- **Create Folder** (`CREATE_FOLDER`) — Create a new folder in OneDrive
+- **Delete File** (`DELETE_FILE`) — Delete a file from OneDrive
 
 **Configuration:**
 
@@ -58,17 +66,39 @@ List and retrieve files, create folders, or delete files in OneDrive.
 | **Folder ID** | Target folder for listing or creation |
 | **File ID** | Specific file for retrieval or deletion |
 
+[All operations and configuration fields](/tools/reference#microsoft-onedrive).
+
 ---
 
 ## Microsoft Outlook
 
 See the [Communication](/tools/communication#microsoft-outlook) page for Outlook email configuration.
 
+**Operations:**
+
+- **Send Email** (`SEND_EMAIL`) — Send an email from your Outlook account
+- **Read Emails** (`READ_EMAILS`) — Read emails from a folder
+- **Read Email** (`READ_EMAIL`) — Read a single email by ID
+- **Create Draft** (`CREATE_DRAFT`) — Create a draft email
+- **Search Emails** (`SEARCH_EMAILS`) — Search emails using a query
+
+[All operations and configuration fields](/tools/reference#microsoft-outlook).
+
 ---
 
 ## Microsoft Teams
 
 See the [Communication](/tools/communication#microsoft-teams) page for Teams messaging configuration.
+
+**Operations:**
+
+- **Send Message** (`SEND_MESSAGE`) — Send a message to a Teams channel
+- **Read Messages** (`READ_MESSAGES`) — Read recent messages from a channel
+- **List Channels** (`LIST_CHANNELS`) — List channels in a team
+- **List Teams** (`LIST_TEAMS`) — List all teams you belong to
+- **Create Channel** (`CREATE_CHANNEL`) — Create a new channel in a team
+
+[All operations and configuration fields](/tools/reference#microsoft-teams).
 
 ---
 
@@ -78,6 +108,16 @@ List plans and tasks, then create, update, or delete Planner tasks.
 
 **Requires:** Microsoft OAuth connection
 
+**Operations:**
+
+- **List Plans** (`LIST_PLANS`) — List all plans in the group
+- **List Tasks** (`LIST_TASKS`) — List tasks in a plan
+- **Create Task** (`CREATE_TASK`) — Create a new task in a plan
+- **Update Task** (`UPDATE_TASK`) — Update an existing task
+- **Delete Task** (`DELETE_TASK`) — Delete a task
+
+[All operations and configuration fields](/tools/reference#microsoft-planner).
+
 ---
 
 ## Microsoft SharePoint
@@ -85,3 +125,15 @@ List plans and tasks, then create, update, or delete Planner tasks.
 List sites and lists, read list items, and create or update list items in SharePoint Online.
 
 **Requires:** Microsoft OAuth connection
+
+**Operations:**
+
+- **List Sites** (`LIST_SITES`) — Search or list SharePoint sites
+- **List Lists** (`LIST_LISTS`) — List all lists in a SharePoint site
+- **Get List Items** (`GET_LIST_ITEMS`) — Get items from a SharePoint list
+- **Create List Item** (`CREATE_LIST_ITEM`) — Create a new item in a SharePoint list
+- **Update List Item** (`UPDATE_LIST_ITEM`) — Update an existing item in a SharePoint list
+
+[All operations and configuration fields](/tools/reference#microsoft-sharepoint).
+
+---

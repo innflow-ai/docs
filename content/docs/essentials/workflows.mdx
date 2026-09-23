@@ -11,7 +11,7 @@ A workflow is an automated sequence of actions that executes when triggered. Wor
 
 Every workflow consists of:
 
-1. **Trigger** — The starting point that initiates execution. Legacy workflows require **Triggers → Enable independent triggers** before another entry point can be added. Multiple-trigger authoring must also be enabled in the environment. See [adding another trigger](/triggers#adding-another-trigger).
+1. **Trigger** — The starting point that initiates execution. Add additional triggers directly; existing drafts switch to independent execution automatically when the second trigger saves. See [adding another trigger](/triggers#adding-another-trigger).
 2. **Nodes** — Individual actions or operations (AI generation, sending emails, data lookups, etc.)
 3. **Connections** — Links between nodes that define the execution order
 4. **Context** — Shared data passed between nodes via [template variables](/essentials/variables)
@@ -20,7 +20,7 @@ Every workflow consists of:
 
 The editor is a canvas where you build workflows by placing and connecting nodes. Key interactions:
 
-- **Add nodes** — Click the **+** button on any node or drag from the sidebar
+- **Add nodes** — Use the node picker, universal search, or the canvas context menu
 - **Connect nodes** — Drag from an output handle to an input handle
 - **Configure nodes** — Click or double click a node to open its settings panel on the right
 - **Move nodes** — Drag nodes to rearrange the layout
@@ -37,7 +37,7 @@ Changes autosave while you work. Use Copilot when you want to add, configure, ex
 When a workflow runs:
 
 1. The trigger node activates
-2. Each connected node executes in sequence
+2. Execution follows the selected trigger’s connected path; unrelated roots do not run
 3. Output from each node is added to the workflow context
 4. Subsequent nodes can access previous outputs via [variables](/essentials/variables)
 5. Branching nodes select the connected paths according to their configured rules
@@ -71,7 +71,7 @@ The Workflows page supports:
 Each workflow run is logged with the status of every node. Click on a completed execution to see what each node produced. Execution history retention depends on your [plan](/features/billing):
 
 - **Free:** 1 day
-- **Basic:** 30 days
+- **Pro:** 30 days
 - **Business / Enterprise:** 90 days
 
 For workspace-wide logs, live status, debugging, and notifications, see [Executions and Inbox](/features/executions-inbox).

@@ -7,13 +7,14 @@ Nodes are the building blocks of every workflow. Each node performs a specific a
 
 ## Trigger Nodes
 
-A trigger starts a workflow run. Legacy workflows cannot add a second trigger until independent triggers are enabled, and multiple-trigger authoring must also be available in the environment. See [adding another trigger](/triggers#adding-another-trigger) for setup details.
+A trigger starts a workflow run. Add more triggers directly; saving a second trigger upgrades an existing draft automatically. Each event starts its selected path. See [adding another trigger](/triggers#adding-another-trigger).
 
 <Columns cols={3}>
   <Card title="Manual" icon="play" href="/triggers#manual-trigger">Run on demand</Card>
   <Card title="Webhook" icon="webhook" href="/triggers#webhook-trigger">HTTP requests</Card>
   <Card title="Chat" icon="message-square" href="/triggers#chat-trigger">Conversational</Card>
   <Card title="Schedule" icon="calendar-clock" href="/triggers#schedule-trigger">Recurring</Card>
+  <Card title="Innflow" icon="workflow" href="/triggers#innflow-trigger">Called by another workflow</Card>
   <Card title="Input" icon="text-cursor-input" href="/triggers#input-trigger">Custom form</Card>
   <Card title="Form" icon="file-text" href="/triggers#form-trigger">Public hosted form</Card>
   <Card title="Stripe" icon="credit-card" href="/triggers#stripe-trigger">Payment events</Card>
@@ -69,6 +70,8 @@ Action nodes do the work in your workflow. They are organized by category:
   </Card>
 </Columns>
 
+The [complete tool and operation reference](/tools/reference) lists every standard universal-search entry and its configuration fields. Search **API** for HTTP requests and **Wait** for duration or date-based pauses.
+
 ## Node Configuration
 
 Click or double click any node to open its configuration panel. Common fields include:
@@ -89,7 +92,7 @@ Nodes that change external systems can create real side effects during testing. 
 | **Wait** | Pause for a duration or until a specific time |
 | **Human Approval** | Pause until a workspace member approves or rejects |
 | **Wait for Event** | Pause until an external callback arrives |
-| **Edit Fields** | Reshape an object without writing code |
+| **Edit Fields** | Legacy node retained in existing workflows; use Code or Transform Array for new workflows |
 | **Transform Array** | Map, filter, or reduce a list |
 
 ## Node Status

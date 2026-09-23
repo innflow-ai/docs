@@ -9,13 +9,19 @@ The Typeform action node manages forms and reads response data through the Typef
 
 **Operations:**
 
-- List, get, create, update, and delete forms
-- Retrieve form responses
-- Read form insights
+- **List Forms** (`LIST_FORMS`) — List all forms in your Typeform account
+- **Get Form** (`GET_FORM`) — Get the full definition of a specific form
+- **Create Form** (`CREATE_FORM`) — Create a new Typeform form with fields and settings
+- **Update Form** (`UPDATE_FORM`) — Update an existing form with a new definition
+- **Delete Form** (`DELETE_FORM`) — Permanently delete a form
+- **Get Responses** (`GET_RESPONSES`) — Retrieve form responses with optional date range filtering
+- **Get Form Insights** (`GET_FORM_INSIGHTS`) — Get analytics and insights for a form
 
 Use the [Typeform Trigger](/triggers#typeform-trigger) when a new response should start the workflow.
 
 **Requires:** Typeform credentials
+
+[All operations and configuration fields](/tools/reference#typeform).
 
 ---
 
@@ -26,6 +32,12 @@ The Google Forms action node retrieves responses from a connected Google Form. S
 Use the [Google Forms Trigger](/triggers#google-forms-trigger) when each new submission should start a workflow.
 
 **Requires:** Google OAuth connection
+
+**Operations:**
+
+- **Get Responses** (`GET_RESPONSES`) — Retrieve responses from a Google Form
+
+[All operations and configuration fields](/tools/reference#google-forms).
 
 ---
 

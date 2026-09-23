@@ -12,7 +12,16 @@ The MCP node connects Innflow to external Model Context Protocol servers. Use it
 | Mode | Description |
 |------|-------------|
 | **Direct tool execution** | Select a server tool and call it directly from the workflow |
-| **Agentic use** | Connect MCP tools to an AI Agent so the agent can choose when to call them |
+| **Agentic use** | Let a model discover and call tools from the server |
+| **Read resource** | Retrieve a resource by URI |
+| **Get prompt** | Retrieve a named server prompt with its arguments |
+
+**Operations:**
+
+- **Agentic Mode** (`AGENTIC`) — LLM discovers and calls MCP tools autonomously
+- **Call Tool** (`DIRECT`) — Call a specific MCP tool with mapped inputs
+- **Read Resource** (`READ_RESOURCE`) — Read a resource exposed by the MCP server
+- **Get Prompt** (`GET_PROMPT`) — Render a prompt exposed by the MCP server
 
 **Configuration:**
 
@@ -23,7 +32,9 @@ The MCP node connects Innflow to external Model Context Protocol servers. Use it
 | **Tool** | Tool to call in direct execution mode |
 | **Input** | Tool input payload, with support for template variables |
 
-**Accessing output:** `{{variableName.output}}`
+For a node named `mcp`, a direct tool call exposes `{{mcp.content}}` and optional `{{mcp.structuredContent}}`; agentic execution exposes `{{mcp.text}}`. Resource and prompt modes return the corresponding server payload. Inspect the selected mode’s result for its nested fields.
+
+[All operations and configuration fields](/tools/reference#mcp).
 
 ---
 
@@ -36,6 +47,11 @@ The A2A Agent node delegates work to an external agent that supports the Agent-t
 - Poll for an agent result before continuing the workflow
 - Connect Innflow workflows to agent systems owned by another team or vendor
 
+**Operations:**
+
+- **Polling Mode** (`POLLING`) — Send task and poll for result
+- **Streaming Mode** (`STREAMING`) — Receive real-time SSE updates from the agent
+
 **Configuration:**
 
 | Field | Description |
@@ -47,11 +63,20 @@ The A2A Agent node delegates work to an external agent that supports the Agent-t
 
 The node supports polling and streaming modes. Use polling when Innflow should wait for a completed task result, and streaming when the external agent exposes incremental progress.
 
+[All operations and configuration fields](/tools/reference#a2a-agent).
+
 ---
 
 ## Browser Agent
 
 Browser Agent is a separate workflow node that uses Stagehand and Browserbase for interactive web tasks. It is not an MCP or A2A transport. See [Browser Automation](/tools/browser-automation).
+
+**Operations:**
+
+- **Run Browser Task** (`RUN_TASK`) — Complete one multi-step task in a fresh browser session
+- **Run Browser Sequence** (`RUN_SEQUENCE`) — Run deterministic browser actions in one shared session
+
+[All operations and configuration fields](/tools/reference#browser-agent).
 
 ---
 
@@ -66,4 +91,4 @@ Some nodes can be connected to AI Agent nodes as callable tools instead of runni
 | **HTTP Tool** | Let an agent call an HTTP API |
 | **Exa Tool** | Let an agent search or retrieve web content |
 
-Use tool-only nodes when the model should decide whether a tool call is needed during the agent run.
+These legacy tool-only node types are hidden from universal search. Existing workflows can retain them; for new workflows use the tool-connection controls exposed by the AI Agent editor.

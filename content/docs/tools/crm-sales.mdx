@@ -8,11 +8,12 @@ description: "Connect Airtable, Attio, HubSpot, and Apollo for customer data and
 Read from or write to Airtable bases. Use Airtable as a lightweight database for your workflows.
 
 **Operations:**
-- **List Records** — Fetch records from a table
-- **Read Record** — Retrieve one record
-- **Create Record** — Add a new record
-- **Update Record** — Modify an existing record
-- **Delete Record** — Remove a record
+
+- **List Records** (`LIST_RECORDS`) — List records from a table
+- **Read Record** (`READ_RECORD`) — Read a single record by ID
+- **Create Record** (`CREATE_RECORD`) — Create a new record in a table
+- **Update Record** (`UPDATE_RECORD`) — Update an existing record
+- **Delete Record** (`DELETE_RECORD`) — Delete a record by ID
 
 **Configuration:**
 
@@ -24,6 +25,8 @@ Read from or write to Airtable bases. Use Airtable as a lightweight database for
 
 **Requires:** Airtable OAuth connection
 
+[All operations and configuration fields](/tools/reference#airtable).
+
 ---
 
 ## HubSpot
@@ -31,6 +34,17 @@ Read from or write to Airtable bases. Use Airtable as a lightweight database for
 Create, read, update, delete, list, and search HubSpot contacts, companies, deals, and other supported CRM records.
 
 **Requires:** HubSpot OAuth connection
+
+**Operations:**
+
+- **Create Record** (`CREATE_RECORD`) — Create a new CRM record
+- **Read Record** (`READ_RECORD`) — Read a single record by ID
+- **Update Record** (`UPDATE_RECORD`) — Update an existing record
+- **Delete Record** (`DELETE_RECORD`) — Delete a record by ID
+- **List Records** (`LIST_RECORDS`) — List records with optional limit
+- **Search Records** (`SEARCH_RECORDS`) — Search records with query or filters
+
+[All operations and configuration fields](/tools/reference#hubspot).
 
 ---
 
@@ -47,6 +61,24 @@ Manage Attio CRM records, notes, tasks, and object metadata.
 
 **Requires:** Attio connection
 
+**Operations:**
+
+- **List Records** (`LIST_RECORDS`)
+- **Get Record** (`GET_RECORD`)
+- **Update Record** (`UPDATE_RECORD`)
+- **Delete Record** (`DELETE_RECORD`)
+- **Search Records** (`SEARCH_RECORDS`)
+- **Assert Record** (`ASSERT_RECORD`)
+- **List Notes** (`LIST_NOTES`)
+- **Get Note** (`GET_NOTE`)
+- **Create Note** (`CREATE_NOTE`)
+- **Delete Note** (`DELETE_NOTE`)
+- **List Tasks** (`LIST_TASKS`)
+- **Create Task** (`CREATE_TASK`)
+- **Get Object** (`GET_OBJECT`)
+
+[All operations and configuration fields](/tools/reference#attio).
+
 ---
 
 ## Apollo
@@ -54,3 +86,20 @@ Manage Attio CRM records, notes, tasks, and object metadata.
 Search and enrich people or organizations, perform bulk enrichment, and create or update Apollo contacts.
 
 **Requires:** Apollo API credentials
+
+**Operations:**
+
+- **Search People** (`SEARCH_PEOPLE`) — Search for people by title, location, seniority, and company
+- **Enrich Person** (`ENRICH_PERSON`) — Get detailed info about a person by email, name, or LinkedIn
+- **Bulk Enrich People** (`BULK_ENRICH_PEOPLE`) — Enrich multiple people at once from a JSON array
+- **Search Organizations** (`SEARCH_ORGANIZATIONS`) — Search for companies by location, size, and keywords
+- **Enrich Organization** (`ENRICH_ORGANIZATION`) — Get detailed info about a company by domain
+- **Bulk Enrich Organizations** (`BULK_ENRICH_ORGANIZATIONS`) — Enrich multiple organizations by domain
+- **Create Contact** (`CREATE_CONTACT`) — Create a new contact in Apollo CRM
+- **Update Contact** (`UPDATE_CONTACT`) — Update an existing contact by ID
+- **Search Contacts** (`SEARCH_CONTACTS`) — Search contacts in your Apollo CRM
+- **Bulk Create Contacts** (`BULK_CREATE_CONTACTS`) — Create multiple contacts from a JSON array
+
+[All operations and configuration fields](/tools/reference#apollo).
+
+---

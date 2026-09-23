@@ -1,0 +1,267 @@
+[
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft Excel",
+    "nodeType": "MICROSOFT_EXCEL"
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft Word",
+    "nodeType": "MICROSOFT_WORD"
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft OneDrive",
+    "nodeType": "MICROSOFT_ONEDRIVE"
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft Outlook",
+    "nodeType": "MICROSOFT_OUTLOOK"
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft Teams",
+    "nodeType": "MICROSOFT_TEAMS"
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft Planner",
+    "nodeType": "MICROSOFT_PLANNER"
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft SharePoint",
+    "nodeType": "MICROSOFT_SHAREPOINT"
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "Dropbox",
+    "nodeType": "DROPBOX"
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "Shopify",
+    "nodeType": "SHOPIFY"
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "LinkedIn",
+    "nodeType": "LINKEDIN"
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "PostHog",
+    "nodeType": "POSTHOG"
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "Dub",
+    "nodeType": "DUB"
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "ElevenLabs",
+    "nodeType": "ELEVENLABS"
+  },
+  {
+    "file": "content/docs/tools/agents-protocols.mdx",
+    "heading": "MCP",
+    "nodeType": "MCP"
+  },
+  {
+    "file": "content/docs/tools/agents-protocols.mdx",
+    "heading": "A2A Agent",
+    "nodeType": "A2A_AGENT"
+  },
+  {
+    "file": "content/docs/tools/agents-protocols.mdx",
+    "heading": "Browser Agent",
+    "nodeType": "BROWSER_AGENT"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Tavily Search",
+    "nodeType": "TAVILY_SEARCH"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Exa",
+    "nodeType": "EXA"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Perplexity",
+    "nodeType": "PERPLEXITY"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Firecrawl",
+    "nodeType": "FIRECRAWL"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Web Scraper",
+    "nodeType": "WEB_SCRAPER"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Ahrefs",
+    "nodeType": "AHREFS"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Polymarket",
+    "nodeType": "POLYMARKET"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Sheets",
+    "nodeType": "GOOGLE_SHEETS"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Docs",
+    "nodeType": "GOOGLE_DOCS"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Calendar",
+    "nodeType": "GOOGLE_CALENDAR"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Drive",
+    "nodeType": "GOOGLE_DRIVE"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Slides",
+    "nodeType": "GOOGLE_SLIDES"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Forms",
+    "nodeType": "GOOGLE_FORMS"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Groups",
+    "nodeType": "GOOGLE_GROUPS"
+  },
+  {
+    "file": "content/docs/tools/logic-utility.mdx",
+    "heading": "Transform Array",
+    "nodeType": "TRANSFORM_ARRAY"
+  },
+  {
+    "file": "content/docs/tools/logic-utility.mdx",
+    "heading": "Tables Node",
+    "nodeType": "TABLES"
+  },
+  {
+    "file": "content/docs/tools/logic-utility.mdx",
+    "heading": "Knowledge Base Node",
+    "nodeType": "KNOWLEDGE_BASE"
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "Notion",
+    "nodeType": "NOTION"
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "Trello",
+    "nodeType": "TRELLO"
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "GitHub",
+    "nodeType": "GITHUB"
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "ClickUp",
+    "nodeType": "CLICKUP"
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "Cal.com",
+    "nodeType": "CAL_COM"
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "Calendly",
+    "nodeType": "CALENDLY"
+  },
+  {
+    "file": "content/docs/tools/forms.mdx",
+    "heading": "Typeform",
+    "nodeType": "TYPEFORM"
+  },
+  {
+    "file": "content/docs/tools/forms.mdx",
+    "heading": "Google Forms",
+    "nodeType": "GOOGLE_FORMS"
+  },
+  {
+    "file": "content/docs/tools/ai.mdx",
+    "heading": "OpenRouter",
+    "nodeType": "AI_MODEL"
+  },
+  {
+    "file": "content/docs/tools/ai.mdx",
+    "heading": "Image Generation",
+    "nodeType": "GENERATE_IMAGE"
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Slack",
+    "nodeType": "SLACK"
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Gmail",
+    "nodeType": "GMAIL"
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Microsoft Outlook",
+    "nodeType": "MICROSOFT_OUTLOOK"
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Microsoft Teams",
+    "nodeType": "MICROSOFT_TEAMS"
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Telegram",
+    "nodeType": "TELEGRAM"
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Resend",
+    "nodeType": "RESEND"
+  },
+  {
+    "file": "content/docs/tools/crm-sales.mdx",
+    "heading": "Airtable",
+    "nodeType": "AIRTABLE"
+  },
+  {
+    "file": "content/docs/tools/crm-sales.mdx",
+    "heading": "HubSpot",
+    "nodeType": "HUBSPOT"
+  },
+  {
+    "file": "content/docs/tools/crm-sales.mdx",
+    "heading": "Attio",
+    "nodeType": "ATTIO"
+  },
+  {
+    "file": "content/docs/tools/crm-sales.mdx",
+    "heading": "Apollo",
+    "nodeType": "APOLLO"
+  }
+]
