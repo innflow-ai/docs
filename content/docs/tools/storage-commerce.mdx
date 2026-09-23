@@ -15,6 +15,21 @@ Upload, download, list, and share files through Dropbox. Use Dropbox when a work
 
 **Requires:** Dropbox OAuth connection
 
+**Operations:**
+
+- **Upload File** (`UPLOAD_FILE`) — Upload a file to Dropbox
+- **Download File** (`DOWNLOAD_FILE`) — Download a file from Dropbox
+- **List Folder** (`LIST_FOLDER`) — List contents of a folder
+- **Create Folder** (`CREATE_FOLDER`) — Create a new folder
+- **Delete** (`DELETE`) — Delete a file or folder
+- **Copy** (`COPY`) — Copy a file or folder
+- **Move** (`MOVE`) — Move a file or folder
+- **Get Metadata** (`GET_METADATA`) — Get file or folder metadata
+- **Create Shared Link** (`CREATE_SHARED_LINK`) — Create a shared link for a file
+- **Search Files** (`SEARCH_FILES`) — Search for files in Dropbox
+
+[All operations and configuration fields](/tools/reference#dropbox).
+
 ---
 
 ## Shopify
@@ -28,6 +43,32 @@ Work with Shopify store data including products, orders, customers, and inventor
 - Sync inventory events into other systems
 
 **Requires:** Shopify connection
+
+**Operations:**
+
+- **Create Product** (`CREATE_PRODUCT`) — Create a new product
+- **Get Product** (`GET_PRODUCT`) — Get a product by ID
+- **List Products** (`LIST_PRODUCTS`) — List all products
+- **Update Product** (`UPDATE_PRODUCT`) — Update an existing product
+- **Delete Product** (`DELETE_PRODUCT`) — Delete a product
+- **Get Order** (`GET_ORDER`) — Get an order by ID
+- **List Orders** (`LIST_ORDERS`) — List all orders
+- **Update Order** (`UPDATE_ORDER`) — Update an existing order
+- **Cancel Order** (`CANCEL_ORDER`) — Cancel an order
+- **Create Customer** (`CREATE_CUSTOMER`) — Create a new customer
+- **Get Customer** (`GET_CUSTOMER`) — Get a customer by ID
+- **List Customers** (`LIST_CUSTOMERS`) — List all customers
+- **Update Customer** (`UPDATE_CUSTOMER`) — Update an existing customer
+- **Delete Customer** (`DELETE_CUSTOMER`) — Delete a customer
+- **List Inventory Items** (`LIST_INVENTORY_ITEMS`) — List inventory items
+- **Get Inventory Level** (`GET_INVENTORY_LEVEL`) — Get inventory levels by location and item
+- **Adjust Inventory** (`ADJUST_INVENTORY`) — Adjust inventory quantity
+- **List Locations** (`LIST_LOCATIONS`) — List all locations
+- **Create Fulfillment** (`CREATE_FULFILLMENT`) — Create a fulfillment for an order
+- **List Collections** (`LIST_COLLECTIONS`) — List all collections
+- **Get Collection** (`GET_COLLECTION`) — Get a collection by ID
+
+[All operations and configuration fields](/tools/reference#shopify).
 
 ---
 
@@ -44,6 +85,13 @@ Publish LinkedIn posts and retrieve profile data.
 
 See [Social Publishing](/tools/social-publishing) for every supported publishing channel.
 
+**Operations:**
+
+- **Share Post** (`SHARE_POST`) — Share a post on LinkedIn
+- **Get Profile** (`GET_PROFILE`) — Retrieve LinkedIn profile information
+
+[All operations and configuration fields](/tools/reference#linkedin).
+
 ---
 
 ## PostHog
@@ -58,6 +106,50 @@ Capture events and work with PostHog analytics resources including event definit
 
 **Requires:** PostHog API credentials
 
+**Operations:**
+
+- **Capture Event** (`CAPTURE_EVENT`) — Capture a single analytics event
+- **Batch Events** (`BATCH_EVENTS`) — Batch capture multiple events at once
+- **List Event Definitions** (`LIST_EVENT_DEFINITIONS`) — List all event definitions
+- **Get Event Definition** (`GET_EVENT_DEFINITION`) — Get a specific event definition
+- **Update Event Definition** (`UPDATE_EVENT_DEFINITION`) — Update an event definition
+- **Get Person** (`GET_PERSON`) — Get person details by ID
+- **Delete Person** (`DELETE_PERSON`) — Delete a person record
+- **Run Query (HogQL)** (`RUN_QUERY`) — Execute a HogQL analytics query
+- **List Insights** (`LIST_INSIGHTS`) — List all saved insights
+- **Get Insight** (`GET_INSIGHT`) — Get a specific insight and its data
+- **Create Insight** (`CREATE_INSIGHT`) — Create a new saved insight
+- **List Dashboards** (`LIST_DASHBOARDS`) — List all dashboards
+- **Get Dashboard** (`GET_DASHBOARD`) — Get a dashboard with its tiles
+- **List Actions** (`LIST_ACTIONS`) — List all defined actions
+- **Get Cohort** (`GET_COHORT`) — Get a specific cohort
+- **Create Cohort** (`CREATE_COHORT`) — Create a new cohort
+- **List Annotations** (`LIST_ANNOTATIONS`) — List all annotations
+- **Create Annotation** (`CREATE_ANNOTATION`) — Create a timeline annotation
+- **List Feature Flags** (`LIST_FEATURE_FLAGS`) — List all feature flags
+- **Get Feature Flag** (`GET_FEATURE_FLAG`) — Get a specific feature flag
+- **Create Feature Flag** (`CREATE_FEATURE_FLAG`) — Create a new feature flag
+- **Update Feature Flag** (`UPDATE_FEATURE_FLAG`) — Update an existing feature flag
+- **Delete Feature Flag** (`DELETE_FEATURE_FLAG`) — Delete a feature flag
+- **Get Experiment** (`GET_EXPERIMENT`) — Get experiment details
+- **Create Experiment** (`CREATE_EXPERIMENT`) — Create a new A/B experiment
+- **List Surveys** (`LIST_SURVEYS`) — List all surveys
+- **Get Survey** (`GET_SURVEY`) — Get a specific survey
+- **Create Survey** (`CREATE_SURVEY`) — Create a new survey
+- **Update Survey** (`UPDATE_SURVEY`) — Update an existing survey
+- **List Session Recordings** (`LIST_SESSION_RECORDINGS`) — List session recordings
+- **Get Session Recording** (`GET_SESSION_RECORDING`) — Get a specific session recording
+- **List Recording Playlists** (`LIST_RECORDING_PLAYLISTS`) — List recording playlists
+- **List Property Definitions** (`LIST_PROPERTY_DEFINITIONS`) — List all property definitions
+- **Get Property Definition** (`GET_PROPERTY_DEFINITION`) — Get a specific property definition
+- **Update Property Definition** (`UPDATE_PROPERTY_DEFINITION`) — Update a property definition
+- **List Projects** (`LIST_PROJECTS`) — List all projects in the organization
+- **Get Project** (`GET_PROJECT`) — Get current project details
+- **List Organizations** (`LIST_ORGANIZATIONS`) — List all organizations
+- **Get Organization** (`GET_ORGANIZATION`) — Get organization details
+
+[All operations and configuration fields](/tools/reference#posthog).
+
 ---
 
 ## Dub
@@ -71,6 +163,16 @@ Create and manage short links with Dub.co.
 
 **Requires:** Dub credentials
 
+**Operations:**
+
+- **Create Short Link** (`CREATE_SHORT_LINK`) — Shorten a URL into a Dub link
+- **Get Link Analytics** (`GET_LINK_ANALYTICS`) — Fetch click analytics for a link over a time range
+- **List Links** (`LIST_LINKS`) — List links in the connected workspace
+- **Update Link** (`UPDATE_LINK`) — Update destination URL or metadata
+- **Delete Link** (`DELETE_LINK`) — Permanently delete a short link
+
+[All operations and configuration fields](/tools/reference#dub).
+
 ---
 
 ## ElevenLabs
@@ -83,3 +185,11 @@ Convert text into speech with ElevenLabs.
 - Turn workflow output into audio files for distribution
 
 **Requires:** ElevenLabs API credentials
+
+**Operations:**
+
+- **Text to Speech** (`TEXT_TO_SPEECH`) — Convert text to speech using AI voices
+
+[All operations and configuration fields](/tools/reference#elevenlabs).
+
+---

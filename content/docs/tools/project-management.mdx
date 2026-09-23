@@ -13,6 +13,19 @@ Read pages and databases, create pages or databases, add database rows, append p
   To trigger a workflow when Notion content changes, use the [Notion Trigger](/triggers#notion-trigger) instead.
 </Callout>
 
+**Operations:**
+
+- **Read Page** (`READ_PAGE`) — Read a Notion page
+- **Read Database** (`READ_DATABASE`) — Read a Notion database
+- **Create Page** (`CREATE_PAGE`) — Create a new page
+- **Create Database** (`CREATE_DATABASE`) — Create a new database
+- **Add Database Row** (`ADD_DATABASE_ROW`) — Add a row to a database
+- **Append Content** (`APPEND_CONTENT`) — Append content to a page
+- **Query Database** (`QUERY_DATABASE`) — Query a database with filters
+- **Search Workspace** (`SEARCH_WORKSPACE`) — Search across the workspace
+
+[All operations and configuration fields](/tools/reference#notion).
+
 ---
 
 ## Trello
@@ -21,6 +34,17 @@ Get board lists, list or update cards, create cards, read actions, and add comme
 
 **Requires:** Trello OAuth connection
 
+**Operations:**
+
+- **Get Lists** (`GET_LISTS`) — Get all lists on a board
+- **List Cards** (`LIST_CARDS`) — List cards in a list
+- **Create Card** (`CREATE_CARD`) — Create a new card
+- **Update Card** (`UPDATE_CARD`) — Update an existing card
+- **Get Actions** (`GET_ACTIONS`) — Get activity on a card
+- **Add Comment** (`ADD_COMMENT`) — Add a comment to a card
+
+[All operations and configuration fields](/tools/reference#trello).
+
 ---
 
 ## GitHub
@@ -28,6 +52,18 @@ Get board lists, list or update cards, create cards, read actions, and add comme
 Create, list, and update issues; create, list, and merge pull requests; and add comments.
 
 **Requires:** GitHub OAuth connection
+
+**Operations:**
+
+- **Create Issue** (`CREATE_ISSUE`) — Create a new issue
+- **List Issues** (`LIST_ISSUES`) — List repository issues
+- **Update Issue** (`UPDATE_ISSUE`) — Update an existing issue
+- **Create Pull Request** (`CREATE_PR`) — Create a new pull request
+- **List Pull Requests** (`LIST_PRS`) — List repository pull requests
+- **Merge Pull Request** (`MERGE_PR`) — Merge a pull request
+- **Create Comment** (`CREATE_COMMENT`) — Add a comment to an issue or PR
+
+[All operations and configuration fields](/tools/reference#github).
 
 ---
 
@@ -43,6 +79,20 @@ Create, search, update, and comment on ClickUp work items from your workflows.
 
 **Requires:** ClickUp OAuth connection
 
+**Operations:**
+
+- **Create Task** (`CREATE_TASK`) — Create a new task in a list
+- **Get Task** (`GET_TASK`) — Fetch a task by ID
+- **Update Task** (`UPDATE_TASK`) — Partially update an existing task
+- **Delete Task** (`DELETE_TASK`) — Permanently delete a task
+- **List Tasks** (`LIST_TASKS`) — List tasks in a list with optional filters
+- **Search Tasks** (`SEARCH_TASKS`) — Search tasks across an entire workspace
+- **Add Comment** (`ADD_COMMENT`) — Post a comment on a task
+- **Set Custom Field** (`SET_CUSTOM_FIELD`) — Set a single custom field value on a task
+- **Get Lists** (`GET_LISTS`) — Fetch lists in a space or folder
+
+[All operations and configuration fields](/tools/reference#clickup).
+
 ---
 
 ## Cal.com
@@ -51,6 +101,16 @@ List event types and bookings, then create, cancel, or reschedule bookings.
 
 **Requires:** Cal.com API credentials
 
+**Operations:**
+
+- **List Event Types** (`LIST_EVENT_TYPES`) — Retrieve all configured event types
+- **List Bookings** (`LIST_BOOKINGS`) — Retrieve bookings with optional status filter
+- **Create Booking** (`CREATE_BOOKING`) — Create a new booking for an event type
+- **Cancel Booking** (`CANCEL_BOOKING`) — Cancel an existing booking
+- **Reschedule Booking** (`RESCHEDULE_BOOKING`) — Reschedule an existing booking to a new time
+
+[All operations and configuration fields](/tools/reference#cal-com).
+
 ---
 
 ## Calendly
@@ -58,3 +118,17 @@ List event types and bookings, then create, cancel, or reschedule bookings.
 Read the connected user, event types, scheduled events, and invitees, or cancel a scheduled event.
 
 **Requires:** Calendly API credentials
+
+**Operations:**
+
+- **Get Current User** (`GET_CURRENT_USER`) — Retrieve the authenticated user's profile information
+- **List Event Types** (`LIST_EVENT_TYPES`) — List all event types for a user
+- **Get Event Type** (`GET_EVENT_TYPE`) — Get details of a specific event type
+- **List Scheduled Events** (`LIST_SCHEDULED_EVENTS`) — List scheduled events for a user with optional filters
+- **Get Scheduled Event** (`GET_SCHEDULED_EVENT`) — Get details of a specific scheduled event
+- **List Event Invitees** (`LIST_EVENT_INVITEES`) — List invitees for a scheduled event
+- **Cancel Event** (`CANCEL_EVENT`) — Cancel a scheduled event with an optional reason
+
+[All operations and configuration fields](/tools/reference#calendly).
+
+---

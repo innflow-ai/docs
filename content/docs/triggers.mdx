@@ -3,27 +3,15 @@ title: "Triggers"
 description: "Every workflow starts with a trigger. Choose the right one for your use case."
 ---
 
-Triggers are the entry point of every workflow. When a trigger fires, the workflow begins executing from that node. Legacy workflows must enable independent triggers before adding another entry point. Multiple-trigger authoring must also be enabled in the environment.
+Triggers start a workflow run from a specific entry point. New workflows support multiple triggers automatically, including multiple triggers of the same type.
 
 ## Adding another trigger
 
-If adding a second trigger shows this message:
+Add the next trigger from the node picker, universal search, or the canvas context menu. You can also duplicate an existing trigger. No independent-trigger setting is required. Saving a second trigger upgrades an existing draft automatically while preserving its existing node IDs.
 
-> Enable independent triggers from the Triggers menu before adding another entry point.
+Undeploy a workflow before changing its entry points, and wait for pending or running executions to finish. Configure and test each entry point before deploying again. Copies are paused and receive new variable names; configure their connections before enabling them.
 
-Open **Triggers → Enable independent triggers**, when available. Before converting a legacy workflow:
-
-1. Undeploy the workflow and let active runs finish.
-2. Review its entry points in the conversion dialog.
-3. Update callers that could match more than one trigger to identify the intended entry point. Replace workflow-only Stripe and Google Forms callback URLs with the node-specific URLs shown in their settings.
-4. Acknowledge the review and complete the conversion, then add the additional trigger.
-5. Test each entry point before deploying again. Each event starts its selected trigger path rather than all root nodes.
-
-### The Triggers menu is missing or the action is disabled
-
-The same message also appears when multiple-trigger authoring is disabled for the environment. In that case, the menu may be hidden for a legacy workflow, or its conversion action may be unavailable. Contact your workspace administrator or support; repeatedly adding the node will not enable the capability. Editing restrictions can also disable the conversion action.
-
-For self-hosted operators, the editor checks `NEXT_PUBLIC_MULTI_TRIGGER_ENABLED=true` as well as the workflow's independent-trigger execution version. Changing only the workflow or only the environment does not satisfy both checks. Coordinate rollout with the compatible backend and worker configuration.
+Each event starts only its selected trigger path. When **Run** has more than one eligible trigger, choose the trigger to test. API and workflow callers must identify the intended trigger if more than one matches. Existing workflow-only Stripe and Google Forms callback URLs may need to be replaced with the node-specific URLs from the trigger settings.
 
 ## Manual Trigger
 
@@ -35,7 +23,7 @@ The simplest trigger type. No configuration required. Click **Run** in the edito
 
 This node appears as **Trigger manually** in the node picker.
 
-**Variable name:** Not applicable (no input data)
+Manual triggers can have an output variable. Use the variable picker or the active trigger context (`{{$trigger}}`) rather than assuming a manual run has no trigger metadata.
 
 ---
 
@@ -64,6 +52,16 @@ Create a form with custom fields that must be filled out before the workflow run
 - **Files** — File attachments (base64 encoded)
 
 **Accessing input data:** `{{inputTrigger.fieldName}}`
+
+---
+
+## Innflow Trigger
+
+Use **Innflow Trigger** when another Innflow workflow should call this workflow. Define the typed input fields the caller must supply, then select this entry point in the calling workflow’s **Innflow** node.
+
+Required inputs are checked before a run starts. Use distinct names for multiple Innflow entry points so the caller can select the intended one. Reference the actual trigger variable shown in the editor, and use `{{$trigger.nodeId}}` to identify the active root.
+
+See the [Innflow Trigger fields](/tools/reference#innflow-trigger) and [Innflow action](/tools/reference#innflow).
 
 ---
 

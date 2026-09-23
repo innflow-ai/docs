@@ -1,0 +1,3035 @@
+---
+title: "Tool and operation reference"
+description: "Every standard node and operation available in universal search, with configuration fields from the application."
+---
+
+This reference lists the standard universal-search catalog. Availability can also depend on your plan and workspace. [AI Decision](/tools/ai-decision) is separately controlled and is not included in the standard catalog.
+
+Search includes **94 node entries** and **309 operations**. The category guides explain common workflows; use this reference for the complete operation list.
+
+Configuration fields may appear only after selecting an operation, account, or mode. Required fields depend on that selection. Account selectors load live choices; do not invent their IDs. Output fields can also depend on configuration and the response from a service—inspect an execution before referencing a value.
+
+<a id="manual-trigger" />
+
+## Trigger manually
+
+Runs the flow on clicking a button. Good for getting started quickly
+
+Node type: `MANUAL_TRIGGER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+
+<a id="input-trigger" />
+
+## Input Trigger
+
+Define input fields to fill when running. Great for workflows with parameters
+
+Node type: `INPUT_TRIGGER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+| fields | `fields` | Input fields. Each item uses &#123;name, type, defaultValue?&#125;; supported types are string, number, boolean, object, array, and files. IDs are generated when omitted. |
+
+<a id="innflow-trigger" />
+
+## Innflow Trigger
+
+Receive typed input when another Innflow workflow calls this workflow
+
+Node type: `INNFLOW_TRIGGER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+| fields | `fields` | Innflow input fields. Each item uses &#123;name, type, required?, defaultValue?&#125;; names must be unique and IDs are generated when omitted. |
+
+<a id="form-trigger" />
+
+## Form
+
+Host a public form and run the flow when someone submits it
+
+Node type: `FORM_TRIGGER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+| title | `title` | Published form title. |
+| description | `description` | Published form description. |
+| fields | `fields` | Published fields using &#123;name, label, type, required?, placeholder?, defaultValue?, options?&#125;. Types: short_text, long_text, email, number, checkbox, select, date, file_upload. IDs are generated when omitted. |
+| submitLabel | `submitLabel` | Submit button label. |
+| redirectUrl | `redirectUrl` | Optional HTTP or HTTPS URL to open after successful submission. Empty string disables redirect. |
+| successMessage | `successMessage` | Message shown after a successful submission. |
+| appearance | `appearance` | Appearance settings: accentColor, background, backgroundColor, and density. |
+
+<a id="webhook-trigger" />
+
+## Webhook
+
+Runs the flow when an HTTP request is received
+
+Node type: `WEBHOOK_TRIGGER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+| name | `name` | Webhook name. |
+| description | `description` | Webhook description. |
+| requireAuth | `requireAuth` | Require a request authentication header. |
+| authHeaderName | `authHeaderName` | Authentication header name. |
+| authTokenEnvVar | `authTokenEnvVar` | Existing encrypted environment-variable name. Raw tokens are rejected. Secret; enter through the secure configuration control. |
+| inputSchema | `inputSchema` | Expected request fields using &#123;name, type, required?&#125;. |
+
+<a id="google-form-trigger" />
+
+## Google Form
+
+Runs the flow when a Google Form is submitted
+
+Node type: `GOOGLE_FORM_TRIGGER`.
+
+Connect the account requested by the node.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+| connectionId | `connectionId` | ID of a connected Google Forms account. |
+
+<a id="stripe-trigger" />
+
+## Stripe Event
+
+Runs the flow when a Stripe Event is captured
+
+Node type: `STRIPE_TRIGGER`.
+
+Connect the account requested by the node.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+
+<a id="typeform-trigger" />
+
+## Typeform
+
+Runs the flow when a Typeform response is submitted
+
+Node type: `TYPEFORM_TRIGGER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+| formId | `formId` | Typeform form ID. |
+| accessTokenEnvVar | `accessTokenEnvVar` | Existing encrypted environment-variable name containing a Typeform personal access token. Required only when creating the registration. Secret; enter through the secure configuration control. |
+| webhookSecretEnvVar | `webhookSecretEnvVar` | Optional encrypted environment-variable name containing the Typeform webhook secret. Secret; enter through the secure configuration control. |
+
+<a id="scheduler-trigger" />
+
+## Schedule
+
+Runs the flow on a schedule using cron expressions
+
+Node type: `SCHEDULER_TRIGGER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+| schedule | `schedule` | Five-field cron expression. |
+| timezone | `timezone` | IANA timezone, for example America/Toronto. |
+| frequency | `frequency` | Optional display frequency. |
+| payload | `payload` | Optional input payload for scheduled runs. |
+
+<a id="notion-trigger" />
+
+## Notion Event
+
+Runs the flow when a Notion page or database event is received
+
+Node type: `NOTION_TRIGGER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+| connectionId | `connectionId` | ID of a connected Notion workspace. |
+| entityId | `entityId` | Notion page or database ID. |
+| entityType | `entityType` | Notion entity type. Choices: page, database |
+| eventTypes | `eventTypes` | Notion webhook event types to accept. Choices: page.content_updated, page.properties_updated, page.created, page.deleted, database.row_created, database.row_updated, database.row_deleted, comment.created, comment.updated, comment.deleted |
+
+<a id="telegram-trigger" />
+
+## Telegram
+
+Runs the flow when a message is sent to your Telegram bot
+
+Node type: `TELEGRAM_TRIGGER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+| botTokenEnvVar | `botTokenEnvVar` | Existing encrypted environment-variable name containing the Telegram bot token. Required only when creating the registration. Secret; enter through the secure configuration control. |
+
+<a id="chat-trigger" />
+
+## Chat
+
+Trigger workflow with chat messages from a conversational interface
+
+Node type: `CHAT_TRIGGER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| customName | `customName` | Optional user-facing name. Do not change variableName. |
+
+<a id="ai-agent" />
+
+## AI Agent
+
+Autonomous AI agent with tool calling. Select tools inline.
+
+Node type: `AI_AGENT`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Model | `model` | Choose which AI model powers the agent. The model must support tool calling. Choices: OpenAI 5.6 Sol, GPT-5.6 Luna, GPT-5.5, GPT-5.4, GPT-5.4 Mini, GPT-5.4 Nano, GPT-4.1, GPT-4.1 Mini, GPT-4o, GPT-4o Mini, o4-mini, o3, o3-mini, Claude Fable 5, Opus 5, Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, Gemini 3.7 Flash, Gemini 3.6 Flash, Gemini 3.5 Flash, Gemini 3.5 Flash Lite, Gemini 3.1 Pro, Gemini 2.5 Pro, Gemini 2.5 Flash, Gemini 2.5 Flash Lite, DeepSeek V4 Pro, DeepSeek V4.1 Flash, Kimi K3, Kimi K2.6 |
+| System Prompt | `systemPrompt` | Instructions that define the agent's behavior. Supports &#123;&#123;variable&#125;&#125; syntax. |
+| User Prompt | `userPrompt` | The task/instruction for the agent. Supports &#123;&#123;variable&#125;&#125; syntax. |
+| Temperature | `temperature` | Controls randomness. Lower = more deterministic, Higher = more creative. Conditional field. |
+| Max Steps | `maxSteps` | Maximum tool-calling rounds (1-20). A final synthesis is added when tools are used. |
+| Skills | `skills` | Select instruction skills the agent should follow. |
+| Ubuntu Sandbox | `sandboxEnabled` | Explicitly allow isolated shell and filesystem commands. Connected-app credentials are never placed in the sandbox. |
+| Tools | `tools` | Select tools the agent can use during execution. |
+
+<a id="browser-agent" />
+
+## Browser Agent
+
+Run an interactive browser task with Stagehand and Browserbase
+
+Node type: `BROWSER_AGENT`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Run Browser Task | `RUN_TASK` | Complete one multi-step task in a fresh browser session |
+| Run Browser Sequence | `RUN_SEQUENCE` | Run deterministic browser actions in one shared session |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the browser result downstream |
+| Mode | `operation` | Choices: Agent task, Action sequence |
+| Starting URL | `startUrl` | The public HTTP or HTTPS page where the browser task starts Conditional field. |
+| Task | `instruction` | A clear browser task. Supports &#123;&#123;variable&#125;&#125; syntax. Conditional field. |
+| Max Steps | `maxSteps` | Maximum browser-agent actions before the task stops (1-20) Conditional field. |
+| Actions | `steps` | Conditional field. |
+
+<a id="a2a-agent" />
+
+## A2A Agent
+
+Delegate tasks to external A2A-compatible agents over HTTP
+
+Node type: `A2A_AGENT`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Polling Mode | `POLLING` | Send task and poll for result |
+| Streaming Mode | `STREAMING` | Receive real-time SSE updates from the agent |
+
+Open this node in the editor for its setup controls. No editable field list is declared in the shared configuration catalog.
+
+<a id="generate-image" />
+
+## Image Generation
+
+Generate images with Kie.ai image models
+
+Node type: `GENERATE_IMAGE`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Image Generation | `GENERATE` | Generate image URLs using Kie.ai |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference generated images downstream |
+| Model | `model` | Kie.ai Market image model to run Choices: Nano Banana 2, OpenAI Image Gen 2, Wan 2.7 Image, Qwen 2 |
+| Prompt | `prompt` | Prompt sent to Kie.ai. Supports workflow variables. |
+| Aspect Ratio | `aspectRatio` | Aspect ratio for the generated image Choices: Auto, 1:1, 1:4, 1:8, 2:3, 3:2, 3:4, 4:1, 4:3, 4:5, 5:4, 8:1, 16:9, 9:16, 21:9 |
+| Input Image URLs | `inputUrls` | Optional reference image URLs, one per line or comma-separated. Conditional field. |
+| Resolution | `resolution` | Choices: 1K, 2K, 4K Conditional field. |
+| Seed | `seed` | Optional generation seed for repeatable supported outputs Conditional field. |
+| Max Wait | `maxWaitSeconds` | Maximum time to wait for Kie.ai to finish the image task |
+
+<a id="web-scraper" />
+
+## Web Scraper
+
+Scrape pages or search the web and extract clean page content
+
+Node type: `WEB_SCRAPER`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Scrape URL | `SCRAPE_URL` | Scrape a single public page |
+| Search + Scrape | `SEARCH_AND_SCRAPE` | Search the web and scrape the top results |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference scraped content downstream |
+| Operation | `operation` | Choose whether to scrape a known page or search first Choices: Scrape URL, Search + Scrape |
+| URL | `url` | The public HTTP or HTTPS page to scrape Conditional field. |
+| Search Query | `query` | The web search query to run before scraping results Conditional field. |
+| Max Results | `maxResults` | Number of search results to scrape, capped at 10 Conditional field. |
+| Output Format | `outputFormat` | Choose whether to include HTML in addition to markdown Choices: Markdown, Markdown + HTML |
+| Include Metadata | `includeMetadata` | Include title, description, Open Graph, and page metadata |
+| Include Links | `includeLinks` | Include links discovered on scraped pages |
+
+<a id="tables" />
+
+## Tables
+
+Read, query, and modify rows in internal tables
+
+Node type: `TABLES`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Read Table | `READ_TABLE` | Read all rows |
+| Query Rows | `QUERY_ROWS` | Filter rows by column value |
+| Add Row | `ADD_ROW` | Insert new row(s) |
+| Update Row | `UPDATE_ROW` | Update an existing row |
+| Delete Row | `DELETE_ROW` | Remove a row by ID |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output (e.g. &#123;&#123;tables.rows&#125;&#125;, &#123;&#123;tables.totalRows&#125;&#125;) |
+| Table | `tableId` | The table to operate on Choose from options loaded in the editor. |
+| Operation | `operation` | Choices: Read Table, Query Rows, Add Row, Update Row, Delete Row |
+| Row Limit | `limit` | Maximum number of rows to return. Leave empty for all. Conditional field. |
+| Filter Column | `filterColumn` | The column to filter on Choose from options loaded in the editor. Conditional field. |
+| Operator | `filterOperator` | Conditional field. |
+| Filter Value | `filterValue` | The value to filter by. Supports &#123;&#123;variable&#125;&#125; syntax. Conditional field. |
+| Map Columns | `columnMappings` | Map values from earlier nodes or enter a fixed value for each table column. Conditional field. |
+| Row Data (JSON) | `rowData` | JSON object mapping column names to values. Supports &#123;&#123;variable&#125;&#125; in string values. Use an array for bulk insert: [&#123;"col": "val"&#125;, ...] Conditional field. |
+| Row ID | `rowId` | The ID of the row to modify. Supports &#123;&#123;variable&#125;&#125; syntax. Conditional field. |
+| Update Data (JSON) | `updateData` | Advanced fallback: a JSON object with column values to update. Conditional field. |
+
+<a id="http-request" />
+
+## API
+
+Send a request to any public HTTP API
+
+Node type: `HTTP_REQUEST`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the response in later nodes |
+| Method | `method` | Choices: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS |
+| URL | `endpoint` |  |
+| Query parameters | `queryParams` |  |
+| Authorization | `authType` | Choices: None, Bearer token, API key, Basic auth |
+| Bearer token | `bearerToken` | Select an encrypted Secret or a workflow variable. Secret; enter through the secure configuration control. Conditional field. |
+| API key name | `apiKeyName` | Conditional field. |
+| API key value | `apiKeyValue` | Select an encrypted Secret or a workflow variable. Secret; enter through the secure configuration control. Conditional field. |
+| Send API key in | `apiKeyLocation` | Choices: Header, Query parameter Conditional field. |
+| Username | `basicUsername` | Conditional field. |
+| Password | `basicPassword` | Select an encrypted Secret or a workflow variable. Secret; enter through the secure configuration control. Conditional field. |
+| Headers | `headers` | Sensitive header values must use encrypted Secrets. Legacy JSON header objects remain supported. Secret; enter through the secure configuration control. |
+| Body | `bodyType` | Choices: None, JSON, Text, Form URL encoded Conditional field. |
+| Request body | `body` | Conditional field. |
+| Form fields | `formFields` | Conditional field. |
+| Timeout (milliseconds) | `timeoutMs` | Between 1 and 60 seconds |
+
+<a id="webhook-action" />
+
+## Webhook
+
+Send webhook events to external services
+
+Node type: `WEBHOOK_ACTION`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Mode | `mode` | Direct HTTP sends requests directly; Svix provides managed delivery with retries and logging Choices: Direct HTTP, Svix (Managed) |
+| URL | `url` | Conditional field. |
+| Method | `method` | Choices: GET, POST, PUT, PATCH, DELETE Conditional field. |
+| Headers | `headers` | JSON object with header key-value pairs Conditional field. |
+| Svix App ID | `svixAppId` | Your Svix application ID Conditional field. |
+| Event Type | `eventType` | Choices: Workflow Completed, Workflow Failed, Step Completed, Custom Conditional field. |
+| Body / Payload | `body` | JSON payload to send with the webhook |
+
+<a id="sleep" />
+
+## Wait
+
+Pause for a duration or until a specific time
+
+Node type: `SLEEP`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Wait Until | `mode` | Choices: A duration, A date and time |
+| Duration | `duration` | Supported units: seconds, minutes, hours, days, weeks Conditional field. |
+| Date and Time | `untilAt` | Uses your browser's local timezone and stores the instant in the workflow Conditional field. |
+
+<a id="human-approval" />
+
+## Human Approval
+
+Pause until a selected workspace member approves or rejects
+
+Node type: `HUMAN_APPROVAL`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` |  |
+| Approval Title | `title` |  |
+| Instructions | `instructions` |  |
+| Reviewers | `reviewerUserIds` | The first selected reviewer to respond resolves the request Choose from options loaded in the editor. |
+| Timeout | `timeout` |  |
+| Additional Notifications | `deliveryChannels` | Inbox notifications are always created Choices: Email reviewers, Slack channel, Microsoft Teams channel |
+| Slack Account | `slackAccountId` |  |
+| Slack Channel | `slackChannelId` | Choose from options loaded in the editor. |
+| Teams Account | `teamsConnectionId` |  |
+| Teams Team ID | `teamsTeamId` |  |
+| Teams Channel ID | `teamsChannelId` |  |
+
+<a id="wait-for-event" />
+
+## Wait for Event
+
+Pause until a unique callback URL receives an event
+
+Node type: `WAIT_FOR_EVENT`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` |  |
+| Event Name | `title` |  |
+| Timeout | `timeout` |  |
+| Additional Inbox Recipients | `recipientUserIds` | The workflow owner always receives the callback URL Choose from options loaded in the editor. |
+| Additional Notifications | `deliveryChannels` | Choices: Email recipients, Slack channel, Microsoft Teams channel |
+| Slack Account | `slackAccountId` |  |
+| Slack Channel | `slackChannelId` | Choose from options loaded in the editor. |
+| Teams Account | `teamsConnectionId` |  |
+| Teams Team ID | `teamsTeamId` |  |
+| Teams Channel ID | `teamsChannelId` |  |
+
+<a id="condition" />
+
+## Condition
+
+Branch workflow based on a condition (If/Else)
+
+Node type: `CONDITION`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| branches | `branches` | Read only. |
+| schemaVersion | `schemaVersion` |  |
+| conditionType | `conditionType` |  |
+| combinator | `combinator` | Choices: All rules, Any rule |
+| predicates | `predicates` | Use configureCondition for typed comparison rules. |
+
+<a id="router" />
+
+## Router
+
+AI-powered routing with multiple dynamic branches
+
+Node type: `ROUTER`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Context | `context` | The context to analyze for routing decision |
+| routes | `routes` |  |
+| Model | `model` | AI model to use for routing decision Choices: Default, Fastest, Balanced, Smartest, OpenAI 5.6 Sol, GPT-5.5, GPT-5.4, GPT-5.4 Mini, GPT-5.4 Nano, GPT-4.1, GPT-4.1 Mini, GPT-4o, GPT-4o Mini, Claude Fable 5, Opus 5, Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, Gemini 3.7 Flash, Gemini 3.6 Flash, Gemini 3.5 Flash, Gemini 3.5 Flash Lite, Gemini 3.1 Pro, Gemini 2.5 Flash, Gemini 2.5 Pro, DeepSeek V4 Pro, DeepSeek V4.1 Flash |
+
+<a id="label-fields" />
+
+## Label Fields
+
+AI-powered extraction of structured data from unstructured input
+
+Node type: `LABEL_FIELDS`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Input Source | `inputSource` | The data to extract fields from. Use &#123;&#123;variable&#125;&#125; to reference upstream data. |
+| Fields to Extract | `fields` | Define fields as JSON array. Types: string, number, boolean, array, json. |
+| AI Model | `model` | Select the AI model for extraction Choices: Default (GPT-5.4 Mini), OpenAI 5.6 Sol, GPT-5.5, GPT-5.4, GPT-5.4 Mini, GPT-5.4 Nano, GPT-4o, GPT-4o mini, Claude Fable 5, Opus 5, Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, Gemini 3.7 Flash, Gemini 3.6 Flash, Gemini 3.5 Flash, Gemini 3.5 Flash Lite, Gemini 3.1 Pro, Gemini 2.5 Pro, Gemini 2.5 Flash, DeepSeek V4 Pro, DeepSeek V4.1 Flash |
+| Additional Instructions | `instructions` | Optional guidance for the AI on how to extract fields |
+
+<a id="transform-array" />
+
+## Transform Array
+
+Map, filter, or reduce arrays for data transformation
+
+Node type: `TRANSFORM_ARRAY`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Map | `MAP` | Transform each item into a new shape |
+| Filter | `FILTER` | Keep only items matching a condition |
+| Reduce | `REDUCE` | Aggregate items into a single value |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Input Array | `inputArray` | The array to transform. Use &#123;&#123;variable&#125;&#125; to reference upstream data. |
+| Operation | `operation` | Choose how to transform the array Choices: Map — Transform each item, Filter — Keep matching items, Reduce — Aggregate into single value |
+| Transform Expression | `mapExpression` | Use &#123;&#123;item&#125;&#125; for current item, &#123;&#123;index&#125;&#125; for position Conditional field. |
+| Filter Field | `filterField` | Field path to filter on Conditional field. |
+| Operator | `filterOperator` | Choices: Equals, Not Equals, Contains, Not Contains, Greater Than, Greater Than or Equal, Less Than, Less Than or Equal, Exists (not null/undefined), Does Not Exist Conditional field. |
+| Value | `filterValue` | Conditional field. |
+| Reduce Type | `reduceType` | Choices: Sum — Add up numeric values, Count — Count number of items, Concatenate — Join values together, First — Get first item, Last — Get last item, Minimum — Get smallest value, Maximum — Get largest value, Custom — Write custom expression Conditional field. |
+| Field to Aggregate | `reduceField` | The field from each item to aggregate Conditional field. |
+| Initial Value | `reduceInitial` | Starting value for the accumulator (JSON or string) Conditional field. |
+| Reduce Expression | `reduceExpression` | Use &#123;&#123;accumulator&#125;&#125; for running value, &#123;&#123;item&#125;&#125; for current item Conditional field. |
+| Error Handling | `errorHandling` | How to handle errors during transformation Choices: Continue — Collect partial results, Fail — Stop on first error |
+
+<a id="loop" />
+
+## Loop
+
+Run connected nodes once for each item in an array
+
+Node type: `LOOP`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Items | `inputArray` | The array whose items should run through the loop body. |
+| Result | `resultExpression` | Evaluated after each body run. When empty, the current item is collected. |
+| If an item fails | `errorHandling` | Choices: Continue and collect the error, Stop the loop and fail the workflow |
+| Maximum iterations | `maxIterations` | Must be between 1 and 1,000. |
+
+<a id="csv-export" />
+
+## CSV Export
+
+Convert arrays of data into CSV format
+
+Node type: `CSV_EXPORT`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Data Source | `dataSource` | The array of objects to convert to CSV. Use &#123;&#123;variable&#125;&#125; to reference upstream data. |
+| Include Headers | `includeHeaders` | Include column headers as the first row of the CSV |
+| Delimiter | `delimiter` | Character used to separate values in each row Choices: Comma (,), Semicolon (;), Tab |
+| File Name | `fileName` | Informational label for the exported file (without .csv extension) |
+
+<a id="code" />
+
+## Code
+
+Execute JavaScript, Python, or Java code in a secure sandbox
+
+Node type: `CODE`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Name used to reference this node's output in downstream nodes (e.g. &#123;&#123;code.result&#125;&#125;) |
+| Language | `language` | Select the programming language for your code. Python is the default and recommended option. Choices: Python, JavaScript, Java |
+| Code | `code` | Read upstream data through context. For Python scripts, print JSON as the last output for a structured result. Use return only inside a function. Captured expression results are used when the runner provides them. |
+| Timeout (seconds) | `timeout` | Maximum execution time in seconds (1-300). Default: 30s |
+| Output Fields | `outputFields` | Optional declarations used to expose object fields downstream before execution. |
+
+<a id="ai-model" />
+
+## OpenRouter
+
+Access 200+ AI models via OpenRouter (GPT, Claude, Llama, Gemini &amp; more)
+
+Node type: `AI_MODEL`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Generate Text | `GENERATE_TEXT` | Generate text using any of 200+ AI models via OpenRouter |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| variableName | `variableName` | Variable name to store output |
+| model | `model` | OpenRouter model ID (e.g. openai/gpt-4o, anthropic/claude-sonnet-5) |
+| messages | `messages` | Chat messages (system, user, assistant) |
+| apiKey | `apiKey` | OpenRouter API key (optional — platform key used as fallback) |
+| temperature | `temperature` | Temperature 0-2 (default 0.7) |
+| maxTokens | `maxTokens` | Maximum output tokens (default 4096) |
+| jsonMode | `jsonMode` | Enable JSON output mode |
+| systemPrompt | `systemPrompt` | Custom system prompt |
+
+<a id="openai" />
+
+## OpenAI
+
+Uses OpenAI to generate text
+
+Node type: `OPENAI`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| variableName | `variableName` | Variable name to store output |
+| messages | `messages` | Chat messages (system, user, assistant) |
+| model | `model` | Model to use Choices: gpt-5.6-sol, gpt-5.5, gpt-5.4-mini, gpt-5.4, gpt-4o, gpt-4o-mini |
+
+<a id="gemini" />
+
+## Gemini
+
+Uses Google Gemini to generate text
+
+Node type: `GEMINI`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| variableName | `variableName` | Variable name to store output |
+| messages | `messages` | Chat messages |
+| model | `model` | Model to use Choices: gemini-3.7-flash, gemini-3.6-flash, gemini-3.5-flash, gemini-3.5-flash-lite, gemini-3.1-pro-preview, gemini-2.5-flash, gemini-2.5-pro |
+
+<a id="anthropic" />
+
+## Anthropic
+
+Uses Anthropic to generate text
+
+Node type: `ANTHROPIC`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| variableName | `variableName` | Variable name to store output |
+| messages | `messages` | Chat messages |
+| model | `model` | Model to use Choices: claude-fable-5, claude-opus-5, claude-sonnet-5, claude-opus-4-8, claude-haiku-4-5-20251001 |
+
+<a id="deepseek" />
+
+## DeepSeek
+
+Uses DeepSeek to generate text
+
+Node type: `DEEPSEEK`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| variableName | `variableName` | Variable name to store output |
+| messages | `messages` | Chat messages |
+| model | `model` | Model to use Choices: deepseek-v4-pro, deepseek-flash |
+
+<a id="kimi" />
+
+## Kimi
+
+Uses Kimi (Moonshot AI) to generate text
+
+Node type: `KIMI`.
+
+No account connection declared.
+
+Open this node in the editor for its setup controls. No editable field list is declared in the shared configuration catalog.
+
+<a id="grok" />
+
+## Grok
+
+Uses Grok (xAI) to generate text
+
+Node type: `GROK`.
+
+No account connection declared.
+
+Open this node in the editor for its setup controls. No editable field list is declared in the shared configuration catalog.
+
+<a id="qwen" />
+
+## Qwen
+
+Uses Qwen (Alibaba Cloud) to generate text
+
+Node type: `QWEN`.
+
+No account connection declared.
+
+Open this node in the editor for its setup controls. No editable field list is declared in the shared configuration catalog.
+
+<a id="tavily-search" />
+
+## Tavily
+
+Search the web for real-time information
+
+Node type: `TAVILY_SEARCH`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Search | `SEARCH` |  |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| API Key | `apiKey` | Tavily API key - set in Settings &gt; BYOK, Settings &gt; Environment, or paste directly Secret; enter through the secure configuration control. |
+| Search Query | `query` |  |
+| Search Depth | `search_depth` | Choices: Basic, Advanced |
+| Max Results | `max_results` |  |
+| Topic | `topic` | Choices: General, News, Finance |
+| Include Answer | `include_answer` | Choices: None, Basic, Advanced |
+| Include Images | `include_images` |  |
+| Time Range | `time_range` | Choices: All Time, Day, Week, Month, Year |
+| Include Domains | `include_domains` |  |
+| Exclude Domains | `exclude_domains` |  |
+
+<a id="exa" />
+
+## Exa
+
+AI-powered web search with neural, keyword, and similarity modes
+
+Node type: `EXA`.
+
+Configure the API credential requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Search | `SEARCH` | Search the web with neural/keyword search |
+| Find Similar | `FIND_SIMILAR` | Find pages similar to a URL |
+| Get Contents | `GET_CONTENTS` | Retrieve full page content |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| API Key | `apiKey` | Exa API key - set in Settings &gt; BYOK, Settings &gt; Environment, or paste directly Secret; enter through the secure configuration control. |
+| Operation | `operation` | Choices: Search, Find Similar, Get Contents |
+| Search Query | `query` | Conditional field. |
+| Search Type | `searchType` | Choices: Auto, Neural, Keyword Conditional field. |
+| Category Filter | `category` | Choices: All, Company, Research Paper, News, PDF, GitHub, Tweet, Personal Site, LinkedIn Profile Conditional field. |
+| Use Autoprompt | `useAutoprompt` | Let Exa optimize your query for better results Conditional field. |
+| Source URL | `url` | Conditional field. |
+| Exclude Source Domain | `excludeSourceDomain` | Conditional field. |
+| URLs | `urls` | Comma or newline separated URLs (max 100) Conditional field. |
+| Summary Focus | `summaryQuery` | Conditional field. |
+| Number of Results | `numResults` | Conditional field. |
+| Include Domains | `includeDomains` | Comma-separated list of domains to limit results to Conditional field. |
+| Exclude Domains | `excludeDomains` | Conditional field. |
+| Published After | `startPublishedDate` | Conditional field. |
+| Published Before | `endPublishedDate` | Conditional field. |
+| Include Highlights | `includeHighlights` | Conditional field. |
+| Include Full Text | `includeText` |  |
+| Include AI Summary | `includeSummary` | Conditional field. |
+
+<a id="perplexity" />
+
+## Perplexity
+
+AI-powered search and research with real-time web access
+
+Node type: `PERPLEXITY`.
+
+Configure the API credential requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Ask Question | `ASK` | Ask a question with real-time web search |
+| Research | `RESEARCH` | Multi-step research with follow-up questions |
+| Fact Check | `FACT_CHECK` | Verify a claim against web sources |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| API Key | `apiKey` | Perplexity API key - set in Settings &gt; BYOK, Settings &gt; Environment, or paste directly Secret; enter through the secure configuration control. |
+| Variable Name | `variableName` |  |
+| Operation | `operation` | Choices: Ask Question, Research, Fact Check |
+| Model | `model` | Choices: Sonar, Sonar Small, Sonar Medium, Sonar Pro |
+| Prompt | `prompt` | Conditional field. |
+| System Prompt | `systemPrompt` | Conditional field. |
+| Search Domain Filter | `searchDomainFilter` | Conditional field. |
+| Search Recency Filter | `searchRecencyFilter` | Choices: None, Day, Week, Month, Year Conditional field. |
+| Temperature | `temperature` | Conditional field. |
+| Initial Question | `initialQuestion` | Conditional field. |
+| Follow-Up Questions | `followUpQuestions` | Conditional field. |
+| Claim | `claim` | Conditional field. |
+
+<a id="firecrawl" />
+
+## Firecrawl
+
+Scrape, search, crawl, map, extract, and agent-browse the web
+
+Node type: `FIRECRAWL`.
+
+Configure the API credential requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Scrape | `SCRAPE` | Scrape a single URL and extract content |
+| Search | `SEARCH` | Search the web for relevant pages |
+| Crawl | `CRAWL` | Crawl a website following links from a start URL |
+| Map | `MAP` | Discover all linked pages from a URL |
+| Extract | `EXTRACT` | Extract structured data from web pages using AI |
+| Agent | `AGENT` | AI agent that navigates and interacts with websites |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| API Key | `apiKey` | Firecrawl API key -- set in Settings &gt; BYOK, Settings &gt; Environment, or paste directly Secret; enter through the secure configuration control. |
+| Operation | `operation` | Choices: Scrape, Search, Crawl, Map, Extract, Agent |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| URL | `url` | The URL to scrape Conditional field. |
+| Output Formats | `formats` | Choose which formats to include in the output Choices: Markdown, HTML, Raw HTML, Links, Screenshot Conditional field. |
+| Only Main Content | `onlyMainContent` | Extract only the main content, excluding headers, footers, and navigation Conditional field. |
+| Include Tags | `includeTags` | Only include content from these HTML tags (comma-separated, e.g. article, main) Conditional field. |
+| Exclude Tags | `excludeTags` | Exclude content from these HTML tags (comma-separated, e.g. nav, footer) Conditional field. |
+| Wait For (ms) | `waitFor` | Wait for this many milliseconds before scraping (useful for JS-heavy pages) Conditional field. |
+| Search Query | `query` | The search query to find relevant web pages Conditional field. |
+| Result Limit | `limit` | Number of search results (1-20) Conditional field. |
+| Language | `lang` | Language code for results (e.g. en, es, fr) Conditional field. |
+| Country | `country` | Country code for results (e.g. us, gb, de) Conditional field. |
+| Scrape Results | `scrapeResults` | Also scrape the full content of each search result Conditional field. |
+| Start URL | `crawlUrl` | The starting URL to begin crawling from Conditional field. |
+| Max Pages | `crawlLimit` | Maximum number of pages to crawl (1-1000) Conditional field. |
+| Max Depth | `maxDepth` | Maximum link depth to crawl from the start URL Conditional field. |
+| Allow Backward Links | `allowBackwardLinks` | Allow crawling pages that link back to already crawled pages Conditional field. |
+| Allow External Links | `allowExternalLinks` | Allow crawling pages on different domains Conditional field. |
+| Include Paths | `includePaths` | Only crawl URLs matching these path patterns (comma-separated, e.g. /blog/*, /docs/*) Conditional field. |
+| Exclude Paths | `excludePaths` | Skip URLs matching these path patterns (comma-separated) Conditional field. |
+| URL | `mapUrl` | The URL to map (discover all linked pages) Conditional field. |
+| Search Filter | `mapSearch` | Filter discovered links by a search query Conditional field. |
+| Link Limit | `mapLimit` | Maximum number of links to return Conditional field. |
+| URLs | `extractUrls` | Enter one URL per line, or use a variable Conditional field. |
+| Extraction Prompt | `extractPrompt` | Describe what data to extract from the pages Conditional field. |
+| JSON Schema | `extractSchema` | Optional: Define a JSON schema for structured extraction output Conditional field. |
+| Enable Web Search | `enableWebSearch` | Allow the extraction to use web search for additional context Conditional field. |
+| Start URL | `agentUrl` | The starting URL for the agent to navigate Conditional field. |
+| Task / Prompt | `agentPrompt` | Describe the task for the agent to perform on the website Conditional field. |
+
+<a id="discord" />
+
+## Discord
+
+Send messages to Discord channels via webhooks
+
+Node type: `DISCORD`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Webhook URL | `webhookUrl` | Get this from Discord: Channel Settings → Integrations → Webhooks Secret; enter through the secure configuration control. |
+| Message Content | `content` | The message to send. Maximum 2000 characters. |
+| Bot Username | `username` | Override the webhook's default username |
+
+<a id="slack" />
+
+## Slack
+
+Send and read messages in Slack channels
+
+Node type: `SLACK`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Send Message | `SEND_MESSAGE` | Send a message to a channel |
+| Read Messages | `READ_MESSAGE` | Read recent messages from a channel |
+| Create Canvas | `CREATE_CANVAS` | Listed in search, but the current Innflow implementation rejects this operation. |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Slack Account | `slackAccountId` | Select or connect a Slack workspace |
+| Operation | `operation` | Choices: Send Message, Read Messages, Create Canvas |
+| Channel | `channelId` | The Slack channel to interact with Choose from options loaded in the editor. |
+| Message | `content` | Conditional field. |
+| File Attachment | `attachmentUrl` | Attach a file to the message Conditional field. |
+
+<a id="google-docs" />
+
+## Google Docs
+
+Create, read, and write Google Docs documents
+
+Node type: `GOOGLE_DOCS`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Document | `CREATE_DOCUMENT` | Create a new Google Docs document |
+| Read Document | `READ_DOCUMENT` | Read content from a Google Docs document |
+| Write to Document | `WRITE_TO_DOCUMENT` | Write content to an existing Google Docs document |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Google Account | `googleAccountId` | Select or connect a Google account |
+| Operation | `operation` | Choices: Create Document, Read Document, Write to Document |
+| Document Title | `title` | Conditional field. |
+| Document ID | `documentId` | The ID from the document URL Conditional field. |
+| Content | `content` | Conditional field. |
+
+<a id="google-sheets" />
+
+## Google Sheets
+
+Read, write, and manage Google Sheets spreadsheets
+
+Node type: `GOOGLE_SHEETS`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Read Rows | `READ_ROWS` | Read rows from a spreadsheet |
+| Append Rows | `APPEND_ROWS` | Append rows to a spreadsheet |
+| Update Rows | `UPDATE_ROWS` | Update existing rows in a spreadsheet |
+| Create Spreadsheet | `CREATE_SPREADSHEET` | Create a new Google Sheets spreadsheet |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Google Account | `googleAccountId` | Select or connect a Google account |
+| Operation | `operation` | Choices: Read Rows, Append Rows, Update Rows, Create Spreadsheet |
+| Spreadsheet | `spreadsheetId` | Choose a spreadsheet from the selected Google account Choose from options loaded in the editor. Conditional field. |
+| Sheet | `sheetName` | Choose a sheet tab from the selected spreadsheet Choose from options loaded in the editor. Conditional field. |
+| Range | `range` | Cell range (e.g. A1:D10 or A:Z) Conditional field. |
+| Map Columns | `useColumnMapping` | Load every header from the selected sheet and map values individually. Conditional field. |
+| Columns | `columnMappings` | Conditional field. |
+| Values | `values` | Advanced JSON array fallback or &#123;&#123;variable&#125;&#125; Conditional field. |
+| Spreadsheet Title | `title` | Conditional field. |
+
+<a id="google-calendar" />
+
+## Google Calendar
+
+Manage calendars, events, and scheduling via Google Calendar
+
+Node type: `GOOGLE_CALENDAR`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| List Calendars | `LIST_CALENDARS` | List all calendars for the authenticated user |
+| List Events | `LIST_EVENTS` | List events from a calendar with optional search |
+| Create Event | `CREATE_EVENT` | Create a new calendar event |
+| Read Event | `READ_EVENT` | Get details of a specific event |
+| Update Event | `UPDATE_EVENT` | Update an existing calendar event |
+| Delete Event | `DELETE_EVENT` | Delete a calendar event |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Google Calendar Account | `connectionId` | Select or connect a Google Calendar account |
+| Operation | `operation` | Choices: List Calendars, List Events, Create Event, Read Event, Update Event, Delete Event |
+| Calendar ID | `calendarId` | Conditional field. |
+| Event ID | `eventId` | Conditional field. |
+| Summary | `summary` | Event title Conditional field. |
+| Description | `description` | Conditional field. |
+| Location | `location` | Conditional field. |
+| Start Date/Time | `startDateTime` | Conditional field. |
+| End Date/Time | `endDateTime` | Conditional field. |
+| Time Zone | `timeZone` | Conditional field. |
+| Max Results | `maxResults` | Conditional field. |
+| Search Query | `query` | Conditional field. |
+| Send Notifications | `sendNotifications` | Conditional field. |
+
+<a id="google-forms" />
+
+## Google Forms
+
+Retrieve responses from Google Forms
+
+Node type: `GOOGLE_FORMS`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Get Responses | `GET_RESPONSES` | Retrieve responses from a Google Form |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Google Forms Account | `connectionId` | Select or connect a Google account |
+| Form ID | `formId` | Form ID from the Google Form URL |
+| Page Size | `pageSize` |  |
+
+<a id="google-groups" />
+
+## Google Groups
+
+Manage Google Groups, members, and memberships
+
+Node type: `GOOGLE_GROUPS`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| List Groups | `LIST_GROUPS` | List all groups |
+| Get Group | `GET_GROUP` | Get group details |
+| Create Group | `CREATE_GROUP` | Create a new group |
+| Update Group | `UPDATE_GROUP` | Update group settings |
+| Delete Group | `DELETE_GROUP` | Delete a group |
+| List Members | `LIST_MEMBERS` | List group members |
+| Get Member | `GET_MEMBER` | Get member details |
+| Add Member | `ADD_MEMBER` | Add a member to a group |
+| Update Member Role | `UPDATE_MEMBER_ROLE` | Change a member's role |
+| Remove Member | `REMOVE_MEMBER` | Remove a member from a group |
+| Check Membership | `CHECK_MEMBERSHIP` | Check if a user is a member of a group |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Google Groups Account | `connectionId` | Select or connect a Google account |
+| Operation | `operation` | Choices: List Groups, Get Group, Create Group, Update Group, Delete Group, List Members, Get Member, Add Member, Update Member Role, Remove Member, Check Membership |
+| Group Key | `groupKey` | Group email or ID Conditional field. |
+| Member Key | `memberKey` | Conditional field. |
+| Member Email | `memberEmail` | Conditional field. |
+| Member Role | `memberRole` | Choices: Owner, Manager, Member Conditional field. |
+| Group Email | `email` | Conditional field. |
+| Group Name | `name` | Conditional field. |
+| Description | `description` | Conditional field. |
+| Max Results | `maxResults` | Conditional field. |
+
+<a id="google-drive" />
+
+## Google Drive
+
+List, download, and upload files in Google Drive
+
+Node type: `GOOGLE_DRIVE`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| List Files | `LIST_FILES` | List files in Google Drive |
+| Download File | `DOWNLOAD_FILE` | Download a file from Google Drive |
+| Upload File | `UPLOAD_FILE` | Upload a file to Google Drive |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Google Drive Account | `googleAccountId` | Select or connect a Google account |
+| Operation | `operation` | Choices: List Files, Download File, Upload File |
+| Search Query | `query` | Conditional field. |
+| Max Results | `maxResults` | Conditional field. |
+| File ID | `fileId` | Conditional field. |
+| File Name | `uploadFileName` | Conditional field. |
+| File Content | `uploadContent` | Conditional field. |
+| MIME Type | `uploadMimeType` | Choices: text/plain, application/json, text/csv, text/html, text/markdown Conditional field. |
+| Folder ID | `uploadFolderId` | Parent folder ID Conditional field. |
+
+<a id="google-slides" />
+
+## Google Slides
+
+Create and read Google Slides presentations
+
+Node type: `GOOGLE_SLIDES`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Presentation | `CREATE_PRESENTATION` | Create a new Google Slides presentation |
+| Read Presentation | `READ_PRESENTATION` | Read an existing Google Slides presentation |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Google Slides Account | `googleAccountId` | Select or connect a Google account |
+| Operation | `operation` | Choices: Create Presentation, Read Presentation |
+| Presentation Title | `title` | Conditional field. |
+| Presentation ID | `presentationId` | Conditional field. |
+
+<a id="airtable" />
+
+## Airtable
+
+Read, create, update, and delete Airtable records
+
+Node type: `AIRTABLE`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| List Records | `LIST_RECORDS` | List records from a table |
+| Read Record | `READ_RECORD` | Read a single record by ID |
+| Create Record | `CREATE_RECORD` | Create a new record in a table |
+| Update Record | `UPDATE_RECORD` | Update an existing record |
+| Delete Record | `DELETE_RECORD` | Delete a record by ID |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Airtable Account | `connectionId` | Select or connect an Airtable account |
+| Operation | `operation` | Choices: List Records, Read Record, Create Record, Update Record, Delete Record |
+| Base ID | `baseId` | Airtable Base ID |
+| Table Name | `tableName` | Table name or ID |
+| Record ID | `recordId` | Airtable Record ID Conditional field. |
+| Record Data | `recordData` | JSON object with field values Conditional field. |
+| Filter Formula | `filterFormula` | Airtable filter formula Conditional field. |
+| Max Records | `maxRecords` | Conditional field. |
+
+<a id="gmail" />
+
+## Gmail
+
+Send, read, search, and manage emails via Gmail
+
+Node type: `GMAIL`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Send Email | `SEND_EMAIL` | Send an email from your Gmail account |
+| Read Emails | `READ_EMAILS` | Read emails from a label/folder |
+| Draft Email | `DRAFT_EMAIL` | Create a draft email |
+| Search Emails | `SEARCH_EMAILS` | Search emails using Gmail query syntax |
+| Move Email | `MOVE_EMAIL` | Move an email by adding/removing labels |
+| Mark as Read | `MARK_AS_READ` | Mark a message as read |
+| Mark as Unread | `MARK_AS_UNREAD` | Mark a message as unread |
+| Archive Email | `ARCHIVE_EMAIL` | Archive an email (remove from inbox) |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Gmail Account | `gmailConnectionId` | Select or connect a Gmail account |
+| Operation | `operation` | Choices: Send Email, Read Emails, Draft Email, Search Emails, Move Email, Mark as Read, Mark as Unread, Archive Email |
+| To | `to` | Conditional field. |
+| Subject | `subject` | Conditional field. |
+| Body | `body` | Conditional field. |
+| Send as HTML | `isHtml` | Conditional field. |
+| CC | `cc` | Conditional field. |
+| BCC | `bcc` | Conditional field. |
+| Max Results | `maxResults` | Conditional field. |
+| Label | `labelId` | Conditional field. |
+| Search Query | `query` | Conditional field. |
+| Message ID | `messageId` | Conditional field. |
+| Add Label | `addLabelId` | Conditional field. |
+| Remove Label | `removeLabelId` | Conditional field. |
+
+<a id="microsoft-teams" />
+
+## Microsoft Teams
+
+Send messages, read channels, and manage teams in Microsoft Teams
+
+Node type: `MICROSOFT_TEAMS`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Send Message | `SEND_MESSAGE` | Send a message to a Teams channel |
+| Read Messages | `READ_MESSAGES` | Read recent messages from a channel |
+| List Channels | `LIST_CHANNELS` | List channels in a team |
+| List Teams | `LIST_TEAMS` | List all teams you belong to |
+| Create Channel | `CREATE_CHANNEL` | Create a new channel in a team |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Teams Account | `connectionId` | Select or connect a Microsoft Teams account |
+| Operation | `operation` | Choices: Send Message, Read Messages, List Channels, List Teams, Create Channel |
+| Team ID | `teamId` | Conditional field. |
+| Channel ID | `channelId` | Conditional field. |
+| Message | `message` | Conditional field. |
+| Max Results | `maxResults` | Conditional field. |
+| Channel Name | `channelNameNew` | Conditional field. |
+| Channel Description | `channelDescription` | Conditional field. |
+
+<a id="microsoft-outlook" />
+
+## Microsoft Outlook
+
+Send, read, draft, and search emails via Microsoft Outlook
+
+Node type: `MICROSOFT_OUTLOOK`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Send Email | `SEND_EMAIL` | Send an email from your Outlook account |
+| Read Emails | `READ_EMAILS` | Read emails from a folder |
+| Read Email | `READ_EMAIL` | Read a single email by ID |
+| Create Draft | `CREATE_DRAFT` | Create a draft email |
+| Search Emails | `SEARCH_EMAILS` | Search emails using a query |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Outlook Account | `connectionId` | Select or connect a Microsoft Outlook account |
+| Operation | `operation` | Choices: Send Email, Read Emails, Read Email, Create Draft, Search Emails |
+| To | `to` | Conditional field. |
+| Subject | `subject` | Conditional field. |
+| Body | `body` | Conditional field. |
+| Send as HTML | `isHtml` | Conditional field. |
+| CC | `cc` | Conditional field. |
+| BCC | `bcc` | Conditional field. |
+| Folder ID | `folderId` | Conditional field. |
+| Message ID | `messageId` | Conditional field. |
+| Search Query | `searchQuery` | Conditional field. |
+| Max Results | `maxResults` | Conditional field. |
+
+<a id="microsoft-word" />
+
+## Microsoft Word
+
+Create, read, and update Microsoft Word documents
+
+Node type: `MICROSOFT_WORD`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Document | `CREATE_DOCUMENT` | Create a new Microsoft Word document |
+| Read Document | `READ_DOCUMENT` | Read content from a Microsoft Word document |
+| Update Document | `UPDATE_DOCUMENT` | Update content in an existing Microsoft Word document |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Microsoft Account | `connectionId` | Select or connect a Microsoft account |
+| Operation | `operation` | Choices: Create Document, Read Document, Update Document |
+| File Name | `fileName` | Conditional field. |
+| Folder Path | `folderPath` | OneDrive folder path for the new document Conditional field. |
+| Initial Content | `initialContent` | Conditional field. |
+| File ID | `fileId` | The file ID from Microsoft Graph Conditional field. |
+| Content | `content` | Conditional field. |
+
+<a id="microsoft-excel" />
+
+## Microsoft Excel
+
+Create, read, and write Microsoft Excel spreadsheets
+
+Node type: `MICROSOFT_EXCEL`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Spreadsheet | `CREATE_SPREADSHEET` | Create a new Microsoft Excel spreadsheet |
+| Read Rows | `READ_ROWS` | Read rows from an Excel spreadsheet |
+| Write Rows | `WRITE_ROWS` | Write rows to an Excel spreadsheet |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Microsoft Account | `connectionId` | Select or connect a Microsoft account |
+| Operation | `operation` | Choices: Create Spreadsheet, Read Rows, Write Rows |
+| File Name | `fileName` | Conditional field. |
+| Folder Path | `folderPath` | OneDrive folder path for the new spreadsheet Conditional field. |
+| File ID | `fileId` | The file ID from Microsoft Graph Conditional field. |
+| Worksheet Name | `worksheetName` | Name of the worksheet tab Conditional field. |
+| Range | `range` | Cell range (e.g. A1:Z100) Conditional field. |
+| Values | `values` | JSON array of row data Conditional field. |
+
+<a id="microsoft-onedrive" />
+
+## Microsoft OneDrive
+
+List, get, create folders, and delete files in OneDrive
+
+Node type: `MICROSOFT_ONEDRIVE`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| List Files | `LIST_FILES` | List files in a OneDrive folder |
+| Get File | `GET_FILE` | Get a file from OneDrive |
+| Create Folder | `CREATE_FOLDER` | Create a new folder in OneDrive |
+| Delete File | `DELETE_FILE` | Delete a file from OneDrive |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| OneDrive Account | `connectionId` | Select or connect a Microsoft account |
+| Operation | `operation` | Choices: List Files, Get File, Create Folder, Delete File |
+| Folder ID | `folderId` | Parent folder ID (root if empty) Conditional field. |
+| File ID | `fileId` | Conditional field. |
+| Folder Name | `folderName` | Conditional field. |
+
+<a id="microsoft-sharepoint" />
+
+## Microsoft SharePoint
+
+Browse sites, lists, and manage list items in SharePoint Online
+
+Node type: `MICROSOFT_SHAREPOINT`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| List Sites | `LIST_SITES` | Search or list SharePoint sites |
+| List Lists | `LIST_LISTS` | List all lists in a SharePoint site |
+| Get List Items | `GET_LIST_ITEMS` | Get items from a SharePoint list |
+| Create List Item | `CREATE_LIST_ITEM` | Create a new item in a SharePoint list |
+| Update List Item | `UPDATE_LIST_ITEM` | Update an existing item in a SharePoint list |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| SharePoint Account | `connectionId` | Select or connect a Microsoft account |
+| Operation | `operation` | Choices: List Sites, List Lists, Get List Items, Create List Item, Update List Item |
+| Search Query | `searchQuery` | Conditional field. |
+| Site ID | `siteId` | Conditional field. |
+| List ID | `listId` | Conditional field. |
+| Item ID | `itemId` | Conditional field. |
+| Fields | `fields` | JSON object with field values Conditional field. |
+| Filter | `filter` | OData filter expression Conditional field. |
+| Max Results | `top` | Conditional field. |
+
+<a id="microsoft-planner" />
+
+## Microsoft Planner
+
+Manage plans and tasks in Microsoft Planner
+
+Node type: `MICROSOFT_PLANNER`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| List Plans | `LIST_PLANS` | List all plans in the group |
+| List Tasks | `LIST_TASKS` | List tasks in a plan |
+| Create Task | `CREATE_TASK` | Create a new task in a plan |
+| Update Task | `UPDATE_TASK` | Update an existing task |
+| Delete Task | `DELETE_TASK` | Delete a task |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Microsoft Planner Account | `connectionId` | Select or connect a Microsoft Planner account |
+| Operation | `operation` | Choices: List Plans, List Tasks, Create Task, Update Task, Delete Task |
+| Plan ID | `planId` | Planner Plan ID Conditional field. |
+| Task ID | `taskId` | Planner Task ID Conditional field. |
+| Task Title | `title` | Conditional field. |
+| Bucket ID | `bucketId` | Planner bucket ID Conditional field. |
+| Due Date | `dueDate` | Conditional field. |
+| Priority | `priority` | Choices: Urgent, Important, Medium, Low Conditional field. |
+| Percent Complete | `percentComplete` | Conditional field. |
+
+<a id="knowledge-base" />
+
+## Knowledge Base
+
+Search your knowledge base for relevant information
+
+Node type: `KNOWLEDGE_BASE`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Search | `SEARCH` | Search knowledge base for relevant information |
+| Upload | `UPLOAD` | Upload a document to the knowledge base |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Knowledge Base | `knowledgeBaseId` | The knowledge base to query or upload to Choose from options loaded in the editor. |
+| Operation | `operation` | Choose whether to search or upload to the knowledge base Choices: Search, Upload |
+| Search Query | `query` | The query to search for in the knowledge base Conditional field. |
+| Number of Results | `topK` | Maximum number of results to return (1-50) Conditional field. |
+| Score Threshold | `scoreThreshold` | Minimum similarity score (0-1). Leave empty for no threshold. Conditional field. |
+| File URL | `fileUrl` | URL of the file to upload Conditional field. |
+| File Name | `fileName` | Name to save the file as Conditional field. |
+| File Type | `fileType` | Type of the file being uploaded Choices: PDF, Text, Markdown Conditional field. |
+
+<a id="attio" />
+
+## Attio
+
+Manage Attio CRM records, notes, tasks, and object metadata
+
+Node type: `ATTIO`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| List Records | `LIST_RECORDS` |  |
+| Get Record | `GET_RECORD` |  |
+| Update Record | `UPDATE_RECORD` |  |
+| Delete Record | `DELETE_RECORD` |  |
+| Search Records | `SEARCH_RECORDS` |  |
+| Assert Record | `ASSERT_RECORD` |  |
+| List Notes | `LIST_NOTES` |  |
+| Get Note | `GET_NOTE` |  |
+| Create Note | `CREATE_NOTE` |  |
+| Delete Note | `DELETE_NOTE` |  |
+| List Tasks | `LIST_TASKS` |  |
+| Create Task | `CREATE_TASK` |  |
+| Get Object | `GET_OBJECT` |  |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Attio Account | `connectionId` | Select or connect an Attio workspace |
+| Operation | `operation` | Choices: List Records, Get Record, Update Record, Delete Record, Search Records, Assert Record, List Notes, Get Note, Create Note, Delete Note, List Tasks, Create Task, Get Object |
+| Object | `object` | Attio object slug or ID Conditional field. |
+| Record ID | `recordId` | Conditional field. |
+| Note ID | `noteId` | Conditional field. |
+| Matching Attribute | `matchingAttribute` | Unique attribute slug or ID used by Attio to match a record Conditional field. |
+| Values | `values` | JSON object for Attio attribute values Conditional field. |
+| Filter | `filter` | Optional Attio filter object Conditional field. |
+| Sorts | `sorts` | Optional Attio sorts array Conditional field. |
+| Search Query | `query` | Conditional field. |
+| Title | `title` | Conditional field. |
+| Content | `content` | Conditional field. |
+| Deadline | `deadlineAt` | Conditional field. |
+| Linked Records | `linkedRecords` | Optional JSON array of Attio record identifiers Conditional field. |
+| Limit | `limit` | Conditional field. |
+| Offset | `offset` | Conditional field. |
+
+<a id="hubspot" />
+
+## HubSpot
+
+Manage HubSpot contacts, companies, and deals
+
+Node type: `HUBSPOT`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Record | `CREATE_RECORD` | Create a new CRM record |
+| Read Record | `READ_RECORD` | Read a single record by ID |
+| Update Record | `UPDATE_RECORD` | Update an existing record |
+| Delete Record | `DELETE_RECORD` | Delete a record by ID |
+| List Records | `LIST_RECORDS` | List records with optional limit |
+| Search Records | `SEARCH_RECORDS` | Search records with query or filters |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| HubSpot Account | `connectionId` | Select or connect a HubSpot account |
+| Object Type | `objectType` | Choices: Contacts, Companies, Deals |
+| Operation | `operation` | Choices: Create Record, Read Record, Update Record, Delete Record, List Records, Search Records |
+| Record ID | `recordId` | HubSpot Record ID Conditional field. |
+| Properties | `properties` | JSON object with property values Conditional field. |
+| Search Query | `searchQuery` | Free-text search query Conditional field. |
+| Filter Groups | `filterGroups` | Advanced filter JSON Conditional field. |
+| Limit | `limit` | Conditional field. |
+
+<a id="clickup" />
+
+## ClickUp
+
+Manage ClickUp tasks, lists, comments, and custom fields
+
+Node type: `CLICKUP`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Task | `CREATE_TASK` | Create a new task in a list |
+| Get Task | `GET_TASK` | Fetch a task by ID |
+| Update Task | `UPDATE_TASK` | Partially update an existing task |
+| Delete Task | `DELETE_TASK` | Permanently delete a task |
+| List Tasks | `LIST_TASKS` | List tasks in a list with optional filters |
+| Search Tasks | `SEARCH_TASKS` | Search tasks across an entire workspace |
+| Add Comment | `ADD_COMMENT` | Post a comment on a task |
+| Set Custom Field | `SET_CUSTOM_FIELD` | Set a single custom field value on a task |
+| Get Lists | `GET_LISTS` | Fetch lists in a space or folder |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| ClickUp Account | `connectionId` | Select or connect a ClickUp workspace |
+| Operation | `operation` | Choices: Create Task, Get Task, Update Task, Delete Task, List Tasks, Search Tasks, Add Comment, Set Custom Field, Get Lists |
+| Space | `spaceId` | Pick a Space (or paste a Space ID / variable) Conditional field. |
+| Folder | `folderId` | Optional — leave blank for folderless lists Conditional field. |
+| List | `listId` | Conditional field. |
+| Workspace ID | `teamId` | ClickUp Workspace (team) ID Conditional field. |
+| Task ID | `taskId` | Conditional field. |
+| Task Name | `taskName` | Conditional field. |
+| Description | `description` | Conditional field. |
+| Priority | `priority` | Choices: Urgent, High, Normal, Low Conditional field. |
+| Due Date | `dueDate` | Conditional field. |
+| Assignees | `assignees` | Conditional field. |
+| Tags | `tags` | Conditional field. |
+| Custom Fields | `customFields` | JSON object: &#123; fieldId: value &#125;. Get fieldIds from List &gt; Custom Fields. Conditional field. |
+| Field ID | `fieldId` | Conditional field. |
+| Field Value | `fieldValue` | Plain text for text fields; numbers for number fields; JSON for arrays/objects Conditional field. |
+| Comment | `commentText` | Conditional field. |
+| Assignee (optional) | `commentAssignee` | Conditional field. |
+| Statuses | `statuses` | Conditional field. |
+| Limit | `limit` | Conditional field. |
+
+<a id="dub" />
+
+## Dub
+
+Create short links and read analytics with Dub.co
+
+Node type: `DUB`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Short Link | `CREATE_SHORT_LINK` | Shorten a URL into a Dub link |
+| Get Link Analytics | `GET_LINK_ANALYTICS` | Fetch click analytics for a link over a time range |
+| List Links | `LIST_LINKS` | List links in the connected workspace |
+| Update Link | `UPDATE_LINK` | Update destination URL or metadata |
+| Delete Link | `DELETE_LINK` | Permanently delete a short link |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Dub Account | `connectionId` | Select or connect a Dub workspace |
+| Operation | `operation` | Choices: Create Short Link, Get Link Analytics, List Links, Update Link, Delete Link |
+| Destination URL | `url` | Conditional field. |
+| Domain | `domain` | Custom short domain — leave blank to use Dub's default Conditional field. |
+| Custom Slug | `key` | Conditional field. |
+| Title | `title` | Conditional field. |
+| Description | `description` | Conditional field. |
+| Expires At | `expiresAt` | Conditional field. |
+| Link ID | `linkId` | Conditional field. |
+| Interval | `interval` | Choices: Last 24 hours, Last 7 days, Last 30 days, Last 90 days, Last year, All time Conditional field. |
+| Search | `search` | Conditional field. |
+| Limit | `limit` | Conditional field. |
+
+<a id="notion" />
+
+## Notion
+
+Read, create, and query Notion pages and databases
+
+Node type: `NOTION`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Read Page | `READ_PAGE` | Read a Notion page |
+| Read Database | `READ_DATABASE` | Read a Notion database |
+| Create Page | `CREATE_PAGE` | Create a new page |
+| Create Database | `CREATE_DATABASE` | Create a new database |
+| Add Database Row | `ADD_DATABASE_ROW` | Add a row to a database |
+| Append Content | `APPEND_CONTENT` | Append content to a page |
+| Query Database | `QUERY_DATABASE` | Query a database with filters |
+| Search Workspace | `SEARCH_WORKSPACE` | Search across the workspace |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Notion Account | `connectionId` | Select or connect a Notion workspace |
+| Operation | `operation` | Choices: Read Page, Read Database, Create Page, Create Database, Add Database Row, Append Content, Query Database, Search Workspace |
+| Page ID | `pageId` | Conditional field. |
+| Database ID | `databaseId` | Conditional field. |
+| Parent ID | `parentId` | Parent page or database ID Conditional field. |
+| Title | `title` | Conditional field. |
+| Properties | `properties` | Properties JSON Conditional field. |
+| Content | `content` | Conditional field. |
+| Search Query | `query` | Conditional field. |
+| Filter | `filter` | Filter JSON Conditional field. |
+| Sorts | `sorts` | Sort criteria JSON Conditional field. |
+
+<a id="resend" />
+
+## Resend
+
+Send emails using the Resend email API
+
+Node type: `RESEND`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Send Email | `SEND_EMAIL` |  |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Resend API Key | `resendApiKey` | Secret; enter through the secure configuration control. |
+| From Address | `fromAddress` |  |
+| To | `to` |  |
+| Subject | `subject` |  |
+| Body | `body` |  |
+| Content Type | `contentType` | Choices: Plain Text, HTML |
+| CC | `cc` |  |
+| BCC | `bcc` |  |
+| Reply To | `replyTo` |  |
+
+<a id="telegram" />
+
+## Telegram
+
+Send messages, photos, videos, and documents via Telegram
+
+Node type: `TELEGRAM`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Send Message | `SEND_MESSAGE` |  |
+| Send Photo | `SEND_PHOTO` |  |
+| Send Video | `SEND_VIDEO` |  |
+| Send Audio | `SEND_AUDIO` |  |
+| Send Animation | `SEND_ANIMATION` |  |
+| Send Document | `SEND_DOCUMENT` |  |
+| Delete Message | `DELETE_MESSAGE` |  |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Operation | `operation` | Choices: Send Message, Send Photo, Send Video, Send Audio, Send Animation, Send Document, Delete Message |
+| Bot Token | `botToken` | Getting Bot Token: 1. Message "/newbot" to @BotFather 2. Choose a name for your bot 3. Copy the token and paste it here Secret; enter through the secure configuration control. |
+| Chat ID | `chatId` | Getting Chat ID: 1. Add your bot to the desired channel 2. Send any message to the channel 3. Visit https://api.telegram.org/bot&lt;TOKEN&gt;/getUpdates 4. Find the chat ID in the JSON response |
+| Message | `text` | Conditional field. |
+| Photo | `photo` | Conditional field. |
+| Video | `video` | Conditional field. |
+| Audio | `audio` | Conditional field. |
+| Animation | `animation` | Conditional field. |
+| Document | `document` | Conditional field. |
+| Caption | `caption` | Conditional field. |
+| Message ID | `messageId` | Conditional field. |
+
+<a id="linkedin" />
+
+## LinkedIn
+
+Share posts and retrieve profile data from LinkedIn
+
+Node type: `LINKEDIN`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Share Post | `SHARE_POST` | Share a post on LinkedIn |
+| Get Profile | `GET_PROFILE` | Retrieve LinkedIn profile information |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| LinkedIn Account | `linkedInAccountId` | Select or connect a LinkedIn account Secret; enter through the secure configuration control. |
+| Operation | `operation` | Choices: Share Post, Get Profile |
+| Post Text | `text` | Max 3000 characters Conditional field. |
+| Image URL | `imageUrl` | Optional image to attach to the post Conditional field. |
+| Article URL | `articleUrl` | Optional article link to share with the post Conditional field. |
+| Visibility | `visibility` | Choices: Public, Connections Only Conditional field. |
+
+<a id="facebook" />
+
+## Facebook
+
+Publish posts and Stories to Facebook Pages
+
+Node type: `FACEBOOK`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Publish Page Post | `PUBLISH_PAGE_POST` | Publish a feed post or Story to a Facebook Page |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the published post |
+| Facebook Account | `facebookAccountId` | Select a connected Facebook account Secret; enter through the secure configuration control. |
+| Facebook Page | `pageId` | Page that will publish the post |
+| Post Type | `postType` | Choices: Text, Link, Single image, Multiple images, Image Story, Video Story |
+| Message | `message` |  |
+| Link URL | `linkUrl` | Conditional field. |
+| Image URL | `imageUrl` | Public HTTPS image URL that Facebook can fetch Conditional field. |
+
+<a id="instagram" />
+
+## Instagram
+
+Publish feed images and Stories to an Instagram professional account
+
+Node type: `INSTAGRAM`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Publish Media | `PUBLISH_MEDIA` | Publish a feed image or Story to Instagram |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the published post |
+| Instagram Connection | `instagramAccountId` | Select a separately connected Instagram account Secret; enter through the secure configuration control. |
+| Linked Facebook Page | `pageId` | Stored automatically when an Instagram account is selected |
+| Instagram Professional Account | `instagramUserId` | Stored automatically when an Instagram account is selected |
+| Publish Type | `publishType` | Choices: Feed image, Image Story, Video Story |
+| Image URL | `imageUrl` | Public HTTPS URL that Meta can fetch during publishing |
+| Caption | `caption` |  |
+
+<a id="typeform" />
+
+## Typeform
+
+Create, manage, and collect responses from Typeform forms
+
+Node type: `TYPEFORM`.
+
+Configure the API credential requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| List Forms | `LIST_FORMS` | List all forms in your Typeform account |
+| Get Form | `GET_FORM` | Get the full definition of a specific form |
+| Create Form | `CREATE_FORM` | Create a new Typeform form with fields and settings |
+| Update Form | `UPDATE_FORM` | Update an existing form with a new definition |
+| Delete Form | `DELETE_FORM` | Permanently delete a form |
+| Get Responses | `GET_RESPONSES` | Retrieve form responses with optional date range filtering |
+| Get Form Insights | `GET_FORM_INSIGHTS` | Get analytics and insights for a form |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Name used to reference this node's output in other nodes |
+| API Key | `apiKey` | Enter your Typeform API key or use an environment variable like &#123;&#123;TYPEFORM_API_KEY&#125;&#125; Secret; enter through the secure configuration control. |
+| Operation | `operation` | Choose which Typeform operation to perform Choices: List Forms, Get Form, Create Form, Update Form, Delete Form, Get Responses, Get Form Insights |
+| Form ID | `formId` | The unique identifier of the Typeform form Conditional field. |
+| Page | `page` | Page number (starts at 1) Conditional field. |
+| Page Size | `pageSize` | Number of forms per page (max 200) Conditional field. |
+| Title | `title` | Title for the new form Conditional field. |
+| Fields | `fields` | JSON array of form field definitions Conditional field. |
+| Settings | `settings` | Form settings as JSON object Conditional field. |
+| Workspace | `workspace` | Workspace ID or URL to create the form in Conditional field. |
+| Form Definition | `formDefinition` | Full form definition JSON to update Conditional field. |
+| Response Page Size | `responsePageSize` | Number of responses per page (max 1000) Conditional field. |
+| Since | `since` | Only return responses submitted after this date (ISO 8601) Conditional field. |
+| Until | `until` | Only return responses submitted before this date (ISO 8601) Conditional field. |
+
+<a id="trello" />
+
+## Trello
+
+Manage Trello boards, lists, cards, and comments
+
+Node type: `TRELLO`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Get Lists | `GET_LISTS` | Get all lists on a board |
+| List Cards | `LIST_CARDS` | List cards in a list |
+| Create Card | `CREATE_CARD` | Create a new card |
+| Update Card | `UPDATE_CARD` | Update an existing card |
+| Get Actions | `GET_ACTIONS` | Get activity on a card |
+| Add Comment | `ADD_COMMENT` | Add a comment to a card |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Trello Account | `connectionId` | Select or connect a Trello account |
+| Operation | `operation` | Choices: Get Lists, List Cards, Create Card, Update Card, Get Actions, Add Comment |
+| Board ID | `boardId` | Trello Board ID |
+| List ID | `listId` | Trello List ID Conditional field. |
+| Card ID | `cardId` | Trello Card ID Conditional field. |
+| Card Name | `name` | Conditional field. |
+| Card Description | `desc` | Conditional field. |
+| Target List ID | `idList` | Move card to this list Conditional field. |
+| Comment Text | `text` | Conditional field. |
+
+<a id="ahrefs" />
+
+## Ahrefs
+
+SEO analytics — domain ratings, backlinks, keywords, and more
+
+Node type: `AHREFS`.
+
+Configure the API credential requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Domain Rating | `DOMAIN_RATING` | Get the Domain Rating score and rank |
+| Backlinks Stats | `BACKLINKS_STATS` | Get backlink and referring domain counts |
+| Organic Keywords | `ORGANIC_KEYWORDS` | Get organic keyword rankings |
+| Top Pages | `TOP_PAGES` | Get top pages by organic traffic |
+| Referring Domains | `REFERRING_DOMAINS` | Get referring domains list |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| API Key | `apiKey` | Ahrefs API key - set in Settings &gt; Secrets or paste directly Secret; enter through the secure configuration control. |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Operation | `operation` | Choices: Domain Rating, Backlinks Stats, Organic Keywords, Top Pages, Referring Domains |
+| Target Domain | `target` | The domain to analyze |
+| Date | `date` | Historical date for the data snapshot. Leave empty for the latest available data. Conditional field. |
+| Country | `country` | Two-letter country code (e.g. us, gb, de) Conditional field. |
+| Result Limit | `limit` | Maximum number of results to return (1–1000) Conditional field. |
+| Mode | `mode` | Target matching mode — subdomains includes all subdomains, exact matches only the target, prefix matches URLs starting with the target Choices: Subdomains, Exact, Prefix Conditional field. |
+
+<a id="apollo" />
+
+## Apollo
+
+Search, enrich, and manage contacts and organizations via Apollo.io
+
+Node type: `APOLLO`.
+
+Configure the API credential requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Search People | `SEARCH_PEOPLE` | Search for people by title, location, seniority, and company |
+| Enrich Person | `ENRICH_PERSON` | Get detailed info about a person by email, name, or LinkedIn |
+| Bulk Enrich People | `BULK_ENRICH_PEOPLE` | Enrich multiple people at once from a JSON array |
+| Search Organizations | `SEARCH_ORGANIZATIONS` | Search for companies by location, size, and keywords |
+| Enrich Organization | `ENRICH_ORGANIZATION` | Get detailed info about a company by domain |
+| Bulk Enrich Organizations | `BULK_ENRICH_ORGANIZATIONS` | Enrich multiple organizations by domain |
+| Create Contact | `CREATE_CONTACT` | Create a new contact in Apollo CRM |
+| Update Contact | `UPDATE_CONTACT` | Update an existing contact by ID |
+| Search Contacts | `SEARCH_CONTACTS` | Search contacts in your Apollo CRM |
+| Bulk Create Contacts | `BULK_CREATE_CONTACTS` | Create multiple contacts from a JSON array |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| API Key | `apiKey` | Enter your Apollo.io API key or use an environment variable like &#123;&#123;APOLLO_API_KEY&#125;&#125; Secret; enter through the secure configuration control. |
+| Operation | `operation` | Choose which Apollo.io operation to perform Choices: Search People, Enrich Person, Bulk Enrich People, Search Organizations, Enrich Organization, Bulk Enrich Organizations, Create Contact, Update Contact, Search Contacts, Bulk Create Contacts |
+| Variable Name | `variableName` | Name used to reference this node's output in other nodes |
+| Job Titles | `personTitles` | Comma-separated titles Conditional field. |
+| Locations | `personLocations` | Comma-separated locations (e.g., San Francisco, New York) Conditional field. |
+| Seniorities | `personSeniorities` | Comma-separated seniority levels Conditional field. |
+| Organization Domains | `organizationDomains` | Comma-separated company domains to filter by Conditional field. |
+| Email | `email` | Email address Conditional field. |
+| First Name | `firstName` | First name Conditional field. |
+| Last Name | `lastName` | Last name Conditional field. |
+| Organization Name | `organizationName` | Company name Conditional field. |
+| Domain | `domain` | Company domain for matching Conditional field. |
+| LinkedIn URL | `linkedinUrl` | LinkedIn profile URL Conditional field. |
+| Details (JSON) | `bulkEnrichDetails` | JSON array of objects with email, first_name, last_name, domain, linkedin_url Conditional field. |
+| Locations | `organizationLocations` | Comma-separated organization locations Conditional field. |
+| Employee Count Ranges | `numEmployeesRanges` | Ranges: 1-10, 11-50, 51-200, 201-500, 501-1000, 1001-5000, 5001-10000, 10001+ Conditional field. |
+| Keyword Tags | `keywordTags` | Comma-separated industry/keyword tags Conditional field. |
+| Domain | `enrichDomain` | Company domain to enrich Conditional field. |
+| Domains | `bulkEnrichDomains` | Comma-separated domain names Conditional field. |
+| Title | `title` | Job title Conditional field. |
+| Account ID | `accountId` | Apollo account ID to associate with Conditional field. |
+| Contact ID | `contactId` | ID of the contact to update Conditional field. |
+| Keywords | `keywords` | Search keywords for contacts Conditional field. |
+| Sort By | `sortByField` | Field to sort results by Choices: Updated At, Created At, First Name, Last Name, Email Conditional field. |
+| Contacts (JSON) | `bulkCreateContacts` | JSON array of contact objects with first_name, last_name, email, title, organization_name Conditional field. |
+| Page | `page` | Page number (starts at 1) Conditional field. |
+| Per Page | `perPage` | Results per page (max 100) Conditional field. |
+
+<a id="calendly" />
+
+## Calendly
+
+Manage events, invitees, and scheduling via Calendly
+
+Node type: `CALENDLY`.
+
+Configure the API credential requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Get Current User | `GET_CURRENT_USER` | Retrieve the authenticated user's profile information |
+| List Event Types | `LIST_EVENT_TYPES` | List all event types for a user |
+| Get Event Type | `GET_EVENT_TYPE` | Get details of a specific event type |
+| List Scheduled Events | `LIST_SCHEDULED_EVENTS` | List scheduled events for a user with optional filters |
+| Get Scheduled Event | `GET_SCHEDULED_EVENT` | Get details of a specific scheduled event |
+| List Event Invitees | `LIST_EVENT_INVITEES` | List invitees for a scheduled event |
+| Cancel Event | `CANCEL_EVENT` | Cancel a scheduled event with an optional reason |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Name used to reference this node's output in other nodes |
+| API Key | `apiKey` | Enter your Calendly API key or use an environment variable like &#123;&#123;CALENDLY_API_KEY&#125;&#125; Secret; enter through the secure configuration control. |
+| Operation | `operation` | Choose which Calendly operation to perform Choices: Get Current User, List Event Types, Get Event Type, List Scheduled Events, Get Scheduled Event, List Event Invitees, Cancel Event |
+| User URI | `userUri` | Calendly user URI (returned from Get Current User) Conditional field. |
+| Event Type URI | `eventTypeUri` | Full URI of the event type to retrieve Conditional field. |
+| Event URI | `eventUri` | Full URI of the scheduled event Conditional field. |
+| Count | `count` | Number of events to return (1-100) Conditional field. |
+| Status | `status` | Filter events by status Choices: Active, Canceled Conditional field. |
+| Cancellation Reason | `reason` | Optional reason for canceling the event Conditional field. |
+
+<a id="cal-com" />
+
+## Cal.com
+
+Manage Cal.com event types and bookings
+
+Node type: `CAL_COM`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| List Event Types | `LIST_EVENT_TYPES` | Retrieve all configured event types |
+| List Bookings | `LIST_BOOKINGS` | Retrieve bookings with optional status filter |
+| Create Booking | `CREATE_BOOKING` | Create a new booking for an event type |
+| Cancel Booking | `CANCEL_BOOKING` | Cancel an existing booking |
+| Reschedule Booking | `RESCHEDULE_BOOKING` | Reschedule an existing booking to a new time |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Cal.com Account | `connectionId` | Select or connect a Cal.com account Secret; enter through the secure configuration control. |
+| Operation | `operation` | Choices: List Event Types, List Bookings, Create Booking, Cancel Booking, Reschedule Booking |
+| Status Filter | `statusFilter` | Choices: Upcoming, Past, Cancelled, All Conditional field. |
+| Event Type ID | `eventTypeId` | The ID of the event type to book Conditional field. |
+| Start Time | `startTime` | Booking start time in ISO 8601 format Conditional field. |
+| Attendee Name | `attendeeName` | Conditional field. |
+| Attendee Email | `attendeeEmail` | Conditional field. |
+| Attendee Timezone | `attendeeTimezone` | IANA timezone identifier for the attendee Conditional field. |
+| Booking UID | `bookingUid` | The unique identifier of the booking Conditional field. |
+| Cancellation Reason | `cancellationReason` | Conditional field. |
+| New Start Time | `rescheduleStartTime` | New start time for the rescheduled booking Conditional field. |
+
+<a id="reddit" />
+
+## Reddit
+
+Create, draft, or schedule Reddit posts
+
+Node type: `REDDIT`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Post | `CREATE_POST` | Create, draft, or schedule Reddit posts |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Reddit Account | `zernioAccountId` | Select or connect a Reddit account Secret; enter through the secure configuration control. |
+| Publish Mode | `publishMode` | Choices: Publish Now, Schedule, Draft |
+| Scheduled For | `scheduledFor` | Conditional field. |
+| Timezone | `timezone` | Conditional field. |
+| Content | `content` |  |
+| Media URLs | `mediaUrls` | Optional public image/video URLs, separated by commas or new lines |
+| Subreddit | `subreddit` |  |
+| Post Title | `title` |  |
+| Link URL | `linkUrl` |  |
+| Flair ID | `flairId` |  |
+| Native Video | `nativeVideo` |  |
+| Advanced Platform Settings JSON | `platformSpecificJson` | Optional platform-specific settings. Values here override matching fields above. |
+
+<a id="bluesky" />
+
+## Bluesky
+
+Create, draft, or schedule Bluesky posts
+
+Node type: `BLUESKY`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Post | `CREATE_POST` | Create, draft, or schedule Bluesky posts |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Bluesky Account | `zernioAccountId` | Select or connect a Bluesky account Secret; enter through the secure configuration control. |
+| Publish Mode | `publishMode` | Choices: Publish Now, Schedule, Draft |
+| Scheduled For | `scheduledFor` | Conditional field. |
+| Timezone | `timezone` | Conditional field. |
+| Content | `content` |  |
+| Media URLs | `mediaUrls` | Optional public image/video URLs, separated by commas or new lines |
+| Advanced Platform Settings JSON | `platformSpecificJson` | Optional platform-specific settings. Values here override matching fields above. |
+
+<a id="threads" />
+
+## Threads
+
+Create, draft, or schedule Threads posts
+
+Node type: `THREADS`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Post | `CREATE_POST` | Create, draft, or schedule Threads posts |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Threads Account | `zernioAccountId` | Select or connect a Threads account Secret; enter through the secure configuration control. |
+| Publish Mode | `publishMode` | Choices: Publish Now, Schedule, Draft |
+| Scheduled For | `scheduledFor` | Conditional field. |
+| Timezone | `timezone` | Conditional field. |
+| Content | `content` |  |
+| Media URLs | `mediaUrls` | Optional public image/video URLs, separated by commas or new lines |
+| Advanced Platform Settings JSON | `platformSpecificJson` | Optional platform-specific settings. Values here override matching fields above. |
+
+<a id="telegram-post" />
+
+## Telegram
+
+Send, draft, or schedule Telegram channel posts
+
+Node type: `TELEGRAM_POST`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Post | `CREATE_POST` | Send, draft, or schedule Telegram channel posts |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Telegram Account | `zernioAccountId` | Select or connect a Telegram account Secret; enter through the secure configuration control. |
+| Publish Mode | `publishMode` | Choices: Publish Now, Schedule, Draft |
+| Scheduled For | `scheduledFor` | Conditional field. |
+| Timezone | `timezone` | Conditional field. |
+| Content | `content` |  |
+| Media URLs | `mediaUrls` | Optional public image/video URLs, separated by commas or new lines |
+| Parse Mode | `parseMode` | Choices: HTML, Markdown, MarkdownV2 |
+| Disable Link Preview | `disableWebPagePreview` |  |
+| Silent Message | `disableNotification` |  |
+| Protect Content | `protectContent` |  |
+| Advanced Platform Settings JSON | `platformSpecificJson` | Optional platform-specific settings. Values here override matching fields above. |
+
+<a id="pinterest" />
+
+## Pinterest
+
+Create, draft, or schedule Pinterest pins
+
+Node type: `PINTEREST`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Post | `CREATE_POST` | Create, draft, or schedule Pinterest pins |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Pinterest Account | `zernioAccountId` | Select or connect a Pinterest account Secret; enter through the secure configuration control. |
+| Publish Mode | `publishMode` | Choices: Publish Now, Schedule, Draft |
+| Scheduled For | `scheduledFor` | Conditional field. |
+| Timezone | `timezone` | Conditional field. |
+| Content | `content` |  |
+| Media URLs | `mediaUrls` | Optional public image/video URLs, separated by commas or new lines |
+| Board ID | `boardId` | Pinterest usually requires a board ID |
+| Pin Title | `title` |  |
+| Destination Link | `linkUrl` |  |
+| Advanced Platform Settings JSON | `platformSpecificJson` | Optional platform-specific settings. Values here override matching fields above. |
+
+<a id="x" />
+
+## X/Twitter
+
+Create, draft, or schedule X/Twitter posts
+
+Node type: `X`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Post | `CREATE_POST` | Create, draft, or schedule X/Twitter posts |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| X/Twitter Account | `zernioAccountId` | Select or connect a X/Twitter account Secret; enter through the secure configuration control. |
+| Publish Mode | `publishMode` | Choices: Publish Now, Schedule, Draft |
+| Scheduled For | `scheduledFor` | Conditional field. |
+| Timezone | `timezone` | Conditional field. |
+| Content | `content` |  |
+| Media URLs | `mediaUrls` | Optional public image/video URLs, separated by commas or new lines |
+| Reply To Tweet ID | `replyToTweetId` |  |
+| Quote Tweet ID | `quoteTweetId` |  |
+| Made With AI | `madeWithAi` |  |
+| Advanced Platform Settings JSON | `platformSpecificJson` | Optional platform-specific settings. Values here override matching fields above. |
+
+<a id="whatsapp" />
+
+## WhatsApp
+
+Send WhatsApp template messages
+
+Node type: `WHATSAPP`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Send Template Message | `SEND_TEMPLATE` | Send an approved WhatsApp template |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` |  |
+| WhatsApp Account | `zernioAccountId` | Secret; enter through the secure configuration control. |
+| Recipient Phone | `participantId` | Digits only, including country code |
+| Template Name | `templateName` |  |
+| Template Language | `templateLanguage` |  |
+| Template Params JSON | `templateParamsJson` | JSON array of template parameters |
+
+<a id="github" />
+
+## GitHub
+
+Manage GitHub issues, pull requests, and comments
+
+Node type: `GITHUB`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Issue | `CREATE_ISSUE` | Create a new issue |
+| List Issues | `LIST_ISSUES` | List repository issues |
+| Update Issue | `UPDATE_ISSUE` | Update an existing issue |
+| Create Pull Request | `CREATE_PR` | Create a new pull request |
+| List Pull Requests | `LIST_PRS` | List repository pull requests |
+| Merge Pull Request | `MERGE_PR` | Merge a pull request |
+| Create Comment | `CREATE_COMMENT` | Add a comment to an issue or PR |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| GitHub Account | `connectionId` | Select or connect a GitHub account Secret; enter through the secure configuration control. |
+| Operation | `operation` | Choices: Create Issue, List Issues, Update Issue, Create Pull Request, List Pull Requests, Merge Pull Request, Create Comment |
+| Owner | `owner` | Repository owner |
+| Repository | `repo` | Repository name |
+| Title | `title` | Conditional field. |
+| Body | `body` | Conditional field. |
+| Labels | `labels` | Comma-separated labels Conditional field. |
+| Assignees | `assignees` | Comma-separated GitHub usernames Conditional field. |
+| Issue Number | `issueNumber` | Conditional field. |
+| State | `state` | Choices: Open, Closed, All Conditional field. |
+| Source Branch | `head` | Source branch Conditional field. |
+| Target Branch | `base` | Target branch Conditional field. |
+| PR Number | `prNumber` | Conditional field. |
+| Merge Method | `mergeMethod` | Choices: Merge, Squash, Rebase Conditional field. |
+
+<a id="polymarket" />
+
+## Polymarket
+
+Prediction market data — prices, order books, and analytics
+
+Node type: `POLYMARKET`.
+
+Configure the API credential requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Search Markets | `SEARCH_MARKETS` | Search prediction markets by keyword |
+| Get Market | `GET_MARKET` | Retrieve a single market by ID or slug |
+| Get Event | `GET_EVENT` | Retrieve a single event by ID |
+| List Markets | `LIST_MARKETS` | List markets with filters and sorting |
+| List Events | `LIST_EVENTS` | List events with filters and sorting |
+| Get Price | `GET_PRICE` | Get current buy/sell price for a token |
+| Get Order Book | `GET_ORDER_BOOK` | Get top bids and asks for a token |
+| Get Price History | `GET_PRICE_HISTORY` | Get historical price data |
+| Get Midpoint | `GET_MIDPOINT` | Get midpoint price for a token |
+| Get Spread | `GET_SPREAD` | Get bid-ask spread for a token |
+| Get Last Trade Price | `GET_LAST_TRADE_PRICE` | Get last traded price |
+| Get Tags | `GET_TAGS` | List all available market tags |
+| Get Leaderboard | `GET_LEADERBOARD` | Get top traders and stats |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| API Key | `apiKey` | Optional — most endpoints are public. Add a key for higher rate limits. Use &#123;&#123;VAR_NAME&#125;&#125; for environment variables. Secret; enter through the secure configuration control. |
+| Operation | `operation` | Choices: Search Markets, Get Market, Get Event, List Markets, List Events, Get Price, Get Order Book, Get Price History, Get Midpoint, Get Spread, Get Last Trade Price, Get Tags, Get Leaderboard |
+| Search Query | `query` | Conditional field. |
+| Market ID | `marketId` | The condition ID or slug of the market to retrieve Conditional field. |
+| Event ID | `eventId` | The ID of the event to retrieve Conditional field. |
+| Limit | `listLimit` | Number of markets to return (1-100) Conditional field. |
+| Order By | `listOrder` | Sort markets by this field Choices: Default, Liquidity, Volume, Created At Conditional field. |
+| Status | `listClosed` | Filter by open/closed status Choices: All, Closed Only, Open Only Conditional field. |
+| Tag ID | `listTagId` | Filter by tag (from Get Tags) Conditional field. |
+| Min Liquidity | `liquidityMin` | Minimum liquidity filter Conditional field. |
+| Min Volume | `volumeMin` | Minimum volume filter Conditional field. |
+| Limit | `eventsLimit` | Number of events to return (1-100) Conditional field. |
+| Order By | `eventsOrder` | Sort events by this field Choices: Default, Liquidity, Volume, Created At Conditional field. |
+| Status | `eventsClosed` | Filter by open/closed status Choices: All, Closed Only, Open Only Conditional field. |
+| Tag ID | `eventsTagId` | Filter by tag Conditional field. |
+| Token ID | `tokenId` | Use a clobTokenId from a market search result Conditional field. |
+| Side | `side` | Whether to get buy or sell price Choices: Buy, Sell Conditional field. |
+| Interval | `interval` | Time interval for price history data points Choices: 1 Minute, 5 Minutes, 1 Hour, 1 Day, 1 Week, Max Conditional field. |
+| Fidelity | `fidelity` | Number of data points to return Conditional field. |
+
+<a id="dropbox" />
+
+## Dropbox
+
+Upload, download, and manage files in Dropbox
+
+Node type: `DROPBOX`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Upload File | `UPLOAD_FILE` | Upload a file to Dropbox |
+| Download File | `DOWNLOAD_FILE` | Download a file from Dropbox |
+| List Folder | `LIST_FOLDER` | List contents of a folder |
+| Create Folder | `CREATE_FOLDER` | Create a new folder |
+| Delete | `DELETE` | Delete a file or folder |
+| Copy | `COPY` | Copy a file or folder |
+| Move | `MOVE` | Move a file or folder |
+| Get Metadata | `GET_METADATA` | Get file or folder metadata |
+| Create Shared Link | `CREATE_SHARED_LINK` | Create a shared link for a file |
+| Search Files | `SEARCH_FILES` | Search for files in Dropbox |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Operation | `operation` | Choices: Upload File, Download File, List Folder, Create Folder, Delete, Copy, Move, Get Metadata, Create Shared Link, Search Files |
+| Dropbox Account | `connectionId` | Select or connect a Dropbox account Secret; enter through the secure configuration control. |
+| File Path | `filePath` | Dropbox path (e.g. /folder/file.txt) Conditional field. |
+| File Content | `fileContent` | Content to upload Conditional field. |
+| Folder Path | `folderPath` | Leave empty for root folder Conditional field. |
+| Source Path | `fromPath` | Conditional field. |
+| Destination Path | `toPath` | Conditional field. |
+| Visibility | `visibility` | Who can access the shared link Choices: Public, Team Only Conditional field. |
+| Search Query | `query` | What to search for Conditional field. |
+| Folder Path | `searchFolderPath` | Optionally scope search to a folder Conditional field. |
+| Max Results | `maxResults` | Maximum number of results Conditional field. |
+| Limit | `limit` | Maximum number of entries to return Conditional field. |
+
+<a id="elevenlabs" />
+
+## ElevenLabs
+
+Convert text to speech using ElevenLabs AI voices
+
+Node type: `ELEVENLABS`.
+
+Configure the API credential requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Text to Speech | `TEXT_TO_SPEECH` | Convert text to speech using AI voices |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| API Key | `apiKey` | Enter your ElevenLabs API key or use an environment variable Secret; enter through the secure configuration control. |
+| Text | `text` | The text to convert to speech. Supports template variables. |
+| Voice ID | `voiceId` | Find Voice IDs in your ElevenLabs dashboard under Voices |
+| Model | `modelId` | The ElevenLabs model to use for speech synthesis Choices: Monolingual v1, Multilingual v1, Multilingual v2, Turbo v2, Turbo v2.5 |
+
+<a id="shopify" />
+
+## Shopify
+
+Manage products, orders, customers, inventory, and more
+
+Node type: `SHOPIFY`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Create Product | `CREATE_PRODUCT` | Create a new product |
+| Get Product | `GET_PRODUCT` | Get a product by ID |
+| List Products | `LIST_PRODUCTS` | List all products |
+| Update Product | `UPDATE_PRODUCT` | Update an existing product |
+| Delete Product | `DELETE_PRODUCT` | Delete a product |
+| Get Order | `GET_ORDER` | Get an order by ID |
+| List Orders | `LIST_ORDERS` | List all orders |
+| Update Order | `UPDATE_ORDER` | Update an existing order |
+| Cancel Order | `CANCEL_ORDER` | Cancel an order |
+| Create Customer | `CREATE_CUSTOMER` | Create a new customer |
+| Get Customer | `GET_CUSTOMER` | Get a customer by ID |
+| List Customers | `LIST_CUSTOMERS` | List all customers |
+| Update Customer | `UPDATE_CUSTOMER` | Update an existing customer |
+| Delete Customer | `DELETE_CUSTOMER` | Delete a customer |
+| List Inventory Items | `LIST_INVENTORY_ITEMS` | List inventory items |
+| Get Inventory Level | `GET_INVENTORY_LEVEL` | Get inventory levels by location and item |
+| Adjust Inventory | `ADJUST_INVENTORY` | Adjust inventory quantity |
+| List Locations | `LIST_LOCATIONS` | List all locations |
+| Create Fulfillment | `CREATE_FULFILLMENT` | Create a fulfillment for an order |
+| List Collections | `LIST_COLLECTIONS` | List all collections |
+| Get Collection | `GET_COLLECTION` | Get a collection by ID |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Shopify Store | `connectionId` | Select or connect a Shopify store Secret; enter through the secure configuration control. |
+| Operation | `operation` | Choices: Create Product, Get Product, List Products, Update Product, Delete Product, Get Order, List Orders, Update Order, Cancel Order, Create Customer, Get Customer, List Customers, Update Customer, Delete Customer, List Inventory Items, Get Inventory Level, Adjust Inventory, List Locations, Create Fulfillment, List Collections, Get Collection |
+| Product Title | `title` | Conditional field. |
+| Product ID | `productId` | Conditional field. |
+| Order ID | `orderId` | Conditional field. |
+| Reason | `reason` | customer, fraud, inventory, declined, other Conditional field. |
+| Status | `status` | open, closed, cancelled, any (default: any) Conditional field. |
+| Financial Status | `financialStatus` | authorized, pending, paid, partially_paid, refunded, voided, partially_refunded, any Conditional field. |
+| Customer ID | `customerId` | Conditional field. |
+| Email | `customerEmail` | Conditional field. |
+| First Name | `firstName` | Conditional field. |
+| Last Name | `lastName` | Conditional field. |
+| Tags | `tags` | Conditional field. |
+| Search Query | `query` | Filter customers Conditional field. |
+| Inventory Item ID | `inventoryItemId` | Conditional field. |
+| Location ID | `locationId` | Conditional field. |
+| Adjustment | `adjustment` | Positive number to add, negative to remove Conditional field. |
+| Location IDs | `locationIds` | Comma-separated Conditional field. |
+| Inventory Item IDs | `inventoryItemIds` | Comma-separated Conditional field. |
+| Inventory Item IDs | `ids` | Comma-separated list of IDs to filter Conditional field. |
+| Collection ID | `collectionId` | Conditional field. |
+| Tracking Number | `trackingNumber` | Conditional field. |
+| Tracking URL | `trackingUrl` | Conditional field. |
+| Tracking Company | `trackingCompany` | Conditional field. |
+| Properties (JSON) | `properties` | Additional fields as a JSON object Conditional field. |
+| Max Records | `limit` | Maximum number of records to return (max 250) Conditional field. |
+
+<a id="mcp" />
+
+## MCP
+
+Connect to MCP servers for agentic or direct tool execution
+
+Node type: `MCP`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Agentic Mode | `AGENTIC` | LLM discovers and calls MCP tools autonomously |
+| Call Tool | `DIRECT` | Call a specific MCP tool with mapped inputs |
+| Read Resource | `READ_RESOURCE` | Read a resource exposed by the MCP server |
+| Get Prompt | `GET_PROMPT` | Render a prompt exposed by the MCP server |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Reference name.text for agentic responses; direct tool calls expose name.content and optional name.structuredContent. Resource and prompt modes expose the returned server payload. |
+| Mode | `mode` | Agentic: LLM discovers and calls tools. Direct: call a specific tool with mapped inputs. Choices: Agentic, Call Tool, Read Resource, Get Prompt |
+| MCP Server | `serverId` | Choose from MCP servers registered in your workspace settings. Choose from options loaded in the editor. |
+| Model | `model` | Choose which AI model powers the agent. Must support tool calling. Choices: OpenAI 5.6 Sol, GPT-5.6 Luna, GPT-5.5, GPT-5.4, GPT-5.4 Mini, GPT-5.4 Nano, GPT-4.1, GPT-4.1 Mini, GPT-4o, GPT-4o Mini, o4-mini, o3, o3-mini, Claude Fable 5, Opus 5, Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, Gemini 3.7 Flash, Gemini 3.6 Flash, Gemini 3.5 Flash, Gemini 3.5 Flash Lite, Gemini 3.1 Pro, Gemini 2.5 Pro, Gemini 2.5 Flash, Gemini 2.5 Flash Lite, DeepSeek V4 Pro, DeepSeek V4.1 Flash, Kimi K3, Kimi K2.6 Conditional field. |
+| System Prompt | `systemPrompt` | Instructions that define the agent's behavior. Supports &#123;&#123;variable&#125;&#125; syntax. Conditional field. |
+| User Prompt | `userPrompt` | The task/instruction for the agent. Supports &#123;&#123;variable&#125;&#125; syntax. Conditional field. |
+| Temperature | `temperature` | Controls randomness. Lower = more deterministic, Higher = more creative. Conditional field. |
+| Max Steps | `maxSteps` | Maximum number of tool-calling iterations (1-20). Conditional field. |
+| Allow Write Tools | `allowWriteTools` | Off by default. Enable only when the workflow owner has approved agent-initiated writes. Conditional field. |
+| Tool | `selectedTool` | Choose from options loaded in the editor. Conditional field. |
+| Tool Inputs | `toolInputs` | Conditional field. |
+| Resource URI | `resourceUri` | Conditional field. |
+| Prompt Name | `promptName` | Conditional field. |
+| Prompt Arguments | `promptArguments` | Conditional field. |
+
+<a id="posthog" />
+
+## PostHog
+
+Product analytics — events, feature flags, experiments, and more
+
+Node type: `POSTHOG`.
+
+Configure the API credential requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Capture Event | `CAPTURE_EVENT` | Capture a single analytics event |
+| Batch Events | `BATCH_EVENTS` | Batch capture multiple events at once |
+| List Event Definitions | `LIST_EVENT_DEFINITIONS` | List all event definitions |
+| Get Event Definition | `GET_EVENT_DEFINITION` | Get a specific event definition |
+| Update Event Definition | `UPDATE_EVENT_DEFINITION` | Update an event definition |
+| Get Person | `GET_PERSON` | Get person details by ID |
+| Delete Person | `DELETE_PERSON` | Delete a person record |
+| Run Query (HogQL) | `RUN_QUERY` | Execute a HogQL analytics query |
+| List Insights | `LIST_INSIGHTS` | List all saved insights |
+| Get Insight | `GET_INSIGHT` | Get a specific insight and its data |
+| Create Insight | `CREATE_INSIGHT` | Create a new saved insight |
+| List Dashboards | `LIST_DASHBOARDS` | List all dashboards |
+| Get Dashboard | `GET_DASHBOARD` | Get a dashboard with its tiles |
+| List Actions | `LIST_ACTIONS` | List all defined actions |
+| Get Cohort | `GET_COHORT` | Get a specific cohort |
+| Create Cohort | `CREATE_COHORT` | Create a new cohort |
+| List Annotations | `LIST_ANNOTATIONS` | List all annotations |
+| Create Annotation | `CREATE_ANNOTATION` | Create a timeline annotation |
+| List Feature Flags | `LIST_FEATURE_FLAGS` | List all feature flags |
+| Get Feature Flag | `GET_FEATURE_FLAG` | Get a specific feature flag |
+| Create Feature Flag | `CREATE_FEATURE_FLAG` | Create a new feature flag |
+| Update Feature Flag | `UPDATE_FEATURE_FLAG` | Update an existing feature flag |
+| Delete Feature Flag | `DELETE_FEATURE_FLAG` | Delete a feature flag |
+| Get Experiment | `GET_EXPERIMENT` | Get experiment details |
+| Create Experiment | `CREATE_EXPERIMENT` | Create a new A/B experiment |
+| List Surveys | `LIST_SURVEYS` | List all surveys |
+| Get Survey | `GET_SURVEY` | Get a specific survey |
+| Create Survey | `CREATE_SURVEY` | Create a new survey |
+| Update Survey | `UPDATE_SURVEY` | Update an existing survey |
+| List Session Recordings | `LIST_SESSION_RECORDINGS` | List session recordings |
+| Get Session Recording | `GET_SESSION_RECORDING` | Get a specific session recording |
+| List Recording Playlists | `LIST_RECORDING_PLAYLISTS` | List recording playlists |
+| List Property Definitions | `LIST_PROPERTY_DEFINITIONS` | List all property definitions |
+| Get Property Definition | `GET_PROPERTY_DEFINITION` | Get a specific property definition |
+| Update Property Definition | `UPDATE_PROPERTY_DEFINITION` | Update a property definition |
+| List Projects | `LIST_PROJECTS` | List all projects in the organization |
+| Get Project | `GET_PROJECT` | Get current project details |
+| List Organizations | `LIST_ORGANIZATIONS` | List all organizations |
+| Get Organization | `GET_ORGANIZATION` | Get organization details |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| API Key | `apiKey` | Your PostHog personal API key. Use an environment variable like &#123;&#123;POSTHOG_API_KEY&#125;&#125; Secret; enter through the secure configuration control. |
+| Project ID | `projectId` | Your PostHog project ID (required for most operations) |
+| Region | `region` | Select the PostHog cloud region where your project is hosted Choices: US Cloud (us.posthog.com), EU Cloud (eu.posthog.com) |
+| Operation | `operation` | Choose which PostHog operation to perform Choices: Capture Event, Batch Events, List Event Definitions, Get Event Definition, Update Event Definition, Get Person, Delete Person, Run Query (HogQL), List Insights, Get Insight, Create Insight, List Dashboards, Get Dashboard, List Actions, Get Cohort, Create Cohort, List Annotations, Create Annotation, List Feature Flags, Get Feature Flag, Create Feature Flag, Update Feature Flag, Delete Feature Flag, Get Experiment, Create Experiment, List Surveys, Get Survey, Create Survey, Update Survey, List Session Recordings, Get Session Recording, List Recording Playlists, List Property Definitions, Get Property Definition, Update Property Definition, List Projects, Get Project, List Organizations, Get Organization |
+| Variable Name | `variableName` | Name used to reference this node's output in other nodes. Access results as &#123;&#123;posthog.result&#125;&#125; |
+| Distinct ID | `distinctId` | User's distinct ID Conditional field. |
+| Event Name | `eventName` | Name of the event to capture Conditional field. |
+| Properties | `eventProperties` | Event properties as JSON Conditional field. |
+| Events | `batchEvents` | JSON array of events to batch capture Conditional field. |
+| Person ID | `personId` | PostHog person ID Conditional field. |
+| HogQL Query | `hogqlQuery` | HogQL query to execute Conditional field. |
+| Insight ID | `insightId` | PostHog insight ID Conditional field. |
+| Insight Data | `insightData` | JSON object defining the insight Conditional field. |
+| Dashboard ID | `dashboardId` | PostHog dashboard ID Conditional field. |
+| Cohort ID | `cohortId` | PostHog cohort ID Conditional field. |
+| Cohort Data | `cohortData` | JSON object defining the cohort Conditional field. |
+| Content | `annotationContent` | Annotation text content Conditional field. |
+| Scope | `annotationScope` | Scope of the annotation Choices: Project, Organization Conditional field. |
+| Date Marker | `annotationDateMarker` | ISO date for the annotation marker Conditional field. |
+| Feature Flag ID | `featureFlagId` | PostHog feature flag ID Conditional field. |
+| Flag Key | `featureFlagKey` | Unique key for the feature flag Conditional field. |
+| Flag Data | `featureFlagData` | JSON object with flag configuration Conditional field. |
+| Experiment ID | `experimentId` | PostHog experiment ID Conditional field. |
+| Experiment Data | `experimentData` | JSON object defining the experiment Conditional field. |
+| Survey ID | `surveyId` | PostHog survey ID Conditional field. |
+| Survey Data | `surveyData` | JSON object defining or updating the survey Conditional field. |
+| Recording ID | `recordingId` | Session recording ID Conditional field. |
+| Definition ID | `definitionId` | Definition UUID Conditional field. |
+| Definition Data | `definitionData` | JSON object with updated fields Conditional field. |
+| Limit | `limit` | Maximum number of results to return Conditional field. |
+| Offset | `offset` | Number of results to skip Conditional field. |
+
+<a id="integration" />
+
+## Integration
+
+Run a versioned action through a connected external app
+
+Node type: `INTEGRATION`.
+
+No account connection declared.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| QuickBooks: Query customers | `quickbooks.query_customers` | Query customers from the connected QuickBooks company. |
+| QuickBooks: Query invoices | `quickbooks.query_invoices` | Query invoices from the connected QuickBooks company. |
+| QuickBooks: Get aged receivables | `quickbooks.aged_receivables` | Read the aged receivables report. |
+| QuickBooks: Get profit and loss | `quickbooks.profit_and_loss` | Read the profit and loss report. |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` |  |
+| App | `integrationId` | Choices: QuickBooks |
+| Connection | `externalConnectionId` | Choose from options loaded in the editor. |
+| Operation | `operation` | Choose from options loaded in the editor. |
+| Arguments | `arguments` | JSON arguments for the selected operation. |
+
+<a id="innflow" />
+
+## Innflow
+
+Run another deployed workflow and continue with its result
+
+Node type: `INNFLOW`.
+
+No account connection declared.
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Action | `operation` | Choices: Run Workflow |
+| Workflow | `targetWorkflowId` |  |
+| Trigger | `targetTriggerNodeId` |  |
+| Timeout | `timeout` |  |
+
+<a id="microsoft" />
+
+## Microsoft
+
+Unified entry point for Microsoft 365 services
+
+Node type: `MICROSOFT`.
+
+Connect the account requested by the node.
+
+### Operations
+
+| Operation | Configuration value | Description |
+| --- | --- | --- |
+| Outlook | `outlook` | Microsoft Outlook operations |
+| OneDrive | `onedrive` | Microsoft OneDrive operations |
+| Teams | `teams` | Microsoft Teams operations |
+
+### Configuration
+
+Fields are listed across available modes. Conditional fields are only applicable when the matching operation or mode is selected.
+
+| Field | Configuration key | Details |
+| --- | --- | --- |
+| Variable Name | `variableName` | Use this name to reference the output in other nodes |
+| Microsoft Account | `connectionId` | Microsoft 365 account |
+| Service | `service` | Choices: Outlook, OneDrive, Teams |
+| Operation | `operation` | Operation for the selected service |
+

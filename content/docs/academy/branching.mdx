@@ -14,7 +14,7 @@ A Condition node branches based on configured conditions. Use rule-based conditi
 
 ## Use AI deliberately
 
-The Condition configuration also supports LLM-based evaluation. This can help when a decision depends on the meaning of text, but it needs examples and review. Do not use a model judgment in place of access controls.
+New Condition nodes use typed rules and fixed If/Else branches. Use Router when a decision depends on text meaning. Earlier workflows may still contain LLM-based Condition settings; that legacy form is not the default for new nodes.
 
 AI Decision is a separate capability with availability controls. If it is enabled for your workspace, read its [reference](/tools/ai-decision) before building around its Decided and Needs review outputs.
 

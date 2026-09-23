@@ -1,0 +1,373 @@
+[
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft Excel",
+    "nodeType": "MICROSOFT_EXCEL",
+    "operationCount": 3,
+    "previousList": "**Operations:**\n- **Create Spreadsheet** \u2014 Create a workbook\n- **Read Range** \u2014 Fetch data from a range of cells\n- **Write Range** \u2014 Write data to a range of cells"
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft Word",
+    "nodeType": "MICROSOFT_WORD",
+    "operationCount": 3,
+    "previousList": "**Operations:**\n- **Create** \u2014 Create a new Word document\n- **Read** \u2014 Read content from an existing document"
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft OneDrive",
+    "nodeType": "MICROSOFT_ONEDRIVE",
+    "operationCount": 4,
+    "previousList": "**Operations:**\n- **List Files** \u2014 Browse files in a folder\n- **Get File** \u2014 Retrieve a file\n- **Create Folder** \u2014 Add a folder\n- **Delete File** \u2014 Remove a file"
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft Outlook",
+    "nodeType": "MICROSOFT_OUTLOOK",
+    "operationCount": 5,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft Teams",
+    "nodeType": "MICROSOFT_TEAMS",
+    "operationCount": 5,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft Planner",
+    "nodeType": "MICROSOFT_PLANNER",
+    "operationCount": 5,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/microsoft.mdx",
+    "heading": "Microsoft SharePoint",
+    "nodeType": "MICROSOFT_SHAREPOINT",
+    "operationCount": 5,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "Dropbox",
+    "nodeType": "DROPBOX",
+    "operationCount": 10,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "Shopify",
+    "nodeType": "SHOPIFY",
+    "operationCount": 21,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "LinkedIn",
+    "nodeType": "LINKEDIN",
+    "operationCount": 2,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "PostHog",
+    "nodeType": "POSTHOG",
+    "operationCount": 39,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "Dub",
+    "nodeType": "DUB",
+    "operationCount": 5,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/storage-commerce.mdx",
+    "heading": "ElevenLabs",
+    "nodeType": "ELEVENLABS",
+    "operationCount": 1,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/agents-protocols.mdx",
+    "heading": "MCP",
+    "nodeType": "MCP",
+    "operationCount": 4,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/agents-protocols.mdx",
+    "heading": "A2A Agent",
+    "nodeType": "A2A_AGENT",
+    "operationCount": 2,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/agents-protocols.mdx",
+    "heading": "Browser Agent",
+    "nodeType": "BROWSER_AGENT",
+    "operationCount": 2,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Tavily Search",
+    "nodeType": "TAVILY_SEARCH",
+    "operationCount": 1,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Exa",
+    "nodeType": "EXA",
+    "operationCount": 3,
+    "previousList": "**Operations:**\n- **Search** \u2014 Semantic search across the web\n- **Find Similar** \u2014 Find pages similar to a given URL\n- **Get Contents** \u2014 Extract content from specific URLs"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Perplexity",
+    "nodeType": "PERPLEXITY",
+    "operationCount": 3,
+    "previousList": "**Operations:**\n- **Ask** \u2014 Answer a question with citations\n- **Research** \u2014 Gather a deeper research response\n- **Fact Check** \u2014 Check a claim against current sources"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Firecrawl",
+    "nodeType": "FIRECRAWL",
+    "operationCount": 6,
+    "previousList": "**Operations:** Scrape, Search, Crawl, Map, Extract, and Agent"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Web Scraper",
+    "nodeType": "WEB_SCRAPER",
+    "operationCount": 2,
+    "previousList": "**Operations:**\n\n- **Scrape URL** \u2014 Extract content from one public page\n- **Search + Scrape** \u2014 Search the web and retrieve content from matching pages"
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Ahrefs",
+    "nodeType": "AHREFS",
+    "operationCount": 5,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/search-data.mdx",
+    "heading": "Polymarket",
+    "nodeType": "POLYMARKET",
+    "operationCount": 13,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Sheets",
+    "nodeType": "GOOGLE_SHEETS",
+    "operationCount": 4,
+    "previousList": "**Operations:**\n- **Read Rows** \u2014 Fetch data from a range of cells\n- **Append Row** \u2014 Add a new row to the end of a sheet\n- **Update Row** \u2014 Modify an existing row\n- **Create Spreadsheet** \u2014 Create a new spreadsheet"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Docs",
+    "nodeType": "GOOGLE_DOCS",
+    "operationCount": 3,
+    "previousList": "**Operations:**\n- **Create** \u2014 Create a new document with a title and content\n- **Read** \u2014 Retrieve the content of an existing document\n- **Write** \u2014 Add or replace document content"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Calendar",
+    "nodeType": "GOOGLE_CALENDAR",
+    "operationCount": 6,
+    "previousList": "**Operations:**\n- **List Events** \u2014 Fetch upcoming events from a calendar\n- **Create Event** \u2014 Add a new event\n- **Read Event** \u2014 Retrieve one event\n- **Update Event** \u2014 Change an event\n- **Delete Event** \u2014 Remove an event"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Drive",
+    "nodeType": "GOOGLE_DRIVE",
+    "operationCount": 3,
+    "previousList": "**Operations:**\n- **List Files** \u2014 Browse files in a folder\n- **Upload** \u2014 Upload a file to Drive\n- **Download** \u2014 Download a file by ID"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Slides",
+    "nodeType": "GOOGLE_SLIDES",
+    "operationCount": 2,
+    "previousList": "**Operations:**\n- **Create** \u2014 Create a new presentation\n- **Read** \u2014 Read slide content from an existing presentation"
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Forms",
+    "nodeType": "GOOGLE_FORMS",
+    "operationCount": 1,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/google-suite.mdx",
+    "heading": "Google Groups",
+    "nodeType": "GOOGLE_GROUPS",
+    "operationCount": 11,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/logic-utility.mdx",
+    "heading": "Transform Array",
+    "nodeType": "TRANSFORM_ARRAY",
+    "operationCount": 3,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/logic-utility.mdx",
+    "heading": "Tables Node",
+    "nodeType": "TABLES",
+    "operationCount": 5,
+    "previousList": "**Operations:**\n- **Read Table** \u2014 Get all rows from a table\n- **Query Rows** \u2014 Search for specific rows\n- **Add Row** \u2014 Insert a new row\n- **Update Row** \u2014 Modify an existing row\n- **Delete Row** \u2014 Remove a row"
+  },
+  {
+    "file": "content/docs/tools/logic-utility.mdx",
+    "heading": "Knowledge Base Node",
+    "nodeType": "KNOWLEDGE_BASE",
+    "operationCount": 2,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "Notion",
+    "nodeType": "NOTION",
+    "operationCount": 8,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "Trello",
+    "nodeType": "TRELLO",
+    "operationCount": 6,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "GitHub",
+    "nodeType": "GITHUB",
+    "operationCount": 7,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "ClickUp",
+    "nodeType": "CLICKUP",
+    "operationCount": 9,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "Cal.com",
+    "nodeType": "CAL_COM",
+    "operationCount": 5,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/project-management.mdx",
+    "heading": "Calendly",
+    "nodeType": "CALENDLY",
+    "operationCount": 7,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/forms.mdx",
+    "heading": "Typeform",
+    "nodeType": "TYPEFORM",
+    "operationCount": 7,
+    "previousList": "**Operations:**\n\n- List, get, create, update, and delete forms\n- Retrieve form responses\n- Read form insights"
+  },
+  {
+    "file": "content/docs/tools/forms.mdx",
+    "heading": "Google Forms",
+    "nodeType": "GOOGLE_FORMS",
+    "operationCount": 1,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/ai.mdx",
+    "heading": "OpenRouter",
+    "nodeType": "AI_MODEL",
+    "operationCount": 1,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/ai.mdx",
+    "heading": "Image Generation",
+    "nodeType": "GENERATE_IMAGE",
+    "operationCount": 1,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Slack",
+    "nodeType": "SLACK",
+    "operationCount": 3,
+    "previousList": "**Operations:**\n- **Send Message** \u2014 Post a message to a Slack channel\n- **Read Messages** \u2014 Fetch recent messages from a channel\n- **Create Canvas** \u2014 Create a Slack canvas for structured shared content"
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Gmail",
+    "nodeType": "GMAIL",
+    "operationCount": 8,
+    "previousList": "**Operations:**\n- **Send Email** \u2014 Compose and send an email\n- **Read Emails** \u2014 Fetch recent emails from your inbox\n- **Draft Email** \u2014 Save a draft without sending it\n- **Search Emails** \u2014 Find matching messages\n- **Move / Mark / Archive** \u2014 Organize message state"
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Microsoft Outlook",
+    "nodeType": "MICROSOFT_OUTLOOK",
+    "operationCount": 5,
+    "previousList": "**Operations:**\n- **Send Email** \u2014 Compose and send an email\n- **Read Emails** \u2014 Fetch recent emails\n- **Read Email** \u2014 Retrieve one message\n- **Create Draft** \u2014 Save a draft without sending\n- **Search Emails** \u2014 Find matching messages"
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Microsoft Teams",
+    "nodeType": "MICROSOFT_TEAMS",
+    "operationCount": 5,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Telegram",
+    "nodeType": "TELEGRAM",
+    "operationCount": 7,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/communication.mdx",
+    "heading": "Resend",
+    "nodeType": "RESEND",
+    "operationCount": 1,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/crm-sales.mdx",
+    "heading": "Airtable",
+    "nodeType": "AIRTABLE",
+    "operationCount": 5,
+    "previousList": "**Operations:**\n- **List Records** \u2014 Fetch records from a table\n- **Read Record** \u2014 Retrieve one record\n- **Create Record** \u2014 Add a new record\n- **Update Record** \u2014 Modify an existing record\n- **Delete Record** \u2014 Remove a record"
+  },
+  {
+    "file": "content/docs/tools/crm-sales.mdx",
+    "heading": "HubSpot",
+    "nodeType": "HUBSPOT",
+    "operationCount": 6,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/crm-sales.mdx",
+    "heading": "Attio",
+    "nodeType": "ATTIO",
+    "operationCount": 13,
+    "previousList": null
+  },
+  {
+    "file": "content/docs/tools/crm-sales.mdx",
+    "heading": "Apollo",
+    "nodeType": "APOLLO",
+    "operationCount": 10,
+    "previousList": null
+  }
+]

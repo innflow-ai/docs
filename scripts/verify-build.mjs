@@ -41,14 +41,28 @@ try {
   }
   if (!ready) throw new Error(`Server did not start: ${logs}`);
   const targets = new Set(['/sitemap.xml', '/robots.txt', '/llms.txt', '/index']);
+  const pageHtml = new Map();
+  const fragmentLinks = [];
   for (const route of routes) {
     const response = await get(route);
     if (!response.ok) { errors.push(`${route}: HTTP ${response.status}`); continue; }
     const html = await response.text();
+    pageHtml.set(route, html);
+    for (const match of html.matchAll(/href="(\/[^"?#]*)#([^"]+)"/g)) fragmentLinks.push({from:route,path:match[1],id:decodeURIComponent(match[2])});
     if (!html.includes('id="nd-page"')) errors.push(`${route}: missing documentation article`);
     for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)(?:[?#][^"]*)?"/g)) {
       if (!match[1].startsWith('//')) targets.add(match[1].replaceAll('&amp;', '&'));
     }
+  }
+  for (const link of fragmentLinks) {
+    const html = pageHtml.get(link.path);
+    if (html && !html.includes(`id="${link.id}"`)) errors.push(`${link.from}: missing fragment ${link.path}#${link.id}`);
+  }
+  const catalog = JSON.parse(readFileSync('scripts/tool-catalog.snapshot.json', 'utf8'));
+  const reference = pageHtml.get('/tools/reference') ?? '';
+  for (const node of catalog.nodes) {
+    const id = node.nodeType.toLowerCase().replaceAll('_', '-');
+    if (!reference.includes(`id="${id}"`)) errors.push(`Missing rendered tool reference: ${node.nodeType}`);
   }
   for (const target of targets) {
     if (routes.has(target)) continue;
@@ -57,6 +71,8 @@ try {
   }
   const search = await get('/api/search?query=Loop');
   if (!search.ok || !(await search.json()).some(item => item.url?.includes('/academy/loops'))) errors.push('Search did not return the Loop lesson.');
+  const triggerSearch = await get('/api/search?query=Innflow%20Trigger');
+  if (!triggerSearch.ok || !(await triggerSearch.json()).some(item => item.url?.includes('/triggers') || item.url?.includes('/tools/reference'))) errors.push('Search did not return the Innflow Trigger documentation.');
   if ((await get('/__verify_missing_page__')).status !== 404) errors.push('Unknown route did not return HTTP 404.');
   if (errors.length) throw new Error([...new Set(errors)].join('\n'));
   console.log(`Verified ${pages.length} content pages, navigation, ${targets.size} local targets, search, and 404 on the standalone server.`);

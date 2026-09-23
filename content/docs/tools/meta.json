@@ -1,1 +1,20 @@
-{"title": "Nodes & integrations", "pages": ["ai", "ai-decision", "browser-automation", "communication", "forms", "google-suite", "microsoft", "crm-sales", "project-management", "search-data", "storage-commerce", "social-publishing", "agents-protocols", "logic-utility"]}
+{
+  "title": "Nodes & integrations",
+  "pages": [
+    "reference",
+    "ai",
+    "ai-decision",
+    "browser-automation",
+    "communication",
+    "forms",
+    "google-suite",
+    "microsoft",
+    "crm-sales",
+    "project-management",
+    "search-data",
+    "storage-commerce",
+    "social-publishing",
+    "agents-protocols",
+    "logic-utility"
+  ]
+}

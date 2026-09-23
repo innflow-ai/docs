@@ -19,13 +19,19 @@ The AI Agent node runs an agentic loop with tool calling. Use it when the model 
 | **Tools** | Tool nodes connected to the agent |
 | **Model** | The model used for reasoning and tool calls |
 
-**Accessing output:** `{{variableName.output.text}}`
+Inspect the AI Agent’s result in execution details and select the returned field through the variable picker. The result shape depends on the agent configuration.
+
+[All operations and configuration fields](/tools/reference#ai-agent).
 
 ---
 
 ## OpenRouter
 
-The OpenRouter node is the general purpose LLM node. It provides access to more than 200 models through one node. Use it for summarization, classification, rewriting, extraction, drafting, and other prompt-based work.
+The OpenRouter node is the general purpose LLM node. Choose from the models currently offered by the node’s model selector. Use it for summarization, classification, rewriting, extraction, drafting, and other prompt-based work.
+
+**Operations:**
+
+- **Generate Text** (`GENERATE_TEXT`) — Generate text using any of 200+ AI models via OpenRouter
 
 **Configuration:**
 
@@ -40,8 +46,10 @@ The OpenRouter node is the general purpose LLM node. It provides access to more 
 
 ```txt
 Summarize this support request and identify the next action:
-{{gmail.output.body}}
+{{inputTrigger.message}}
 ```
+
+[All operations and configuration fields](/tools/reference#ai-model).
 
 ---
 
@@ -65,6 +73,10 @@ Provider-specific nodes are available when you want to route work to a specific 
 
 The Image Generation node creates images with supported Kie.ai image models. Use it for product concepts, campaign assets, thumbnails, and workflow-generated creative.
 
+**Operations:**
+
+- **Image Generation** (`GENERATE`) — Generate image URLs using Kie.ai
+
 **Configuration:**
 
 | Field | Description |
@@ -75,6 +87,8 @@ The Image Generation node creates images with supported Kie.ai image models. Use
 | **Model options** | Size, aspect ratio, or other controls supported by the selected model |
 
 Generated image output can be passed into approval, file-storage, or social-publishing steps.
+
+[All operations and configuration fields](/tools/reference#generate-image).
 
 ---
 
@@ -92,7 +106,9 @@ The Label Fields node extracts structured data from unstructured text. Define th
 
 **Example:** Extract `name`, `email`, and `sentiment` from a customer support email.
 
-**Accessing output:** `{{variableName.output.name}}`, `{{variableName.output.email}}`
+**Accessing output:** `{{variableName.extractedData.name}}`, `{{variableName.extractedData.email}}`
+
+[All operations and configuration fields](/tools/reference#label-fields).
 
 ---
 
@@ -101,3 +117,7 @@ The Label Fields node extracts structured data from unstructured text. Define th
 The Router node uses AI to choose the best branch for an input. Define named routes with descriptions, then connect each route to the workflow path that should run.
 
 Router configuration is covered in [Logic and Utility](/tools/logic-utility#router).
+
+[All operations and configuration fields](/tools/reference#router).
+
+---

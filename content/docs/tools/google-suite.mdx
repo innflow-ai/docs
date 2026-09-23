@@ -3,17 +3,18 @@ title: "Google Suite"
 description: "Work with Google Docs, Sheets, Calendar, Drive, Slides, Forms, and Groups"
 ---
 
-All Google Suite nodes require a **Google OAuth connection**. Connect your Google account from **Settings → Credentials**.
+All Google Suite nodes require a **Google OAuth connection**. Connect your Google account from [Credentials](https://app.innflow.ai/credentials).
 
 ## Google Sheets
 
 Read from or write to Google Sheets spreadsheets.
 
 **Operations:**
-- **Read Rows** — Fetch data from a range of cells
-- **Append Row** — Add a new row to the end of a sheet
-- **Update Row** — Modify an existing row
-- **Create Spreadsheet** — Create a new spreadsheet
+
+- **Read Rows** (`READ_ROWS`) — Read rows from a spreadsheet
+- **Append Rows** (`APPEND_ROWS`) — Append rows to a spreadsheet
+- **Update Rows** (`UPDATE_ROWS`) — Update existing rows in a spreadsheet
+- **Create Spreadsheet** (`CREATE_SPREADSHEET`) — Create a new Google Sheets spreadsheet
 
 **Configuration:**
 
@@ -23,24 +24,29 @@ Read from or write to Google Sheets spreadsheets.
 | **Range** | Cell range in A1 notation (e.g., `Sheet1!A1:D10`) |
 | **Values** | Data to write (for Append/Update operations) |
 
+[All operations and configuration fields](/tools/reference#google-sheets).
+
 ---
 
 ## Google Docs
 
-Create, read, or update Google Docs documents.
+Create and read Google Docs documents, or write content to an existing document.
 
 **Operations:**
-- **Create** — Create a new document with a title and content
-- **Read** — Retrieve the content of an existing document
-- **Write** — Add or replace document content
+
+- **Create Document** (`CREATE_DOCUMENT`) — Create a new Google Docs document
+- **Read Document** (`READ_DOCUMENT`) — Read content from a Google Docs document
+- **Write to Document** (`WRITE_TO_DOCUMENT`) — Write content to an existing Google Docs document
 
 **Configuration:**
 
 | Field | Description |
 |-------|-------------|
-| **Document ID** | The ID of the document (for Read/Update) |
+| **Document ID** | The ID of the document (for Read/Write) |
 | **Title** | Document title (for Create) |
 | **Content** | Document content |
+
+[All operations and configuration fields](/tools/reference#google-docs).
 
 ---
 
@@ -49,11 +55,13 @@ Create, read, or update Google Docs documents.
 List calendars and create, read, update, or delete events in Google Calendar.
 
 **Operations:**
-- **List Events** — Fetch upcoming events from a calendar
-- **Create Event** — Add a new event
-- **Read Event** — Retrieve one event
-- **Update Event** — Change an event
-- **Delete Event** — Remove an event
+
+- **List Calendars** (`LIST_CALENDARS`) — List all calendars for the authenticated user
+- **List Events** (`LIST_EVENTS`) — List events from a calendar with optional search
+- **Create Event** (`CREATE_EVENT`) — Create a new calendar event
+- **Read Event** (`READ_EVENT`) — Get details of a specific event
+- **Update Event** (`UPDATE_EVENT`) — Update an existing calendar event
+- **Delete Event** (`DELETE_EVENT`) — Delete a calendar event
 
 **Configuration:**
 
@@ -64,6 +72,8 @@ List calendars and create, read, update, or delete events in Google Calendar.
 | **Start Time** | Event start in ISO 8601 format |
 | **End Time** | Event end in ISO 8601 format |
 
+[All operations and configuration fields](/tools/reference#google-calendar).
+
 ---
 
 ## Google Drive
@@ -71,9 +81,10 @@ List calendars and create, read, update, or delete events in Google Calendar.
 Upload, download, or list files in Google Drive.
 
 **Operations:**
-- **List Files** — Browse files in a folder
-- **Upload** — Upload a file to Drive
-- **Download** — Download a file by ID
+
+- **List Files** (`LIST_FILES`) — List files in Google Drive
+- **Download File** (`DOWNLOAD_FILE`) — Download a file from Google Drive
+- **Upload File** (`UPLOAD_FILE`) — Upload a file to Google Drive
 
 **Configuration:**
 
@@ -82,6 +93,8 @@ Upload, download, or list files in Google Drive.
 | **Folder ID** | Target folder (for List/Upload) |
 | **File ID** | Specific file (for Download) |
 
+[All operations and configuration fields](/tools/reference#google-drive).
+
 ---
 
 ## Google Slides
@@ -89,8 +102,9 @@ Upload, download, or list files in Google Drive.
 Create or read Google Slides presentations.
 
 **Operations:**
-- **Create** — Create a new presentation
-- **Read** — Read slide content from an existing presentation
+
+- **Create Presentation** (`CREATE_PRESENTATION`) — Create a new Google Slides presentation
+- **Read Presentation** (`READ_PRESENTATION`) — Read an existing Google Slides presentation
 
 **Configuration:**
 
@@ -99,17 +113,25 @@ Create or read Google Slides presentations.
 | **Presentation ID** | The presentation to read (for Read) |
 | **Title** | Presentation title (for Create) |
 
+[All operations and configuration fields](/tools/reference#google-slides).
+
 ---
 
 ## Google Forms
 
-Read form responses and metadata from Google Forms.
+Retrieve submitted responses from a Google Form.
 
 **Requires:** Google OAuth connection
 
 <Callout type="tip">
   To trigger a workflow when someone submits a Google Form, use the [Google Forms Trigger](/triggers#google-forms-trigger) instead.
 </Callout>
+
+**Operations:**
+
+- **Get Responses** (`GET_RESPONSES`) — Retrieve responses from a Google Form
+
+[All operations and configuration fields](/tools/reference#google-forms).
 
 ---
 
@@ -118,3 +140,21 @@ Read form responses and metadata from Google Forms.
 List, read, create, update, or delete groups and manage members, roles, and membership checks.
 
 **Requires:** Google OAuth connection with admin access
+
+**Operations:**
+
+- **List Groups** (`LIST_GROUPS`) — List all groups
+- **Get Group** (`GET_GROUP`) — Get group details
+- **Create Group** (`CREATE_GROUP`) — Create a new group
+- **Update Group** (`UPDATE_GROUP`) — Update group settings
+- **Delete Group** (`DELETE_GROUP`) — Delete a group
+- **List Members** (`LIST_MEMBERS`) — List group members
+- **Get Member** (`GET_MEMBER`) — Get member details
+- **Add Member** (`ADD_MEMBER`) — Add a member to a group
+- **Update Member Role** (`UPDATE_MEMBER_ROLE`) — Change a member's role
+- **Remove Member** (`REMOVE_MEMBER`) — Remove a member from a group
+- **Check Membership** (`CHECK_MEMBERSHIP`) — Check if a user is a member of a group
+
+[All operations and configuration fields](/tools/reference#google-groups).
+
+---

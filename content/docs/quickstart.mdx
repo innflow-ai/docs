@@ -55,7 +55,7 @@ description: "Create your first workflow in under five minutes"
   <Step title="Connect and configure">
     Drag from one node's output handle to another node's input handle to create connections. Click any node to open its configuration panel on the right side.
 
-    Use `{{variableName.output.field}}` syntax to reference data from previous nodes. The variable picker (click the `{ }` icon in any text field) shows all available variables.
+    Use the variable picker to reference an upstream value, such as `{{tables.rows}}`. Output paths differ by node; do not add an `output` level unless it appears in that node’s actual result.
   </Step>
   <Step title="Run your workflow">
     Click the **Run** button in the editor toolbar. You will see each node execute in sequence, with status indicators showing progress. Click any completed node to inspect its output.

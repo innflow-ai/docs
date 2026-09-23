@@ -7,6 +7,10 @@ description: "Search the web, retrieve cited answers, scrape pages, and pull mar
 
 AI powered web search that returns clean, relevant content. Great for research and fact checking in your workflows.
 
+**Operations:**
+
+- **Search** (`SEARCH`)
+
 **Configuration:**
 
 | Field | Description |
@@ -15,7 +19,9 @@ AI powered web search that returns clean, relevant content. Great for research a
 | **Query** | The search query (supports template variables) |
 | **Max results** | Maximum number of results to return |
 
-**Accessing output:** `{{variableName.output.results}}`
+**Accessing output:** `{{variableName.results}}`
+
+[All operations and configuration fields](/tools/reference#tavily-search).
 
 ---
 
@@ -24,9 +30,10 @@ AI powered web search that returns clean, relevant content. Great for research a
 Semantic web search powered by AI. Find content by meaning rather than just keywords.
 
 **Operations:**
-- **Search** — Semantic search across the web
-- **Find Similar** — Find pages similar to a given URL
-- **Get Contents** — Extract content from specific URLs
+
+- **Search** (`SEARCH`) — Search the web with neural/keyword search
+- **Find Similar** (`FIND_SIMILAR`) — Find pages similar to a URL
+- **Get Contents** (`GET_CONTENTS`) — Retrieve full page content
 
 **Configuration:**
 
@@ -36,6 +43,8 @@ Semantic web search powered by AI. Find content by meaning rather than just keyw
 | **Operation** | Search, Find Similar, or Get Contents |
 | **Query** | Search query or URL |
 
+[All operations and configuration fields](/tools/reference#exa).
+
 ---
 
 ## Perplexity
@@ -43,9 +52,10 @@ Semantic web search powered by AI. Find content by meaning rather than just keyw
 Ask research questions and receive cited answers. Use Perplexity when the workflow needs a concise answer with source context instead of raw search results.
 
 **Operations:**
-- **Ask** — Answer a question with citations
-- **Research** — Gather a deeper research response
-- **Fact Check** — Check a claim against current sources
+
+- **Ask Question** (`ASK`) — Ask a question with real-time web search
+- **Research** (`RESEARCH`) — Multi-step research with follow-up questions
+- **Fact Check** (`FACT_CHECK`) — Verify a claim against web sources
 
 **Configuration:**
 
@@ -55,13 +65,24 @@ Ask research questions and receive cited answers. Use Perplexity when the workfl
 | **Operation** | Ask, Research, or Fact Check |
 | **Query** | Question, topic, or claim to research |
 
+[All operations and configuration fields](/tools/reference#perplexity).
+
 ---
 
 ## Firecrawl
 
 Use Firecrawl for web scraping, search, crawling, site mapping, structured extraction, and agent-assisted browsing.
 
-**Operations:** Scrape, Search, Crawl, Map, Extract, and Agent
+**Operations:**
+
+- **Scrape** (`SCRAPE`) — Scrape a single URL and extract content
+- **Search** (`SEARCH`) — Search the web for relevant pages
+- **Crawl** (`CRAWL`) — Crawl a website following links from a start URL
+- **Map** (`MAP`) — Discover all linked pages from a URL
+- **Extract** (`EXTRACT`) — Extract structured data from web pages using AI
+- **Agent** (`AGENT`) — AI agent that navigates and interacts with websites
+
+[All operations and configuration fields](/tools/reference#firecrawl).
 
 ---
 
@@ -71,10 +92,12 @@ The Web Scraper node provides a focused read-only path for retrieving clean publ
 
 **Operations:**
 
-- **Scrape URL** — Extract content from one public page
-- **Search + Scrape** — Search the web and retrieve content from matching pages
+- **Scrape URL** (`SCRAPE_URL`) — Scrape a single public page
+- **Search + Scrape** (`SEARCH_AND_SCRAPE`) — Search the web and scrape the top results
 
 Use [Browser Agent](/tools/browser-automation) instead when the task needs clicks, navigation across several pages, or other interactive browser behavior.
+
+[All operations and configuration fields](/tools/reference#web-scraper).
 
 ---
 
@@ -82,8 +105,38 @@ Use [Browser Agent](/tools/browser-automation) instead when the task needs click
 
 Read domain ratings, backlink statistics, organic keywords, top pages, and referring domains from Ahrefs.
 
+**Operations:**
+
+- **Domain Rating** (`DOMAIN_RATING`) — Get the Domain Rating score and rank
+- **Backlinks Stats** (`BACKLINKS_STATS`) — Get backlink and referring domain counts
+- **Organic Keywords** (`ORGANIC_KEYWORDS`) — Get organic keyword rankings
+- **Top Pages** (`TOP_PAGES`) — Get top pages by organic traffic
+- **Referring Domains** (`REFERRING_DOMAINS`) — Get referring domains list
+
+[All operations and configuration fields](/tools/reference#ahrefs).
+
 ---
 
 ## Polymarket
 
 Search and list markets or events, then retrieve market details, prices, order books, price history, midpoint, spread, recent trades, tags, and leaderboard data.
+
+**Operations:**
+
+- **Search Markets** (`SEARCH_MARKETS`) — Search prediction markets by keyword
+- **Get Market** (`GET_MARKET`) — Retrieve a single market by ID or slug
+- **Get Event** (`GET_EVENT`) — Retrieve a single event by ID
+- **List Markets** (`LIST_MARKETS`) — List markets with filters and sorting
+- **List Events** (`LIST_EVENTS`) — List events with filters and sorting
+- **Get Price** (`GET_PRICE`) — Get current buy/sell price for a token
+- **Get Order Book** (`GET_ORDER_BOOK`) — Get top bids and asks for a token
+- **Get Price History** (`GET_PRICE_HISTORY`) — Get historical price data
+- **Get Midpoint** (`GET_MIDPOINT`) — Get midpoint price for a token
+- **Get Spread** (`GET_SPREAD`) — Get bid-ask spread for a token
+- **Get Last Trade Price** (`GET_LAST_TRADE_PRICE`) — Get last traded price
+- **Get Tags** (`GET_TAGS`) — List all available market tags
+- **Get Leaderboard** (`GET_LEADERBOARD`) — Get top traders and stats
+
+[All operations and configuration fields](/tools/reference#polymarket).
+
+---

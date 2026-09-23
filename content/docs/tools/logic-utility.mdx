@@ -5,74 +5,55 @@ description: "Control workflow flow with conditions, routers, code, and more"
 
 ## Condition
 
-Branch your workflow based on true/false conditions. The Condition node evaluates a JavaScript expression and routes execution to either the **true** or **false** output.
+Use typed comparison rules for exact decisions. Select an upstream value, comparison operator, and comparison value; combine rules with **All rules** or **Any rule**.
 
-**Configuration:**
+New Condition nodes have fixed **If** and **Else** outputs. Connect both paths and test a matching and non-matching input. For example, compare an order amount with `100` using a numeric greater-than rule, or compare a status with `approved` using an equality rule. You do not need to write JavaScript for these comparisons.
 
-| Field | Description |
-|-------|-------------|
-| **Variable name** | Name for the condition output |
-| **Condition** | A JavaScript expression that evaluates to `true` or `false` |
+Older workflows may contain the earlier expression or LLM-based Condition configuration. Those saved variants remain supported, but they are not the new Condition form. For decisions about text meaning, use [Router](#router) or [AI Decision](/tools/ai-decision) when available.
 
-**Example conditions:**
-```javascript
-{{gmail.output.subject}}.includes("urgent")
-```
-```javascript
-{{inputTrigger.amount}} > 100
-```
-
-The node has two output handles. Connect the **true** handle to nodes that should run when the condition passes, and the **false** handle to the alternative path.
+[All operations and configuration fields](/tools/reference#condition).
 
 ---
 
 ## Router
 
-AI powered routing that analyzes input and sends it to the most appropriate branch. Define named routes with descriptions, and the router uses AI to decide which route best matches the input.
+Use Router to choose a branch from the meaning of an input. Configure the context, route names and instructions, and the model. Router supports best-match selection and first-match routing. In first-match mode, rules are evaluated in order; the first match wins and **Else** is the fallback. Put specific rules before broad ones.
 
-**Configuration:**
+Connect each named output to the path that should run. Older workflows can retain the earlier route-selection configuration. Test overlapping rules as well as an input that should reach Else.
 
-| Field | Description |
-|-------|-------------|
-| **Routes** | Named routes, each with a description of when to use it |
-| **Input** | The data to analyze for routing decisions |
-
-Each route creates a separate output handle on the node.
+[All operations and configuration fields](/tools/reference#router).
 
 ---
 
 ## Code
 
-Execute custom code within your workflow. Write Python, JavaScript, or Java to transform data, perform calculations, or implement custom logic.
+Run Python, JavaScript, or Java in a sandbox. Python is the default. Configure the variable name, language, code, timeout in seconds, and optional declared output fields.
 
-**Configuration:**
+Read upstream data through `context`. For a structured Python result, print JSON as the final output:
 
-| Field | Description |
-|-------|-------------|
-| **Variable name** | Name for the code output |
-| **Language** | Python, JavaScript, or Java |
-| **Code** | Your code to execute |
-| **Timeout** | Maximum execution time |
+```python
+import json
+result = {"message": "Ready"}
+print(json.dumps(result))
+```
 
-Your code runs in a sandboxed environment. The result of the last expression is returned as the node output.
+The runner first uses a captured expression result when available, then tries to parse the last nonempty stdout line as JSON; otherwise it returns stdout text or null. Do not rely on a bare final expression working identically in every language.
+
+For a Code node named `code`, the result is `{{code.result}}`. Logs are available as `{{code.stdout}}` and `{{code.stderr}}`. Declared output fields validate the result structure; they do not change that wrapper. Python scripts cannot use `return` outside a function.
+
+[All operations and configuration fields](/tools/reference#code).
 
 ---
 
 ## HTTP Request
 
-Make HTTP requests to any API endpoint. Supports all standard HTTP methods.
+Find this node as **API** in universal search. Send GET, POST, PUT, PATCH, DELETE, HEAD, or OPTIONS requests.
 
-**Configuration:**
+Configure the URL, query parameters, authorization, headers, body format, and timeout in milliseconds. Authorization supports no auth, bearer token, API key, and basic auth. Bodies can be JSON, plain text, or form URL encoded.
 
-| Field | Description |
-|-------|-------------|
-| **Variable name** | Name for the response output |
-| **URL** | The endpoint to call |
-| **Method** | GET, POST, PUT, PATCH, or DELETE |
-| **Headers** | Custom request headers (as JSON) |
-| **Body** | Request body for POST/PUT/PATCH |
+For a node named `api`, use `{{api.httpResponse.data}}` for the body, `{{api.httpResponse.status}}` for the status code, and `{{api.httpResponse.ok}}` to check for a 2xx status. Non-2xx HTTP responses remain structured results; inspect the status before continuing. Transport or configuration errors can fail the node.
 
-**Accessing output:** `{{variableName.output.data}}` for response body, `{{variableName.output.status}}` for status code.
+[All operations and configuration fields](/tools/reference#http-request).
 
 ---
 
@@ -82,6 +63,8 @@ Pause a workflow until a selected workspace member approves or rejects the reque
 
 Use Human Approval before sending customer-facing messages, publishing content, changing important records, or taking another action that needs review.
 
+[All operations and configuration fields](/tools/reference#human-approval).
+
 ---
 
 ## Wait for Event
@@ -90,32 +73,41 @@ Pause a workflow until an external system sends an event to a unique callback UR
 
 The wait request appears in the Inbox. Callback requests are signed when a workflow wait signing secret is configured by the deployment administrator.
 
+[All operations and configuration fields](/tools/reference#wait-for-event).
+
 ---
 
 ## Transform Array
 
-Apply map, filter, or reduce operations to arrays of data.
+Map, filter, or reduce an input array. Configure **Input Array** and select an operation:
 
-**Configuration:**
+- **Map:** transform each item with a template expression.
+- **Filter:** choose a field, comparison operator, and comparison value.
+- **Reduce:** choose an aggregation such as sum, count, concatenate, first, last, minimum, maximum, or a custom reduction expression.
 
-| Field | Description |
-|-------|-------------|
-| **Variable name** | Name for the transformed output |
-| **Operation** | Map, Filter, or Reduce |
-| **Input** | The array to transform (template variable) |
-| **Expression** | The transformation expression |
+Choose whether an item error stops the node or returns partial results. For a node named `transformArray`, the output is `{{transformArray.result}}`, with `processedCount` and `errorCount` alongside it.
+
+**Operations:**
+
+- **Map** (`MAP`) — Transform each item into a new shape
+- **Filter** (`FILTER`) — Keep only items matching a condition
+- **Reduce** (`REDUCE`) — Aggregate items into a single value
+
+[All operations and configuration fields](/tools/reference#transform-array).
 
 ---
 
 ## Edit Fields
 
-Create, rename, remove, and reshape fields for downstream nodes without writing code. Use Edit Fields to normalize an app response or prepare a clean object for a table, webhook, or integration action.
+Edit Fields is retained for existing workflows but is hidden from the standard node picker and universal search. For a new workflow, use [Code](#code) to reshape an object or [Transform Array](#transform-array) to reshape items in a list.
 
 ---
 
 ## CSV Export
 
 Convert data into CSV format for download or further processing.
+
+[All operations and configuration fields](/tools/reference#csv-export).
 
 ---
 
@@ -130,17 +122,17 @@ Send data to an external webhook URL. Unlike the Webhook Trigger (which receives
 | **URL** | The webhook endpoint to call |
 | **Payload** | Data to send (supports template variables) |
 
+[All operations and configuration fields](/tools/reference#webhook-action).
+
 ---
 
 ## Sleep
 
-Pause workflow execution for a specified duration.
+Find this node as **Wait** in universal search. Choose **A duration** (for example `5s`, `1m`, or `1h`) or **A date and time**. Include an explicit timezone or UTC offset for date-based waits to avoid ambiguity. This pauses the workflow durably until the chosen time.
 
-**Configuration:**
+For a node named `wait`, inspect `{{wait.targetAt}}`, `{{wait.completedAt}}`, and `{{wait.actualDurationMs}}` after it resumes.
 
-| Field | Description |
-|-------|-------------|
-| **Duration** | How long to wait (e.g., `5s`, `1m`, `1h`) |
+[All operations and configuration fields](/tools/reference#sleep).
 
 ---
 
@@ -149,11 +141,12 @@ Pause workflow execution for a specified duration.
 Read from, query, add to, update, or delete rows in your [Innflow Tables](/features/tables) directly from a workflow.
 
 **Operations:**
-- **Read Table** — Get all rows from a table
-- **Query Rows** — Search for specific rows
-- **Add Row** — Insert a new row
-- **Update Row** — Modify an existing row
-- **Delete Row** — Remove a row
+
+- **Read Table** (`READ_TABLE`) — Read all rows
+- **Query Rows** (`QUERY_ROWS`) — Filter rows by column value
+- **Add Row** (`ADD_ROW`) — Insert new row(s)
+- **Update Row** (`UPDATE_ROW`) — Update an existing row
+- **Delete Row** (`DELETE_ROW`) — Remove a row by ID
 
 **Configuration:**
 
@@ -165,18 +158,23 @@ Read from, query, add to, update, or delete rows in your [Innflow Tables](/featu
 | **Row Data** | JSON data for add/update operations |
 | **Row ID** | Target row for update/delete operations |
 
+[All operations and configuration fields](/tools/reference#tables).
+
 ---
 
 ## Knowledge Base Node
 
-Search your uploaded documents using semantic search. Returns the most relevant passages from your [Knowledge Base](/features/knowledge-base).
+Use a Knowledge Base node to **Search** an existing base or **Upload** a document to it.
 
-**Configuration:**
+For Search, select the knowledge base, query, number of results, and optional score threshold. For Upload, supply the file URL, file name, and supported file type (PDF, TXT, or Markdown). Uploading queues document processing; wait for the document to become ready before expecting it in search results.
 
-| Field | Description |
-|-------|-------------|
-| **Variable name** | Name for the search results |
-| **Query** | What to search for (supports template variables) |
-| **Top K** | Number of results to return |
+For a search node named `kb`, use `{{kb.results}}`, `{{kb.query}}`, and `{{kb.totalResults}}`. There is no extra `output` level. See [Knowledge Base](/features/knowledge-base).
 
-**Accessing output:** `{{variableName.output.results}}`
+**Operations:**
+
+- **Search** (`SEARCH`) — Search knowledge base for relevant information
+- **Upload** (`UPLOAD`) — Upload a document to the knowledge base
+
+[All operations and configuration fields](/tools/reference#knowledge-base).
+
+---
