@@ -77,3 +77,56 @@ The snapshot uses standard picker availability (AI Decision disabled), not produ
 - `git diff --check` passed.
 - 28 existing content pages changed and one complete reference page was added. The audit contains 37 implemented changes plus the 53-section operation change inventory.
 - No deployment, provider execution, database change, or vector indexing was performed. These are local documentation and rendered-site results, not production verification.
+
+## Scoped follow-up — September 24, 2026
+
+This review used the Innflow working tree on top of `af96607d`, including staged
+save/service repairs, horizontal layout, and Copilot documentation changes, plus
+the latest merged product-index changes. It is a local documentation update, not
+an assertion that the pending application changes are deployed. Existing staged
+application edits were preserved. Historical findings above remain unchanged.
+
+### Change-to-document review
+
+| Behavior | Documentation result | Implementation evidence in Innflow |
+| --- | --- | --- |
+| Completed Copilot work can fail its final workflow save | Added separate Retry save/manual-save recovery, per-workflow state, conflict protection, and reload limitations to the Copilot page and lesson; aligned prompt, runtime/Markdown guide, and edit playbook | `src/features/copilot/hooks/use-copilot-chat-go.ts`, `src/features/copilot/components/copilot-chat.tsx` |
+| Saves acknowledge submitted changes while newer edits remain dirty | Replaced the unconditional autosave claim and added saving/conflict guidance to workflow essentials and lesson | `src/features/editor/components/workflow-toolbar.tsx`, `src/features/workflows/lib/save-coordinator.ts` |
+| Left-to-right layout and one-time conversion | Documented handles, branch labels, undo, retry, and read-only behavior; added the stable architecture boundary | `src/features/editor/hooks/use-horizontal-layout-migration.ts`, `src/features/workflows/server/horizontal-layout.ts` |
+| Layout metadata survives API/CLI round trips | Added canvasLayoutVersion guidance to API introduction and CLI reference | `packages/api-contracts/src/index.ts`, `packages/cli/src/program.ts`, workflow API handlers |
+| Indexing builds a candidate; promotion is separate | Removed the contradictory activation claim in ARCHITECTURE.md and clarified that public MDX is not indexed by the current product corpus | `src/features/copilot/server/product-docs/corpus.ts`, `src/features/copilot/server/product-docs/indexer.ts`, `scripts/copilot/index-product-docs.mts` |
+| Scheduler receipt cleanup and bounded Go telemetry | Existing internal repair report and architecture already describe these contracts; no new customer-facing procedure is needed | `project-checklists/observability/2026-09-24-1321-save-and-service-errors.md`, scheduler callback, Go telemetry handlers |
+| Tool operations and multiple-trigger guidance | Existing generated reference, mapped operation lists, and trigger instructions remain current; no regeneration of real outputs | `scripts/check-tool-docs.mjs` plus focused application guidance tests |
+| Authentication layout styling | No setup or authentication capability change requiring documentation in this scoped review | Current auth layout diff |
+
+Six public pages were updated. Five application documentation/guidance files
+were updated. The public routes and navigation structure are unchanged.
+
+### Release dependencies
+
+Keep the public save-recovery and layout instructions coordinated with their
+application release. Horizontal layout requires its additive database migration
+and application/outbox rollout; use the existing layout checklist. Save/service
+repairs require their existing coordinated rollout and browser/production
+acceptance. This documentation run did not apply migrations or release services.
+
+Copilot corpus inputs changed. The local dry run moved from corpus version
+`0813bbc4f0e2bedf966b7bf1d6d6a8b30fd62150a7d5446ba0b9f277d502715a`
+to `c9da98b749450dcd8288485a2c665745bf2ecf4d38d9a1505b9f379aaa9531c8`
+(177 documents, 217 chunks). Prior candidate receipts are not acceptance evidence
+for this content. After the app and Go manifest references are aligned, use the
+current `scripts/copilot/README.md` build/evaluate/promote procedure with fresh,
+uniquely named candidate/report artifacts. No remote embedding, Qdrant write,
+alias promotion, feature-flag change, commit, push, or publication was performed.
+
+### Local validation
+
+- Documentation drift check passed: 94 node entries, 309 exact operation IDs, and 53 guide operation lists/regression checks.
+- Documentation type checking and production build passed.
+- 33 focused application tests passed across trigger guidance, corpus behavior, query policy, Copilot completion/retry, and horizontal-layout migration hooks.
+- Biome passed for the two modified TypeScript guidance files.
+- Local keyword retrieval returned the new layout/save-recovery guide first for both save-failure and horizontal-layout queries. This does not measure remote hybrid retrieval or model behavior.
+- A temporary fixture deliberately made the generated reference stale: check mode rejected it, the existing generator repaired it, and check mode then passed. The real generated reference and snapshot were left unchanged.
+- The new local docs skill passed its validator and reference-link checks. This run exercised affected public/Copilot guidance, internal-only handling, already-correct documents, and preservation of overlapping staged work. It was not an independent agent evaluation.
+- Built-site verification passed for 60 content pages, navigation, 81 local targets, search, and the unknown-route 404 response.
+- Whitespace checks passed in both repositories. No full application build or production/browser acceptance run was used as documentation validation.

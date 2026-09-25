@@ -57,6 +57,12 @@ Create, import, duplicate, deploy, undeploy, and execute requests support an `Id
 | `GET` | `/executions` | List executions |
 | `GET` | `/executions/{executionId}` | Read execution details and node logs |
 
+## Workflow layout metadata
+
+Workflow definitions can carry `canvasLayoutVersion` alongside their nodes and connections. Version `0` identifies a definition eligible for the editor's one-time horizontal arrangement; version `1` identifies one already using that layout version. Imports without the field default to `0`, while newly created workflows start at `1`. Duplicating a workflow preserves its value.
+
+Preserve this field when exporting and reimporting a definition. It tracks canvas arrangement separately from execution version or deployment state; importing an older definition does not rearrange it until it is opened in an editable editor. Use the current OpenAPI schema for endpoint-specific input fields.
+
 ## Execute a Workflow
 
 Workflows must be deployed before they can be executed through the API.

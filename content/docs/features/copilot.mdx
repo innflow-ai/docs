@@ -61,6 +61,17 @@ Copilot supports:
 
 Live workflow state takes precedence over saved conversation memory.
 
+## Recovering a failed workflow save
+
+If Copilot finishes its work but the final workflow save fails, **Workflow not saved** appears with a **Retry save** button. The completed response and canvas edits remain available in the open editor.
+
+- Choose **Retry save** to retry persistence without rerunning your message or its tools.
+- You can also use the workflow toolbar to save. A successful manual save clears the Copilot save warning.
+- If you switch workflow tabs, return to the affected workflow to recover its save. Each workflow keeps its own recovery state.
+- A revision conflict still needs reconciliation; retrying does not overwrite another editor's changes.
+
+Keep the editor open until saving succeeds. The browser warns when leaving with a pending Copilot save failure, but that warning is not a backup: ignoring it and reloading can discard unsaved edits. This recovery applies to workflow saving; generation failures and conversation-history save failures have their own error controls.
+
 ## Test & Repair
 
 When Test & Repair is enabled for the deployment, Copilot can start a real workflow execution after you approve the warning. A session can make up to three real attempts and can automatically change only explicitly safe configuration fields.
