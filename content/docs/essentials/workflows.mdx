@@ -30,7 +30,21 @@ The editor is a canvas where you build workflows by placing and connecting nodes
 - **Lock the canvas** — Prevent accidental movement while reviewing
 - **Add sticky notes** — Document the workflow directly on the canvas
 
-Changes autosave while you work. Use Copilot when you want to add, configure, explain, test, or repair a workflow through conversation.
+Node settings and canvas changes can save while you work. Check the toolbar's save state before leaving; use **Save workflow** when changes remain. Use Copilot to add, configure, explain, test, or repair a workflow through conversation.
+
+### Canvas layout
+
+Workflows flow left to right: inputs are on the left of each node card, and outputs are on the right. Branching nodes show separate output rows. Follow the labeled connection for the intended branch; moving a node does not change execution order.
+
+Older workflows are arranged once when first opened in an editable canvas. This changes positions, not configuration, connections, or deployment state. You can undo the arrangement as one change and continue positioning nodes yourself. Read-only previews do not initiate this conversion. If arranging fails, the editor releases the canvas and offers **Retry**; wait for pending edits or connection problems to clear before retrying.
+
+### Saving and conflicts
+
+A successful save covers the changes submitted with that save. New edits made while saving can still leave the workflow marked unsaved. Saving a draft is separate from deploying or running it.
+
+If saving reports that the workflow changed, preserve your unsaved work before reloading. Another tab or collaborator may have changed the stored workflow; repeating the same save does not merge conflicting edits. Review the latest version and reconcile your changes instead of overwriting it.
+
+If Copilot finishes but the workflow cannot be saved, use the separate [save recovery controls](/features/copilot#recovering-a-failed-workflow-save).
 
 ## Execution Flow
 

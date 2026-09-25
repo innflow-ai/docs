@@ -23,6 +23,12 @@ A good first workflow answers a small question or transforms a sample input. Avo
 
 A connection tells the workflow which node can run next. The output of a completed node becomes available to downstream steps. A branch or loop changes the path, so test each path your process depends on.
 
+## Arrange and save
+
+Follow the canvas from left to right, connecting an output on the right of one node to an input on the left of the next. Branch labels identify the path; visual position alone does not determine execution.
+
+Before closing the editor, check that the toolbar reports **All changes saved**. Changes made during an earlier save may still need another save. If a conflict appears, preserve your work and reconcile it with the latest workflow before reloading. See [saving and conflicts](/essentials/workflows#saving-and-conflicts).
+
 ## Try it
 
 Build a Manual trigger connected to an AI node. Ask it to summarize a short sample message. Check whether the actual output matches what the next step needs before connecting an email or messaging action.

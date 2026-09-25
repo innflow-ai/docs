@@ -22,6 +22,12 @@ Ask Copilot to explain the current workflow, add a step, or help repair a specif
 
 Confirm the chosen destination, the data sent to each service, and what happens when a step fails. A helpful generated graph still needs a controlled test.
 
+## Separate completion from saving
+
+A completed Copilot response does not by itself prove that the workflow was saved. If **Workflow not saved** appears, keep the editor open and choose **Retry save**, or save from the workflow toolbar. This retries the save without asking Copilot to repeat completed actions.
+
+If saving still conflicts, preserve your edits and review the latest workflow. Reloading can discard unsaved work. See [save recovery](/features/copilot#recovering-a-failed-workflow-save) before retrying the original prompt.
+
 ## Try it
 
 Ask Copilot to explain a workflow you already understand. Then request one small change and compare the graph and configuration before running it.

@@ -32,6 +32,10 @@ printf '%s' "$INNFLOW_API_KEY" | npx @innflow/cli auth login --api-key-stdin
 
 Every command supports `--json` for machine-readable output. Destructive commands require confirmation unless `--yes` is provided.
 
+## Preserve workflow layout on round trips
+
+Workflow export and import preserve `canvasLayoutVersion` when present. Keep this field in a pulled definition when importing it again; an older definition without it is eligible for the editor's one-time horizontal arrangement. See [workflow layout metadata](/api-reference/introduction#workflow-layout-metadata).
+
 ## Profiles and environment variables
 
 - `INNFLOW_API_KEY` authenticates non-interactive requests.
