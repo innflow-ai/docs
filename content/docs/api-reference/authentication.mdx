@@ -1,0 +1,80 @@
+---
+title: 'Authentication and errors'
+description: 'API keys, workspace permissions, retries, pagination and rate limits'
+---
+
+## API keys
+
+Create an API key under **Settings → API Keys**. Send it with every authenticated REST request:
+
+```http
+Authorization: Bearer inf_sk_your_key
+```
+
+Keep keys on your server. Do not embed them in browser JavaScript, commit them to a repository or include them in public URLs. [Manage API keys](/features/api-keys).
+
+The CLI can also use a browser-login session token. MCP OAuth uses the same routes with its own scopes and contract behavior; see [authoring](/api-reference/authoring).
+
+## Workspaces and permissions
+
+Select a workspace explicitly. `X-Innflow-Workspace: personal` restricts resource reads to your personal workspace. Omitting the header uses legacy user-owned resource scope, which can also include organization resources you created. To select an organization you belong to, pass its ID:
+
+```http
+X-Innflow-Workspace: organization_id
+```
+
+Use [List workspaces](/api-reference/endpoints/list-workspaces) to discover IDs and roles. Permission checks are endpoint-specific: workflows use read/write/execute actions; execution reads use `executions:read`; workspace discovery uses `workspaces:read`. Organization members with read-only roles cannot mutate or execute workflows. A key does not grant access to another user's resources.
+
+## Request and response format
+
+Send `Content-Type: application/json` with JSON bodies. Most successful responses wrap results in `data`. List workflows and List executions also return `pagination` with `page`, `pageSize`, `totalCount` and `totalPages`. Their default page size is 20 and maximum is 100.
+
+Catalog and log endpoints use `data.items` with `nextPage`; field options and payloads use `nextCursor`. Follow the endpoint-specific format rather than assuming one pagination envelope for every route.
+
+## Idempotency and retries
+
+| Operations | API-key behavior |
+| --- | --- |
+| Create, import, duplicate, execute | Optional `Idempotency-Key`; matching requests replay saved responses for 24 hours |
+| Graph patch, trigger configuration | Required operation key; receipts are transactional |
+| Update, delete, deploy, undeploy | No generic idempotency replay guarantee |
+
+Optional keys have a maximum length of 200 characters. Required authoring keys must contain 1–200 letters, digits, dots, colons, underscores or hyphens. Reusing a key with a different request body returns `409`. Replays include `X-Idempotent-Replayed: true`. Keys are scoped to the authenticated principal, workspace and route.
+
+For ordinary optional-key writes, expired receipts can be replaced after 24 hours. For transactional authoring, an expired receipt returns `IDEMPOTENCY_EXPIRED`; inspect the workflow before starting another operation.
+
+Optional-key response replay is not an exactly-once guarantee: concurrent first requests or a failure before receipt persistence can repeat work. Serialize retries and inspect ambiguous outcomes.
+
+On a network failure, retry eligible writes with the same key and the exact same body. Use backoff for reads and honor `Retry-After` on rate limits. Inspect resource state before repeating a write without idempotency support.
+
+## Errors
+
+Application handler errors generally include:
+
+```json
+{
+  "error": "Workflow not found",
+  "code": "NOT_FOUND",
+  "requestId": "request_identifier"
+}
+```
+
+Some errors include `details`. Handler responses include `X-Request-Id`; retain it when asking support about a request. Proxy failures can have a different envelope.
+
+| Status | Meaning and action |
+| --- | --- |
+| 400 | Invalid JSON, parameters, cursor or missing required idempotency key; correct the request |
+| 401 | Missing/invalid credentials or unavailable workspace; check key and workspace |
+| 403 | Insufficient permission or workspace role |
+| 404 | Resource not found or not accessible to this principal |
+| 409 | Idempotency or revision conflict; inspect state before retrying |
+| 422 | Configuration or workflow state does not allow the operation |
+| 429 | Rate limited; wait for `Retry-After` |
+| 500 | Unexpected server failure; retain request ID and retry only when safe |
+| 503 | Authoring unavailable when code is `AUTHORING_DISABLED` |
+
+## Rate limits
+
+The application proxy currently applies 60 requests per minute per client IP and route pathname to `/api/v1`. This is a process-local guard, not a guaranteed account-wide quota. Additional credential or infrastructure limits may apply.
+
+Proxy responses expose `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset` (Unix milliseconds). A proxy `429` also includes `Retry-After` in seconds. Build clients around response headers rather than a fixed request rate.

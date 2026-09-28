@@ -1,0 +1,34 @@
+---
+title: 'Get authoring context'
+description: 'GET /mcp/context'
+---
+
+Inspect the authenticated principal and authoring availability.
+
+
+```http
+GET /api/v1/mcp/context
+```
+
+**Permission:** `workflows:read`. Write endpoints also require a workspace role that permits changes. See [authentication](/api-reference/authentication) and [errors](/api-reference/errors).
+
+## Request
+
+```bash
+curl --request GET 'https://app.innflow.ai/api/v1/mcp/context' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY"
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Parameters
+
+| Name | In | Required | Details |
+| --- | --- | --- | --- |
+| `X-Innflow-Workspace` | header | No | Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope. |
+
+## Response
+
+**HTTP 200** — Returns data with workspace, userId, role, permissions, authoringEnabled and contractVersion. Check authoringEnabled before graph or trigger mutations.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

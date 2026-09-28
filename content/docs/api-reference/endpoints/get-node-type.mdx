@@ -1,0 +1,36 @@
+---
+title: 'Get node schema'
+description: 'GET /mcp/node-types/{nodeType}'
+---
+
+Get configuration fields, outputs and handles for a node type.
+
+
+```http
+GET /api/v1/mcp/node-types/{nodeType}
+```
+
+**Permission:** `workflows:read`. Write endpoints also require a workspace role that permits changes. See [authentication](/api-reference/authentication) and [errors](/api-reference/errors).
+
+## Request
+
+```bash
+curl --request GET 'https://app.innflow.ai/api/v1/mcp/node-types/MANUAL_TRIGGER' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY"
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Parameters
+
+| Name | In | Required | Details |
+| --- | --- | --- | --- |
+| `nodeType` | path | Yes | Resource identifier. |
+| `X-Innflow-Workspace` | header | No | Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope. |
+| `operation` | query | No | Operation identifier returned by the node catalog. |
+
+## Response
+
+**HTTP 200** — Returns data with type, optional operation, fields, outputs, handles and contractVersion. Use these fields to build configuration rather than guessing provider parameters.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

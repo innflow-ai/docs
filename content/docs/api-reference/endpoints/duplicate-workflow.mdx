@@ -1,0 +1,55 @@
+---
+title: 'Duplicate workflow'
+description: 'POST /workflows/{workflowId}/duplicate'
+---
+
+Copy the graph into a new draft, preserving canvas layout metadata and generating new node IDs. Trigger connection state is refreshed.
+
+
+```http
+POST /api/v1/workflows/{workflowId}/duplicate
+```
+
+**Permission:** `workflows:write`. Write endpoints also require a workspace role that permits changes. See [authentication](/api-reference/authentication) and [errors](/api-reference/errors).
+
+## Request
+
+```bash
+curl --request POST 'https://app.innflow.ai/api/v1/workflows/workflow_id/duplicate' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY" \
+  --header "Idempotency-Key: unique-request-001" \
+  --header "Content-Type: application/json" \
+  --data '{
+  "name": "Workflow copy"
+}'
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Parameters
+
+| Name | In | Required | Details |
+| --- | --- | --- | --- |
+| `workflowId` | path | Yes | Resource identifier. |
+| `X-Innflow-Workspace` | header | No | Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope. |
+| `Idempotency-Key` | header | No | Optional replay key, at most 200 characters. Same request and key replay for 24 hours. |
+
+## JSON body
+
+Optional JSON body.
+```json
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  }
+}
+```
+
+## Response
+
+**HTTP 201** — Returns data with id, name, icon, iconColor, deploymentStatus, deployedAt, createdAt and updatedAt.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

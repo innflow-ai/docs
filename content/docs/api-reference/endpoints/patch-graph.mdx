@@ -1,0 +1,291 @@
+---
+title: 'Patch workflow graph'
+description: 'PATCH /workflows/{workflowId}/graph'
+---
+
+Apply 1–25 graph operations atomically against expectedRevision. Requires authoring to be enabled. Read graphRevision from Get workflow before editing; a stale revision must be refreshed.
+
+
+```http
+PATCH /api/v1/workflows/{workflowId}/graph
+```
+
+**Permission:** `workflows:write`. Write endpoints also require a workspace role that permits changes. See [authentication](/api-reference/authentication) and [errors](/api-reference/errors).
+
+## Request
+
+```bash
+curl --request PATCH 'https://app.innflow.ai/api/v1/workflows/workflow_id/graph' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY" \
+  --header "Idempotency-Key: unique-request-001" \
+  --header "Content-Type: application/json" \
+  --data '{
+  "expectedRevision": 0,
+  "operations": [
+    {
+      "operation": "addNode",
+      "ref": "new_trigger",
+      "type": "MANUAL_TRIGGER",
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ]
+}'
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Parameters
+
+| Name | In | Required | Details |
+| --- | --- | --- | --- |
+| `workflowId` | path | Yes | Resource identifier. |
+| `X-Innflow-Workspace` | header | No | Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope. |
+| `Idempotency-Key` | header | Yes | Required operation key: 1–200 letters, digits, dots, colons, underscores or hyphens. |
+
+## JSON body
+
+Required JSON body.
+```json
+{
+  "type": "object",
+  "properties": {
+    "expectedRevision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "operations": {
+      "minItems": 1,
+      "maxItems": 25,
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "type": "string",
+                "const": "addNode"
+              },
+              "ref": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              "type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "maxLength": 255
+              },
+              "position": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
+                ]
+              },
+              "data": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "operation",
+              "ref",
+              "type"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "type": "string",
+                "const": "configureNode"
+              },
+              "nodeId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              "data": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "operation",
+              "nodeId",
+              "data"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "type": "string",
+                "const": "removeNode"
+              },
+              "nodeId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              }
+            },
+            "required": [
+              "operation",
+              "nodeId"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "type": "string",
+                "const": "moveNode"
+              },
+              "nodeId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              "position": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            "required": [
+              "operation",
+              "nodeId",
+              "position"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "type": "string",
+                "const": "connect"
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              "target": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              "sourceHandle": {
+                "default": "main",
+                "type": "string",
+                "maxLength": 200
+              },
+              "targetHandle": {
+                "default": "main",
+                "type": "string",
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "operation",
+              "source",
+              "target"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "type": "string",
+                "const": "disconnect"
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              "target": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              "sourceHandle": {
+                "default": "main",
+                "type": "string",
+                "maxLength": 200
+              },
+              "targetHandle": {
+                "default": "main",
+                "type": "string",
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "operation",
+              "source",
+              "target"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "expectedRevision",
+    "operations"
+  ],
+  "additionalProperties": false
+}
+```
+
+## Response
+
+**HTTP 200** — Returns data with workflowId, revision, nodeIds (temporary refs mapped to persisted IDs) and editorUrl; the envelope also includes operationId and idempotencyKey.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

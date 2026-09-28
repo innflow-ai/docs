@@ -1,0 +1,65 @@
+---
+title: "Errors and retries"
+description: "Handle REST failures, pagination, rate limits, and idempotent request retries"
+---
+
+## Error format
+
+Application-level JSON failures generally contain:
+
+```json
+{
+  "error": "Workflow not found",
+  "code": "NOT_FOUND",
+  "requestId": "example-request"
+}
+```
+
+Validation errors may include `details`. Trigger-selection errors may include eligible choices. Save the `X-Request-Id` response header when troubleshooting. Responses from the proxy or hosting layer can have a different format, so check the status and content type before parsing JSON.
+
+| Status | Meaning | Next step |
+| --- | --- | --- |
+| `400` | Invalid request or import validation failure | Correct the body, query, or referenced node indices |
+| `401` | Missing/invalid credential or inaccessible workspace selection | Check the key, expiration, and workspace membership |
+| `403` | Insufficient key permission or workspace role | Check endpoint permissions and membership role |
+| `404` | Resource missing or outside the selected scope | Check resource ID and explicit workspace |
+| `409` | Request conflicts with existing state or idempotency key | Read the error; do not reuse a key for a changed request |
+| `422` | Workflow state or trigger selection prevents the action | Deploy/configure the workflow or select an eligible trigger |
+| `429` | Rate limit exceeded | Wait for `Retry-After` before retrying |
+| `500`, `502` | Server or upstream failure | Use bounded backoff; inspect write outcomes before repeating |
+
+## Rate limits
+
+The public API proxy currently applies a 60-request, 60-second window per route path and client IP within a serving instance. This is not a guaranteed account-wide quota; additional credential or infrastructure limits may apply. Use response headers rather than relying on a fixed polling rate.
+
+- `X-RateLimit-Limit`: window limit.
+- `X-RateLimit-Remaining`: remaining requests in that window.
+- `X-RateLimit-Reset`: reset time as a Unix timestamp in milliseconds.
+- `Retry-After`: seconds to wait when the proxy returns `429`.
+
+The proxy's `429` body includes `error`, `message`, and `retryAfter` and may not contain an application request ID.
+
+## Idempotent writes
+
+The API-key routes for create, import, duplicate, and execute support `Idempotency-Key`. Use a unique key of at most 200 characters for each intended operation.
+
+After a response is saved, a later identical request can replay it for 24 hours. Replays include `X-Idempotent-Replayed: true`. The key is scoped to the credential, workspace, and route, and the request hash includes the HTTP method and raw body bytes. Keep the body identical, including its serialization, when retrying.
+
+Reusing a key on the same route with different request bytes returns `409`. Saved responses can include client errors; after correcting input, use a new key. Server errors are not saved by this mechanism.
+
+This is response replay, not an exactly-once guarantee: concurrent first requests or a failure before the response is persisted can still repeat work. Serialize retries and check the outcome before resubmitting an uncertain write.
+
+`PATCH`, `DELETE`, deploy, and undeploy do not use this replay mechanism. Read the resource state after a timeout before repeating those requests.
+
+## Pagination
+
+Workflow and execution lists accept positive integer `page` and `pageSize` values. The default page size is 20 and the maximum is 100.
+
+```json
+{
+  "data": [],
+  "pagination": { "page": 1, "pageSize": 20, "totalCount": 0, "totalPages": 0 }
+}
+```
+
+Continue through `totalPages` when you need the full result set. These are page-based lists, not snapshot cursors: records can change while you paginate.

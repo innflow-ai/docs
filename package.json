@@ -10,7 +10,10 @@
     "check": "npm run types:check",
     "verify": "node scripts/verify-build.mjs",
     "docs:sync": "node scripts/sync-tool-reference.mjs",
-    "docs:check": "node scripts/check-tool-docs.mjs"
+    "docs:check": "node scripts/check-tool-docs.mjs",
+    "api:sync": "node scripts/sync-api-reference.mjs",
+    "api:check": "node scripts/sync-api-reference.mjs --check",
+    "api:source-check": "node scripts/sync-api-reference.mjs --source-check"
   },
   "dependencies": {
     "cn": "^0.3.0",

@@ -1,0 +1,167 @@
+---
+title: 'Import workflow'
+description: 'POST /workflows/import'
+---
+
+Create a draft from 1–200 nodes and optional edges. Edge source and target are zero-based indexes into nodes. Node types must exist in the Innflow registry. description is accepted by the input schema but is not persisted by this endpoint.
+
+
+```http
+POST /api/v1/workflows/import
+```
+
+**Permission:** `workflows:write`. Write endpoints also require a workspace role that permits changes. See [authentication](/api-reference/authentication) and [errors](/api-reference/errors).
+
+## Request
+
+```bash
+curl --request POST 'https://app.innflow.ai/api/v1/workflows/import' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY" \
+  --header "Idempotency-Key: unique-request-001" \
+  --header "Content-Type: application/json" \
+  --data '{
+  "name": "API workflow",
+  "nodes": [
+    {
+      "type": "MANUAL_TRIGGER",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "data": {}
+    }
+  ],
+  "edges": []
+}'
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Parameters
+
+| Name | In | Required | Details |
+| --- | --- | --- | --- |
+| `X-Innflow-Workspace` | header | No | Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope. |
+| `Idempotency-Key` | header | No | Optional replay key, at most 200 characters. Same request and key replay for 24 hours. |
+
+## JSON body
+
+Required JSON body.
+```json
+{
+  "type": "object",
+  "properties": {
+    "canvasLayoutVersion": {
+      "default": 0,
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "description": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "iconColor": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "nodes": {
+      "minItems": 1,
+      "maxItems": 200,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "position": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "data": {
+            "default": {},
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {}
+          }
+        },
+        "required": [
+          "type",
+          "position"
+        ]
+      }
+    },
+    "edges": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "target": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "fromOutput": {
+            "type": "string"
+          },
+          "toInput": {
+            "type": "string"
+          },
+          "sourceHandle": {
+            "type": "string"
+          },
+          "targetHandle": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "target"
+        ]
+      }
+    }
+  },
+  "required": [
+    "nodes"
+  ]
+}
+```
+
+## Response
+
+**HTTP 201** — Returns data with id, name, deploymentStatus, nodeCount, edgeCount, createdAt and updatedAt. Node IDs are generated on import. canvasLayoutVersion defaults to 0; preserve 1 when reimporting an already arranged graph.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

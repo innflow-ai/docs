@@ -1,87 +1,78 @@
 ---
-title: 'API Introduction'
-description: 'Integrate Innflow into your applications'
+title: 'REST API'
+description: 'Build integrations with Innflow workflows, executions and workspaces'
 ---
 
-## Overview
+Use the Innflow REST API to create and import workflows, deploy them, start executions and read results. The API also exposes graph authoring, node schemas and connected-account discovery.
 
-The Innflow public API manages workspaces, workflow definitions, deployment state, and executions. It is also the API used by the [Innflow CLI](/api-reference/cli).
+**Base URL**
 
-## Authentication
-
-All API requests require an API key in the `Authorization` header. Innflow API keys start with `inf_sk_` and are shown only once when created.
-
-```bash
-curl -H "Authorization: Bearer inf_sk_..." \
-  https://app.innflow.ai/api/v1/workflows
-```
-
-## Base URL
-
-```
+```text
 https://app.innflow.ai/api/v1
 ```
 
-The machine-readable OpenAPI 3.1 document is available at:
+[Browse all 25 operations](/api-reference/endpoints) · [Download OpenAPI 3.1](/openapi.json) · [CLI reference](/api-reference/cli)
 
-```txt
-https://app.innflow.ai/api/v1/openapi.json
-```
+## Make your first request
 
-## Workspace selection
-
-Requests default to the personal workspace. Pass an organization ID in `X-Innflow-Workspace` to operate in another accessible workspace:
+Create a key in **Settings → API Keys**. The full key is shown once. Store it on your server or in your shell environment as `INNFLOW_API_KEY`.
 
 ```bash
--H "X-Innflow-Workspace: org_123"
+curl 'https://app.innflow.ai/api/v1/workspaces' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY"
 ```
 
-Read-only workspace members cannot use write endpoints.
+List workflows in your personal workspace (select it explicitly):
 
-## Idempotent writes
+```bash
+curl 'https://app.innflow.ai/api/v1/workflows?page=1&pageSize=20' \
+  --header 'X-Innflow-Workspace: personal' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY"
+```
 
-Create, import, duplicate, deploy, undeploy, and execute requests support an `Idempotency-Key` header. Repeating the same request with the same key replays the saved response for 24 hours; reusing a key with a different request returns a conflict.
+To select an organization, add `X-Innflow-Workspace` with an organization ID returned by List workspaces. See [authentication, permissions and errors](/api-reference/authentication).
 
-## Endpoints
+## Start a workflow and read its result
 
-| Method | Endpoint | Purpose |
-| --- | --- | --- |
-| `GET` | `/workspaces` | List accessible workspaces |
-| `GET`, `POST` | `/workflows` | List or create workflows |
-| `POST` | `/workflows/import` | Import a workflow graph |
-| `GET`, `PATCH`, `DELETE` | `/workflows/{workflowId}` | Read, update, or delete one workflow |
-| `POST` | `/workflows/{workflowId}/duplicate` | Duplicate a workflow |
-| `POST` | `/workflows/{workflowId}/deploy` | Deploy a workflow |
-| `POST` | `/workflows/{workflowId}/undeploy` | Return a workflow to draft state |
-| `POST` | `/workflows/{workflowId}/execute` | Start a deployed workflow |
-| `GET` | `/executions` | List executions |
-| `GET` | `/executions/{executionId}` | Read execution details and node logs |
+Choose a configured, deployed workflow. Replace `workflow_id` with its ID. Give each new execution a unique idempotency key; reuse that key only when retrying the same request.
+
+```bash
+curl --request POST 'https://app.innflow.ai/api/v1/workflows/workflow_id/execute' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --header 'Idempotency-Key: customer-onboarding-001' \
+  --data '{"input":{"email":"customer@example.com"}}'
+```
+
+The response's `data.executionId` identifies the asynchronous run. If several triggers are eligible, include `triggerNodeId` in the request body.
+
+```bash
+curl 'https://app.innflow.ai/api/v1/executions/execution_id?view=summary' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY"
+```
+
+Poll with backoff until the execution finishes. Use [execution logs](/api-reference/endpoints/execution-logs) for node-level diagnostics and [execution payload](/api-reference/endpoints/execution-payload) for chunked output.
+
+## API areas
+
+| Area | What you can do |
+| --- | --- |
+| [Workspaces](/api-reference/endpoints/list-workspaces) | Discover the workspaces you can access |
+| [Workflows](/api-reference/endpoints/list-workflows) | Create, import, inspect, update, duplicate, deploy and delete workflows |
+| [Executions](/api-reference/endpoints/list-executions) | Start runs, inspect status, read logs and retrieve output |
+| [Authoring](/api-reference/authoring) | Edit graphs, validate configuration and configure triggers |
+| [Catalog](/api-reference/endpoints/list-node-types) | Discover node types, fields, connected accounts and operation receipts |
+
+## OpenAPI and client tooling
+
+[Download the complete documentation OpenAPI snapshot](/openapi.json) to import into API clients. It uses the absolute production API base URL and describes the request parameters and bodies for all 25 documented operations.
+
+The application also serves its own [OpenAPI document](https://app.innflow.ai/api/v1/openapi.json). That document currently covers a smaller core subset. The documentation snapshot includes the additional routes reviewed on September 28, 2026. Response bodies are described per endpoint; the snapshot does not promise exhaustive typed response models.
+
+## Supported surface
+
+These pages describe the customer REST routes under `/api/v1`. Authoring availability is deployment-dependent; check [authoring context](/api-reference/endpoints/authoring-context) before editing graphs. Workflow webhooks and [MCP](/mcp) have their own setup guides. Internal service endpoints and browser-session APIs are not customer REST contracts.
 
 ## Workflow layout metadata
 
-Workflow definitions can carry `canvasLayoutVersion` alongside their nodes and connections. Version `0` identifies a definition eligible for the editor's one-time horizontal arrangement; version `1` identifies one already using that layout version. Imports without the field default to `0`, while newly created workflows start at `1`. Duplicating a workflow preserves its value.
-
-Preserve this field when exporting and reimporting a definition. It tracks canvas arrangement separately from execution version or deployment state; importing an older definition does not rearrange it until it is opened in an editable editor. Use the current OpenAPI schema for endpoint-specific input fields.
-
-## Execute a Workflow
-
-Workflows must be deployed before they can be executed through the API.
-
-```bash
-curl -X POST https://app.innflow.ai/api/v1/workflows/{workflowId}/execute \
-  -H "Authorization: Bearer inf_sk_..." \
-  -H "Content-Type: application/json" \
-  -H "Idempotency-Key: run-customer-onboarding-123" \
-  -d '{
-    "input": {
-      "email": "customer@example.com",
-      "message": "Need help with onboarding"
-    }
-  }'
-```
-
-The response includes the workflow ID, event IDs, and a `triggered` status.
-
-## Errors and request IDs
-
-JSON errors include a human-readable `error`, an optional machine-readable `code`, and a `requestId`. Responses also include `X-Request-Id`; provide it to support when investigating a failed request.
+Workflow definitions can carry `canvasLayoutVersion` alongside nodes and connections. Version `0` identifies a definition eligible for the editor’s one-time horizontal arrangement; version `1` identifies one already using that layout version. Imports default to `0`, new workflows start at `1`, and duplicates preserve the value. Preserve this field across exports and imports. It tracks canvas arrangement separately from execution version or deployment state.

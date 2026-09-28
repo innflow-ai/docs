@@ -1,0 +1,2424 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Innflow REST API",
+    "version": "2026-09-28",
+    "description": "Customer REST API reference. Authoring operations depend on authoring availability. Internal portal event ingestion is not a customer API."
+  },
+  "servers": [
+    {
+      "url": "https://app.innflow.ai/api/v1"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Innflow API key. Keep credentials on the server."
+      }
+    }
+  },
+  "paths": {
+    "/workspaces": {
+      "get": {
+        "operationId": "list-workspaces",
+        "summary": "List workspaces",
+        "description": "List the personal workspace and organizations you belong to.",
+        "tags": [
+          "Workspaces"
+        ],
+        "parameters": [
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data as an array. Each entry has id, name, type and role; organization entries also include slug.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows": {
+      "get": {
+        "operationId": "list-workflows",
+        "summary": "List workflows",
+        "description": "List standard workflows accessible in the selected workspace, newest updated first.",
+        "tags": [
+          "Workflows"
+        ],
+        "parameters": [
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number, starting at 1.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Results per page (1–100).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "required": false
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Case-insensitive workflow name filter.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data as an array of workflow summaries and pagination with page, pageSize, totalCount and totalPages.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "create-workflow",
+        "summary": "Create workflow",
+        "description": "Create a draft workflow with an initial node. An omitted or empty name uses the default untitled name.",
+        "tags": [
+          "Workflows"
+        ],
+        "parameters": [
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "Optional replay key, at most 200 characters. Same request and key replay for 24 hours.",
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Returns data with id, name, icon, iconColor, deploymentStatus, deployedAt, createdAt and updatedAt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "Customer onboarding"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/import": {
+      "post": {
+        "operationId": "import-workflow",
+        "summary": "Import workflow",
+        "description": "Create a draft from 1–200 nodes and optional edges. Edge source and target are zero-based indexes into nodes. Node types must exist in the Innflow registry. description is accepted by the input schema but is not persisted by this endpoint.",
+        "tags": [
+          "Workflows"
+        ],
+        "parameters": [
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "Optional replay key, at most 200 characters. Same request and key replay for 24 hours.",
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Returns data with id, name, deploymentStatus, nodeCount, edgeCount, createdAt and updatedAt. Node IDs are generated on import. canvasLayoutVersion defaults to 0; preserve 1 when reimporting an already arranged graph.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "canvasLayoutVersion": {
+                    "default": 0,
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "maxLength": 100
+                  },
+                  "iconColor": {
+                    "type": "string",
+                    "maxLength": 20
+                  },
+                  "nodes": {
+                    "minItems": 1,
+                    "maxItems": 200,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "maxLength": 255
+                        },
+                        "position": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "data": {
+                          "default": {},
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {}
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "position"
+                      ]
+                    }
+                  },
+                  "edges": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "source": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "target": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "fromOutput": {
+                          "type": "string"
+                        },
+                        "toInput": {
+                          "type": "string"
+                        },
+                        "sourceHandle": {
+                          "type": "string"
+                        },
+                        "targetHandle": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "source",
+                        "target"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "nodes"
+                ]
+              },
+              "example": {
+                "name": "API workflow",
+                "nodes": [
+                  {
+                    "type": "MANUAL_TRIGGER",
+                    "position": {
+                      "x": 0,
+                      "y": 0
+                    },
+                    "data": {}
+                  }
+                ],
+                "edges": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}": {
+      "get": {
+        "operationId": "get-workflow",
+        "summary": "Get workflow",
+        "description": "Read workflow metadata and its graph.",
+        "tags": [
+          "Workflows"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "view",
+            "in": "query",
+            "description": "Use summary to omit nodes and connections.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "summary"
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "nodeIds",
+            "in": "query",
+            "description": "Comma-separated list of at most 50 node IDs. Filters nodes only; connections remain unfiltered.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with workflow metadata, graphRevision, executionVersion, canvasLayoutVersion, nodes and connections. Summary view returns nodeCount and connectionCount instead of graph arrays.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "update-workflow",
+        "summary": "Update workflow",
+        "description": "Change workflow metadata. Supply at least one of name, icon or iconColor. name must be non-empty after trimming. Use the graph endpoint for node and connection edits.",
+        "tags": [
+          "Workflows"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with id, name, icon, iconColor, deploymentStatus, deployedAt, createdAt and updatedAt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "icon": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "iconColor": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "example": {
+                "name": "Updated workflow"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "delete-workflow",
+        "summary": "Delete workflow",
+        "description": "Delete a workflow and its execution history. This is destructive.",
+        "tags": [
+          "Workflows"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with id and deleted: true.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/duplicate": {
+      "post": {
+        "operationId": "duplicate-workflow",
+        "summary": "Duplicate workflow",
+        "description": "Copy the graph into a new draft, preserving canvas layout metadata and generating new node IDs. Trigger connection state is refreshed.",
+        "tags": [
+          "Workflows"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "Optional replay key, at most 200 characters. Same request and key replay for 24 hours.",
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Returns data with id, name, icon, iconColor, deploymentStatus, deployedAt, createdAt and updatedAt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "Workflow copy"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/deploy": {
+      "post": {
+        "operationId": "deploy-workflow",
+        "summary": "Deploy workflow",
+        "description": "Set a draft workflow to deployed and resume eligible paused schedules. Already-deployed workflows return 422. Validate configuration before deploying.\n\nWith API-key authentication, this endpoint does not replay Idempotency-Key receipts. MCP OAuth contract calls have separate transaction semantics; see the authoring guide.",
+        "tags": [
+          "Workflows"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with id, name, icon, iconColor, deploymentStatus, deployedAt, createdAt and updatedAt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/undeploy": {
+      "post": {
+        "operationId": "undeploy-workflow",
+        "summary": "Undeploy workflow",
+        "description": "Return a deployed workflow to draft and pause active schedules. A workflow that is not currently deployed returns 422.\n\nWith API-key authentication, this endpoint does not replay Idempotency-Key receipts.",
+        "tags": [
+          "Workflows"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with id, name, icon, iconColor, deploymentStatus, deployedAt, createdAt and updatedAt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/execute": {
+      "post": {
+        "operationId": "execute-workflow",
+        "summary": "Execute workflow",
+        "description": "Start an asynchronous execution of a deployed workflow. Supply triggerNodeId when more than one eligible trigger exists. A successful request means the run was triggered, not that it completed.",
+        "tags": [
+          "Executions"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "Optional replay key, at most 200 characters. Same request and key replay for 24 hours.",
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with workflowId, eventIds, executionId and status: triggered. Poll Get execution with executionId. MCP OAuth contract requests return 202 and include an operationId receipt.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "triggerNodeId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "input": {
+                  "email": "customer@example.com"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/executions": {
+      "get": {
+        "operationId": "list-executions",
+        "summary": "List executions",
+        "description": "List accessible executions, newest started first.",
+        "tags": [
+          "Executions"
+        ],
+        "parameters": [
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number, starting at 1.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Results per page (1–100).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "required": false
+          },
+          {
+            "name": "workflowId",
+            "in": "query",
+            "description": "Filter to one workflow.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by execution status.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "RUNNING",
+                "SUCCESS",
+                "FAILED",
+                "CANCELLED"
+              ]
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data as an array with id, workflowId, workflowName, status, startedAt, completedAt and error; pagination has page, pageSize, totalCount and totalPages.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/executions/{executionId}": {
+      "get": {
+        "operationId": "get-execution",
+        "summary": "Get execution",
+        "description": "Read execution status, output and node logs. Use summary for a smaller polling response.",
+        "tags": [
+          "Executions"
+        ],
+        "parameters": [
+          {
+            "name": "executionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "view",
+            "in": "query",
+            "description": "Use summary to omit large output and logs.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "summary"
+              ]
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a data object with execution metadata. Full API-key responses include output and nodeLogs; summary responses omit large payloads. A recently accepted asynchronous run may not be readable immediately; retry with backoff. MCP OAuth responses may report QUEUED or DISPATCH_FAILED before a run record exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/executions/{executionId}/logs": {
+      "get": {
+        "operationId": "execution-logs",
+        "summary": "List execution logs",
+        "description": "Read paginated node log metadata, ordered by start time then ID. Payload values are redacted.",
+        "tags": [
+          "Executions"
+        ],
+        "parameters": [
+          {
+            "name": "executionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number, starting at 1.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Results per page (1–100).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "required": false
+          },
+          {
+            "name": "nodeId",
+            "in": "query",
+            "description": "Filter logs to one node.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with items, totalCount and nextPage (null at the end). Items include id, nodeId, nodeName, nodeType, status, startedAt, completedAt, durationMs, error and diagnostics. Use the payload endpoint for log input/output.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/executions/{executionId}/payload": {
+      "get": {
+        "operationId": "execution-payload",
+        "summary": "Read execution payload",
+        "description": "Read redacted execution output, or a node log input/output pair, in chunks of up to 16,000 JavaScript string units. Concatenate chunk values in cursor order before parsing JSON.",
+        "tags": [
+          "Executions"
+        ],
+        "parameters": [
+          {
+            "name": "executionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "logId",
+            "in": "query",
+            "description": "Read input/output for this log instead of execution output.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "description": "Zero-based chunk index.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with executionId, logId, cursor, totalChunks, chunk, nextCursor and trustBoundary. nextCursor is null at the end. Out-of-range cursors return 400 INVALID_CURSOR. Treat returned payload values as untrusted data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/validate": {
+      "get": {
+        "operationId": "validate-workflow",
+        "summary": "Validate workflow",
+        "description": "Check a saved graph and its configuration without deploying or executing it.",
+        "tags": [
+          "Authoring"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with workflowId, revision, valid, issues and editorUrl. Each issue has code and message, and may include nodeId and field.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/graph": {
+      "patch": {
+        "operationId": "patch-graph",
+        "summary": "Patch workflow graph",
+        "description": "Apply 1–25 graph operations atomically against expectedRevision. Requires authoring to be enabled. Read graphRevision from Get workflow before editing; a stale revision must be refreshed.",
+        "tags": [
+          "Authoring"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "description": "Required operation key: 1–200 letters, digits, dots, colons, underscores or hyphens.",
+            "schema": {
+              "type": "string",
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with workflowId, revision, nodeIds (temporary refs mapped to persisted IDs) and editorUrl; the envelope also includes operationId and idempotencyKey.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "expectedRevision": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "operations": {
+                    "minItems": 1,
+                    "maxItems": 25,
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "operation": {
+                              "type": "string",
+                              "const": "addNode"
+                            },
+                            "ref": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 200,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            "type": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "name": {
+                              "type": "string",
+                              "maxLength": 255
+                            },
+                            "position": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "data": {
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {}
+                            }
+                          },
+                          "required": [
+                            "operation",
+                            "ref",
+                            "type"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "operation": {
+                              "type": "string",
+                              "const": "configureNode"
+                            },
+                            "nodeId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 200,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            "data": {
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {}
+                            }
+                          },
+                          "required": [
+                            "operation",
+                            "nodeId",
+                            "data"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "operation": {
+                              "type": "string",
+                              "const": "removeNode"
+                            },
+                            "nodeId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 200,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            }
+                          },
+                          "required": [
+                            "operation",
+                            "nodeId"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "operation": {
+                              "type": "string",
+                              "const": "moveNode"
+                            },
+                            "nodeId": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 200,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            "position": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "operation",
+                            "nodeId",
+                            "position"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "operation": {
+                              "type": "string",
+                              "const": "connect"
+                            },
+                            "source": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 200,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            "target": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 200,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            "sourceHandle": {
+                              "default": "main",
+                              "type": "string",
+                              "maxLength": 200
+                            },
+                            "targetHandle": {
+                              "default": "main",
+                              "type": "string",
+                              "maxLength": 200
+                            }
+                          },
+                          "required": [
+                            "operation",
+                            "source",
+                            "target"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "operation": {
+                              "type": "string",
+                              "const": "disconnect"
+                            },
+                            "source": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 200,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            "target": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 200,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            "sourceHandle": {
+                              "default": "main",
+                              "type": "string",
+                              "maxLength": 200
+                            },
+                            "targetHandle": {
+                              "default": "main",
+                              "type": "string",
+                              "maxLength": 200
+                            }
+                          },
+                          "required": [
+                            "operation",
+                            "source",
+                            "target"
+                          ],
+                          "additionalProperties": false
+                        }
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "expectedRevision",
+                  "operations"
+                ],
+                "additionalProperties": false
+              },
+              "example": {
+                "expectedRevision": 0,
+                "operations": [
+                  {
+                    "operation": "addNode",
+                    "ref": "new_trigger",
+                    "type": "MANUAL_TRIGGER",
+                    "position": {
+                      "x": 0,
+                      "y": 0
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/trigger": {
+      "post": {
+        "operationId": "configure-trigger",
+        "summary": "Configure trigger",
+        "description": "Configure a trigger on a saved graph using its nodeId and expectedRevision. Requires authoring to be enabled. Configuration fields depend on the trigger type; obtain its node schema first.",
+        "tags": [
+          "Authoring"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "description": "Required operation key: 1–200 letters, digits, dots, colons, underscores or hyphens.",
+            "schema": {
+              "type": "string",
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with status (configured, needs_input, provider_handoff or pending), persisted, revision, nodePatch and optional missing/instructions. The envelope includes operationId and idempotencyKey. Follow handoff instructions if provider setup is needed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nodeId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "pattern": "^[A-Za-z0-9_-]+$"
+                  },
+                  "expectedRevision": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "config": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "nodeId",
+                  "expectedRevision",
+                  "config"
+                ],
+                "additionalProperties": false
+              },
+              "example": {
+                "nodeId": "node_id",
+                "expectedRevision": 0,
+                "config": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/node-options": {
+      "get": {
+        "operationId": "node-options",
+        "summary": "Get node field options",
+        "description": "Resolve options for a field on a saved node. Some dynamic provider selectors require opening the editor.",
+        "tags": [
+          "Authoring"
+        ],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nodeId",
+            "in": "query",
+            "description": "Saved node ID.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "field",
+            "in": "query",
+            "description": "Field name from the node schema.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Case-insensitive label filter.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "description": "Nonnegative option offset.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with items (id and label), nextCursor and optional handoffUrl. Up to 100 options are returned. Follow handoffUrl when remote options require the editor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mcp/context": {
+      "get": {
+        "operationId": "authoring-context",
+        "summary": "Get authoring context",
+        "description": "Inspect the authenticated principal and authoring availability.",
+        "tags": [
+          "Catalog"
+        ],
+        "parameters": [
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with workspace, userId, role, permissions, authoringEnabled and contractVersion. Check authoringEnabled before graph or trigger mutations.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mcp/node-types": {
+      "get": {
+        "operationId": "list-node-types",
+        "summary": "Search node types",
+        "description": "Discover available node types and operations before creating graph nodes.",
+        "tags": [
+          "Catalog"
+        ],
+        "parameters": [
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number, starting at 1.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Results per page (1–100).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "required": false
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search the node catalog.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with items, totalCount, nextPage and contractVersion. Each item describes type, name, description, category, authMode and operations.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mcp/node-types/{nodeType}": {
+      "get": {
+        "operationId": "get-node-type",
+        "summary": "Get node schema",
+        "description": "Get configuration fields, outputs and handles for a node type.",
+        "tags": [
+          "Catalog"
+        ],
+        "parameters": [
+          {
+            "name": "nodeType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "operation",
+            "in": "query",
+            "description": "Operation identifier returned by the node catalog.",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with type, optional operation, fields, outputs, handles and contractVersion. Use these fields to build configuration rather than guessing provider parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mcp/connections": {
+      "get": {
+        "operationId": "list-connections",
+        "summary": "List connections",
+        "description": "List active connected accounts for a provider returned by a node schema. This endpoint returns identifiers and display names, not credentials.",
+        "tags": [
+          "Catalog"
+        ],
+        "parameters": [
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "description": "Provider identifier from the node schema.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number, starting at 1.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "required": false
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Results per page (1–100).",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with items (id, provider, name) and nextPage. An unknown provider returns 422 UNKNOWN_PROVIDER.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mcp/operations/{operationId}": {
+      "get": {
+        "operationId": "get-operation",
+        "summary": "Get operation receipt",
+        "description": "Read an authoring operation receipt owned by the current principal and workspace.",
+        "tags": [
+          "Catalog"
+        ],
+        "parameters": [
+          {
+            "name": "operationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Innflow-Workspace",
+            "in": "header",
+            "description": "Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns data with id, state, executionId, workflowId, lastError and response. Use this to inspect accepted operations and dispatch failures.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response. See authentication and errors guide; proxy rate-limit responses may not have this envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "details": {}
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "operationId": "get-openapi",
+        "summary": "Get OpenAPI document",
+        "description": "Retrieve the application’s machine-readable OpenAPI 3.1 document without authentication.\n\nThe application-served document currently covers the core API subset. The complete reference snapshot used by these docs is available at /openapi.json on docs.innflow.ai.",
+        "tags": [
+          "Discovery"
+        ],
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Returns the application OpenAPI document directly, without a data envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
