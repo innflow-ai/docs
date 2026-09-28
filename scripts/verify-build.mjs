@@ -1,6 +1,8 @@
 import { cpSync, existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative, dirname, basename } from 'node:path';
-import { spawn } from 'node:child_process';
+import { spawn, execFileSync } from 'node:child_process';
+
+execFileSync(process.execPath, ['scripts/sync-api-reference.mjs', '--check'], { stdio: 'inherit' });
 import { createServer } from 'node:net';
 import { setTimeout as delay } from 'node:timers/promises';
 

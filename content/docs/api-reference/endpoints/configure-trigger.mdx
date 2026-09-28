@@ -1,0 +1,78 @@
+---
+title: 'Configure trigger'
+description: 'POST /workflows/{workflowId}/trigger'
+---
+
+Configure a trigger on a saved graph using its nodeId and expectedRevision. Requires authoring to be enabled. Configuration fields depend on the trigger type; obtain its node schema first.
+
+
+```http
+POST /api/v1/workflows/{workflowId}/trigger
+```
+
+**Permission:** `workflows:write`. Write endpoints also require a workspace role that permits changes. See [authentication](/api-reference/authentication) and [errors](/api-reference/errors).
+
+## Request
+
+```bash
+curl --request POST 'https://app.innflow.ai/api/v1/workflows/workflow_id/trigger' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY" \
+  --header "Idempotency-Key: unique-request-001" \
+  --header "Content-Type: application/json" \
+  --data '{
+  "nodeId": "node_id",
+  "expectedRevision": 0,
+  "config": {}
+}'
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Parameters
+
+| Name | In | Required | Details |
+| --- | --- | --- | --- |
+| `workflowId` | path | Yes | Resource identifier. |
+| `X-Innflow-Workspace` | header | No | Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope. |
+| `Idempotency-Key` | header | Yes | Required operation key: 1–200 letters, digits, dots, colons, underscores or hyphens. |
+
+## JSON body
+
+Required JSON body.
+```json
+{
+  "type": "object",
+  "properties": {
+    "nodeId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "expectedRevision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "config": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {}
+    }
+  },
+  "required": [
+    "nodeId",
+    "expectedRevision",
+    "config"
+  ],
+  "additionalProperties": false
+}
+```
+
+## Response
+
+**HTTP 200** — Returns data with status (configured, needs_input, provider_handoff or pending), persisted, revision, nodePatch and optional missing/instructions. The envelope includes operationId and idempotencyKey. Follow handoff instructions if provider setup is needed.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

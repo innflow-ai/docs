@@ -1,0 +1,29 @@
+---
+title: 'Get OpenAPI document'
+description: 'GET /openapi.json'
+---
+
+Retrieve the application’s machine-readable OpenAPI 3.1 document without authentication.
+
+
+```http
+GET /api/v1/openapi.json
+```
+
+No authentication required.
+
+The application-served document currently covers the core API subset. The complete reference snapshot used by these docs is available at /openapi.json on docs.innflow.ai.
+
+## Request
+
+```bash
+curl --request GET 'https://app.innflow.ai/api/v1/openapi.json'
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Response
+
+**HTTP 200** — Returns the application OpenAPI document directly, without a data envelope.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

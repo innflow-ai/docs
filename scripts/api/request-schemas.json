@@ -1,0 +1,374 @@
+{
+  "workflowImportSchema": {
+    "type": "object",
+    "properties": {
+      "canvasLayoutVersion": {
+        "default": 0,
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 255
+      },
+      "description": {
+        "type": "string"
+      },
+      "icon": {
+        "type": "string",
+        "maxLength": 100
+      },
+      "iconColor": {
+        "type": "string",
+        "maxLength": 20
+      },
+      "nodes": {
+        "minItems": 1,
+        "maxItems": 200,
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "position": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "x",
+                "y"
+              ]
+            },
+            "data": {
+              "default": {},
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {}
+            }
+          },
+          "required": [
+            "type",
+            "position"
+          ]
+        }
+      },
+      "edges": {
+        "default": [],
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "target": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "fromOutput": {
+              "type": "string"
+            },
+            "toInput": {
+              "type": "string"
+            },
+            "sourceHandle": {
+              "type": "string"
+            },
+            "targetHandle": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "source",
+            "target"
+          ]
+        }
+      }
+    },
+    "required": [
+      "nodes"
+    ]
+  },
+  "graphPatchSchema": {
+    "type": "object",
+    "properties": {
+      "expectedRevision": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+      },
+      "operations": {
+        "minItems": 1,
+        "maxItems": 25,
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "operation": {
+                  "type": "string",
+                  "const": "addNode"
+                },
+                "ref": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                },
+                "type": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "name": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "position": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ]
+                },
+                "data": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string"
+                  },
+                  "additionalProperties": {}
+                }
+              },
+              "required": [
+                "operation",
+                "ref",
+                "type"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "operation": {
+                  "type": "string",
+                  "const": "configureNode"
+                },
+                "nodeId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                },
+                "data": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string"
+                  },
+                  "additionalProperties": {}
+                }
+              },
+              "required": [
+                "operation",
+                "nodeId",
+                "data"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "operation": {
+                  "type": "string",
+                  "const": "removeNode"
+                },
+                "nodeId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                }
+              },
+              "required": [
+                "operation",
+                "nodeId"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "operation": {
+                  "type": "string",
+                  "const": "moveNode"
+                },
+                "nodeId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                },
+                "position": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y"
+                  ]
+                }
+              },
+              "required": [
+                "operation",
+                "nodeId",
+                "position"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "operation": {
+                  "type": "string",
+                  "const": "connect"
+                },
+                "source": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                },
+                "target": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                },
+                "sourceHandle": {
+                  "default": "main",
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "targetHandle": {
+                  "default": "main",
+                  "type": "string",
+                  "maxLength": 200
+                }
+              },
+              "required": [
+                "operation",
+                "source",
+                "target"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "operation": {
+                  "type": "string",
+                  "const": "disconnect"
+                },
+                "source": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                },
+                "target": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                },
+                "sourceHandle": {
+                  "default": "main",
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "targetHandle": {
+                  "default": "main",
+                  "type": "string",
+                  "maxLength": 200
+                }
+              },
+              "required": [
+                "operation",
+                "source",
+                "target"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "required": [
+      "expectedRevision",
+      "operations"
+    ],
+    "additionalProperties": false
+  },
+  "triggerInputSchema": {
+    "type": "object",
+    "properties": {
+      "nodeId": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200,
+        "pattern": "^[A-Za-z0-9_-]+$"
+      },
+      "expectedRevision": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+      },
+      "config": {
+        "type": "object",
+        "propertyNames": {
+          "type": "string"
+        },
+        "additionalProperties": {}
+      }
+    },
+    "required": [
+      "nodeId",
+      "expectedRevision",
+      "config"
+    ],
+    "additionalProperties": false
+  }
+}

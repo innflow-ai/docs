@@ -1,0 +1,37 @@
+---
+title: 'Undeploy workflow'
+description: 'POST /workflows/{workflowId}/undeploy'
+---
+
+Return a deployed workflow to draft and pause active schedules. A workflow that is not currently deployed returns 422.
+
+
+```http
+POST /api/v1/workflows/{workflowId}/undeploy
+```
+
+**Permission:** `workflows:write`. Write endpoints also require a workspace role that permits changes. See [authentication](/api-reference/authentication) and [errors](/api-reference/errors).
+
+With API-key authentication, this endpoint does not replay Idempotency-Key receipts.
+
+## Request
+
+```bash
+curl --request POST 'https://app.innflow.ai/api/v1/workflows/workflow_id/undeploy' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY"
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Parameters
+
+| Name | In | Required | Details |
+| --- | --- | --- | --- |
+| `workflowId` | path | Yes | Resource identifier. |
+| `X-Innflow-Workspace` | header | No | Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope. |
+
+## Response
+
+**HTTP 200** — Returns data with id, name, icon, iconColor, deploymentStatus, deployedAt, createdAt and updatedAt.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

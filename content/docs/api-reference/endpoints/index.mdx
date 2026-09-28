@@ -1,0 +1,67 @@
+---
+title: 'REST endpoints'
+description: '25 REST operations for workflows, executions, workspaces and authoring'
+---
+
+Base URL: `https://app.innflow.ai/api/v1`.
+
+[Authentication](/api-reference/authentication) · [Authoring guide](/api-reference/authoring) · [Download OpenAPI 3.1](/openapi.json)
+
+## Workspaces
+
+| Method | Path | Reference |
+| --- | --- | --- |
+| `GET` | `/workspaces` | [List workspaces](/api-reference/endpoints/list-workspaces) |
+
+## Workflows
+
+| Method | Path | Reference |
+| --- | --- | --- |
+| `GET` | `/workflows` | [List workflows](/api-reference/endpoints/list-workflows) |
+| `POST` | `/workflows` | [Create workflow](/api-reference/endpoints/create-workflow) |
+| `POST` | `/workflows/import` | [Import workflow](/api-reference/endpoints/import-workflow) |
+| `GET` | `/workflows/{workflowId}` | [Get workflow](/api-reference/endpoints/get-workflow) |
+| `PATCH` | `/workflows/{workflowId}` | [Update workflow](/api-reference/endpoints/update-workflow) |
+| `DELETE` | `/workflows/{workflowId}` | [Delete workflow](/api-reference/endpoints/delete-workflow) |
+| `POST` | `/workflows/{workflowId}/duplicate` | [Duplicate workflow](/api-reference/endpoints/duplicate-workflow) |
+| `POST` | `/workflows/{workflowId}/deploy` | [Deploy workflow](/api-reference/endpoints/deploy-workflow) |
+| `POST` | `/workflows/{workflowId}/undeploy` | [Undeploy workflow](/api-reference/endpoints/undeploy-workflow) |
+
+## Executions
+
+| Method | Path | Reference |
+| --- | --- | --- |
+| `POST` | `/workflows/{workflowId}/execute` | [Execute workflow](/api-reference/endpoints/execute-workflow) |
+| `GET` | `/executions` | [List executions](/api-reference/endpoints/list-executions) |
+| `GET` | `/executions/{executionId}` | [Get execution](/api-reference/endpoints/get-execution) |
+| `GET` | `/executions/{executionId}/logs` | [List execution logs](/api-reference/endpoints/execution-logs) |
+| `GET` | `/executions/{executionId}/payload` | [Read execution payload](/api-reference/endpoints/execution-payload) |
+
+## Authoring
+
+| Method | Path | Reference |
+| --- | --- | --- |
+| `GET` | `/workflows/{workflowId}/validate` | [Validate workflow](/api-reference/endpoints/validate-workflow) |
+| `PATCH` | `/workflows/{workflowId}/graph` | [Patch workflow graph](/api-reference/endpoints/patch-graph) |
+| `POST` | `/workflows/{workflowId}/trigger` | [Configure trigger](/api-reference/endpoints/configure-trigger) |
+| `GET` | `/workflows/{workflowId}/node-options` | [Get node field options](/api-reference/endpoints/node-options) |
+
+## Catalog
+
+| Method | Path | Reference |
+| --- | --- | --- |
+| `GET` | `/mcp/context` | [Get authoring context](/api-reference/endpoints/authoring-context) |
+| `GET` | `/mcp/node-types` | [Search node types](/api-reference/endpoints/list-node-types) |
+| `GET` | `/mcp/node-types/{nodeType}` | [Get node schema](/api-reference/endpoints/get-node-type) |
+| `GET` | `/mcp/connections` | [List connections](/api-reference/endpoints/list-connections) |
+| `GET` | `/mcp/operations/{operationId}` | [Get operation receipt](/api-reference/endpoints/get-operation) |
+
+## Discovery
+
+| Method | Path | Reference |
+| --- | --- | --- |
+| `GET` | `/openapi.json` | [Get OpenAPI document](/api-reference/endpoints/get-openapi) |
+
+## Scope
+
+This reference covers every customer-facing route under `/api/v1`, including authoring and discovery. `/api/v1/portal-events` is service-to-service ingestion and does not accept customer API keys. Provider callbacks, internal service APIs, browser-session routes and tRPC are separate interfaces, not general customer REST endpoints. See [triggers](/triggers) for workflow-specific webhook setup and [MCP](/mcp) for the MCP interface.

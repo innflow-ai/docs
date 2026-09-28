@@ -1,0 +1,38 @@
+---
+title: 'List executions'
+description: 'GET /executions'
+---
+
+List accessible executions, newest started first.
+
+
+```http
+GET /api/v1/executions
+```
+
+**Permission:** `executions:read`. Write endpoints also require a workspace role that permits changes. See [authentication](/api-reference/authentication) and [errors](/api-reference/errors).
+
+## Request
+
+```bash
+curl --request GET 'https://app.innflow.ai/api/v1/executions' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY"
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Parameters
+
+| Name | In | Required | Details |
+| --- | --- | --- | --- |
+| `X-Innflow-Workspace` | header | No | Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope. |
+| `page` | query | No | Page number, starting at 1. |
+| `pageSize` | query | No | Results per page (1–100). |
+| `workflowId` | query | No | Filter to one workflow. |
+| `status` | query | No | Filter by execution status. |
+
+## Response
+
+**HTTP 200** — Returns data as an array with id, workflowId, workflowName, status, startedAt, completedAt and error; pagination has page, pageSize, totalCount and totalPages.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

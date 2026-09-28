@@ -1,0 +1,38 @@
+---
+title: 'List execution logs'
+description: 'GET /executions/{executionId}/logs'
+---
+
+Read paginated node log metadata, ordered by start time then ID. Payload values are redacted.
+
+
+```http
+GET /api/v1/executions/{executionId}/logs
+```
+
+**Permission:** `executions:read`. Write endpoints also require a workspace role that permits changes. See [authentication](/api-reference/authentication) and [errors](/api-reference/errors).
+
+## Request
+
+```bash
+curl --request GET 'https://app.innflow.ai/api/v1/executions/execution_id/logs' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY"
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Parameters
+
+| Name | In | Required | Details |
+| --- | --- | --- | --- |
+| `executionId` | path | Yes | Resource identifier. |
+| `X-Innflow-Workspace` | header | No | Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope. |
+| `page` | query | No | Page number, starting at 1. |
+| `pageSize` | query | No | Results per page (1–100). |
+| `nodeId` | query | No | Filter logs to one node. |
+
+## Response
+
+**HTTP 200** — Returns data with items, totalCount and nextPage (null at the end). Items include id, nodeId, nodeName, nodeType, status, startedAt, completedAt, durationMs, error and diagnostics. Use the payload endpoint for log input/output.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

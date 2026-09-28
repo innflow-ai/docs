@@ -1,0 +1,45 @@
+---
+title: 'Workflow authoring'
+description: 'Discover schemas, edit graphs safely and configure triggers through REST'
+---
+
+## Check availability
+
+Read [Get authoring context](/api-reference/endpoints/authoring-context). Graph patching and trigger configuration require `authoringEnabled: true`; unavailable authoring returns `503 AUTHORING_DISABLED`. This documentation release does not enable authoring on your deployment.
+
+## Build from the node catalog
+
+1. [Search node types](/api-reference/endpoints/list-node-types) to find a type and its operations.
+2. [Get its schema](/api-reference/endpoints/get-node-type) for field definitions, outputs and connection handles.
+3. [List connections](/api-reference/endpoints/list-connections) using the provider ID returned by the schema. Connect new accounts through Innflow's UI.
+4. [Create a workflow](/api-reference/endpoints/create-workflow) or [import a complete graph](/api-reference/endpoints/import-workflow).
+5. [Get the workflow](/api-reference/endpoints/get-workflow) and retain `graphRevision` as `expectedRevision`.
+6. [Patch the graph](/api-reference/endpoints/patch-graph) with a unique `Idempotency-Key` and up to 25 operations.
+7. [Configure triggers](/api-reference/endpoints/configure-trigger), then [validate](/api-reference/endpoints/validate-workflow) before deploying.
+
+## Graph operations
+
+| Operation | Required fields beyond operation |
+| --- | --- |
+| `addNode` | `ref`, `type`; optional `name`, `position`, `data` |
+| `configureNode` | `nodeId`, `data` |
+| `removeNode` | `nodeId` |
+| `moveNode` | `nodeId`, `position` |
+| `connect` | `source`, `target`; optional `sourceHandle`, `targetHandle` (default `main`) |
+| `disconnect` | `source`, `target`; optional `sourceHandle`, `targetHandle` (default `main`) |
+
+Temporary `ref` values identify added nodes within a patch; the response's `nodeIds` maps them to saved IDs. Read the full [graph request schema](/api-reference/endpoints/patch-graph) for constraints. Use handles returned by the node schema.
+
+A revision conflict means another edit occurred. Refetch the graph, reconcile the intended change and submit with the new revision and a new operation key. Do not blindly overwrite another editor's work.
+
+## Provider setup and execution
+
+A trigger response can report `needs_input`, `provider_handoff` or `pending` rather than `configured`. Inspect `persisted`, `missing` and `instructions` before treating setup as complete. Dynamic field selectors may return `handoffUrl` for editor-only setup.
+
+Execution is asynchronous. Use the execution ID to read progress and the operation ID, when returned, to inspect its dispatch receipt.
+
+## MCP OAuth contract
+
+MCP clients authenticate with OAuth and send `X-Innflow-MCP-Contract: 1`. On that authenticated contract, create, deploy, undeploy and execute use transactional operation receipts with a required idempotency key. Setting the header on a normal API-key request does not switch it into the MCP OAuth contract.
+
+MCP deploy/undeploy accept an optional nonnegative `expectedRevision`. MCP execution and deferred deployment work can return `202`, with `operationId` and `idempotencyKey` alongside `data`. Poll [Get operation receipt](/api-reference/endpoints/get-operation). These semantics differ from the normal API-key endpoints; see the [MCP reference](/mcp) for client setup.

@@ -1,0 +1,36 @@
+---
+title: 'Get execution'
+description: 'GET /executions/{executionId}'
+---
+
+Read execution status, output and node logs. Use summary for a smaller polling response.
+
+
+```http
+GET /api/v1/executions/{executionId}
+```
+
+**Permission:** `executions:read`. Write endpoints also require a workspace role that permits changes. See [authentication](/api-reference/authentication) and [errors](/api-reference/errors).
+
+## Request
+
+```bash
+curl --request GET 'https://app.innflow.ai/api/v1/executions/execution_id' \
+  --header "Authorization: Bearer $INNFLOW_API_KEY"
+```
+
+Examples use placeholder IDs. Set `INNFLOW_API_KEY` in your shell and replace IDs with your own before sending a request.
+
+## Parameters
+
+| Name | In | Required | Details |
+| --- | --- | --- | --- |
+| `executionId` | path | Yes | Resource identifier. |
+| `X-Innflow-Workspace` | header | No | Organization ID, or personal. Set explicitly; omission uses legacy user-owned resource scope. |
+| `view` | query | No | Use summary to omit large output and logs. |
+
+## Response
+
+**HTTP 200** — Returns a data object with execution metadata. Full API-key responses include output and nodeLogs; summary responses omit large payloads. A recently accepted asynchronous run may not be readable immediately; retry with backoff. MCP OAuth responses may report QUEUED or DISPATCH_FAILED before a run record exists.
+
+See [OpenAPI download](/openapi.json) for the machine-readable request contract and [errors](/api-reference/errors) for errors and retry behavior.

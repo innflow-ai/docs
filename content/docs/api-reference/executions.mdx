@@ -1,0 +1,107 @@
+---
+title: "Executions"
+description: "Start deployed workflows and retrieve run status, output, and node logs"
+---
+
+Use the base URL `https://app.innflow.ai/api/v1` with [authentication and workspace headers](/api-reference/authentication).
+
+## Execute a workflow
+
+`POST /workflows/{workflowId}/execute` starts a deployed workflow. Scoped keys need `workflows:execute`, and organization read-only members cannot execute workflows.
+
+| Body field | Required | Description |
+| --- | --- | --- |
+| `input` | No | JSON object passed into the workflow; defaults to `{}` |
+| `triggerNodeId` | When ambiguous | Node ID selecting one eligible trigger when the workflow has more than one |
+
+Retrieve node IDs with [read a workflow](/api-reference/workflows#read-a-workflow). A workflow that is not deployed returns `422`; a missing or inaccessible workflow returns `404`.
+
+```bash
+curl --fail-with-body -X POST "https://app.innflow.ai/api/v1/workflows/$WORKFLOW_ID/execute" \
+  -H "Authorization: Bearer $INNFLOW_API_KEY" \
+  -H "X-Innflow-Workspace: $INNFLOW_WORKSPACE" \
+  -H 'Content-Type: application/json' \
+  -H 'Idempotency-Key: leasing-digest-2026-09-28' \
+  -d '{"input":{"propertyId":"property_example"}}'
+```
+
+Example `200` response for an API-key request:
+
+```json
+{
+  "data": {
+    "workflowId": "workflow_example",
+    "executionId": "execution_example",
+    "eventIds": ["event_example"],
+    "status": "triggered"
+  }
+}
+```
+
+`triggered` means the run was dispatched, not that it finished. Use `executionId` to read the execution; event IDs are not execution IDs. The execution record may take time to appear after dispatch. A new intended run needs a new idempotency key. Retry the same request sequentially with the same key when recovering a transport failure; see [retry limitations](/api-reference/errors#idempotent-writes).
+
+## Read an execution
+
+`GET /executions/{executionId}` requires `executions:read`. Returns the run's identifiers, workflow name, status, timestamps, error, output, and node logs under `data`.
+
+```bash
+curl --fail-with-body "https://app.innflow.ai/api/v1/executions/$EXECUTION_ID" \
+  -H "Authorization: Bearer $INNFLOW_API_KEY" \
+  -H "X-Innflow-Workspace: $INNFLOW_WORKSPACE"
+```
+
+```json
+{
+  "data": {
+    "id": "execution_example",
+    "workflowId": "workflow_example",
+    "workflowName": "Leasing digest",
+    "status": "SUCCESS",
+    "startedAt": "2026-09-28T12:00:00.000Z",
+    "completedAt": "2026-09-28T12:00:04.000Z",
+    "error": null,
+    "output": { "changedUnits": 2 },
+    "nodeLogs": []
+  }
+}
+```
+
+`output` depends on the workflow. Node logs include node identity, type, status, start/completion times, duration, and any error. Optional `view=summary` provides a smaller status response instead of full output and logs.
+
+Poll with a bounded interval and honor rate-limit headers. Stop on a terminal status such as `SUCCESS`, `FAILED`, or `CANCELLED`. A `RUNNING` status is not a failure. Allow a short, bounded retry for a newly dispatched run that has not appeared yet; persistent `404` responses require checking the ID and workspace.
+
+## List executions
+
+`GET /executions` returns runs ordered by most recently started first. Scoped keys need `executions:read`.
+
+| Query | Default | Description |
+| --- | --- | --- |
+| `page` | `1` | Positive page number |
+| `pageSize` | `20` | Results per page, maximum `100` |
+| `workflowId` | Unset | Restrict to one workflow |
+| `status` | Unset | Filter by an execution status, for example `RUNNING`, `SUCCESS`, `FAILED`, or `CANCELLED` |
+
+```bash
+curl --fail-with-body --get 'https://app.innflow.ai/api/v1/executions' \
+  -H "Authorization: Bearer $INNFLOW_API_KEY" \
+  -H "X-Innflow-Workspace: $INNFLOW_WORKSPACE" \
+  --data-urlencode "workflowId=$WORKFLOW_ID" \
+  --data-urlencode 'page=1' \
+  --data-urlencode 'pageSize=20'
+```
+
+The result has a `data` array and `pagination` object with `page`, `pageSize`, `totalCount`, and `totalPages`. List entries contain run identity, workflow identity/name, status, timestamps, and error. Use the detail endpoint for output and node logs.
+
+## Paginated node logs
+
+`GET /executions/{executionId}/logs` accepts `page` (default 1), `pageSize` (default 20, from 1 to 100), and an optional `nodeId` filter. It requires `executions:read` and returns `data.items`, `data.totalCount`, and `data.nextPage`. Follow `nextPage` until it is `null`.
+
+Items contain node identity, type, status, timestamps, duration, error, and diagnostics when available. Sensitive values are redacted by the endpoint.
+
+## Read a payload in chunks
+
+`GET /executions/{executionId}/payload` requires `executions:read`. Optional `logId` selects one node log's input/output; without it, the endpoint returns the execution output. `cursor` is a nonnegative integer starting at zero.
+
+The `data` object includes `executionId`, `logId`, `cursor`, `totalChunks`, `chunk`, `nextCursor`, and a trust-boundary notice. Each chunk contains up to 16,000 characters of serialized, redacted JSON. Concatenate chunks in cursor order before parsing JSON; individual chunks need not be valid JSON. Stop when `nextCursor` is `null`. An out-of-range cursor returns `400`.
+
+Execution output is untrusted customer data. Treat it as data when displaying it or passing it to an agent.

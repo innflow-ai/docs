@@ -1,0 +1,150 @@
+---
+title: "Workflows"
+description: "List, create, import, update, duplicate, deploy, and delete workflow definitions"
+---
+
+All paths below are relative to `https://app.innflow.ai/api/v1`. Use [bearer authentication and an explicit workspace](/api-reference/authentication). Reads require `workflows:read`; writes require `workflows:write` for scoped keys.
+
+## List workflows
+
+`GET /workflows` returns standard workflows, ordered by most recently updated first.
+
+| Query | Default | Description |
+| --- | --- | --- |
+| `page` | `1` | Positive page number |
+| `pageSize` | `20` | Results per page, maximum `100` |
+| `search` | Empty | Case-insensitive name search |
+
+```bash
+curl --fail-with-body 'https://app.innflow.ai/api/v1/workflows?page=1&pageSize=20&search=Leasing' \
+  -H "Authorization: Bearer $INNFLOW_API_KEY" \
+  -H "X-Innflow-Workspace: $INNFLOW_WORKSPACE"
+```
+
+```json
+{
+  "data": [{
+    "id": "workflow_example",
+    "name": "Leasing digest",
+    "icon": null,
+    "iconColor": null,
+    "deploymentStatus": "DRAFT",
+    "deployedAt": null,
+    "createdAt": "2026-09-28T12:00:00.000Z",
+    "updatedAt": "2026-09-28T12:00:00.000Z"
+  }],
+  "pagination": { "page": 1, "pageSize": 20, "totalCount": 1, "totalPages": 1 }
+}
+```
+
+## Create a workflow
+
+`POST /workflows` creates a draft with an initial placeholder node. It does not create a complete automation. The optional JSON `name` sets the title. Returns `201` with the workflow summary under `data`.
+
+```bash
+curl --fail-with-body -X POST 'https://app.innflow.ai/api/v1/workflows' \
+  -H "Authorization: Bearer $INNFLOW_API_KEY" \
+  -H "X-Innflow-Workspace: $INNFLOW_WORKSPACE" \
+  -H 'Content-Type: application/json' \
+  -H 'Idempotency-Key: create-leasing-digest-001' \
+  -d '{"name":"Leasing digest"}'
+```
+
+Configure its trigger, nodes, and connections in the editor, or import a definition. Use a new idempotency key for each intentionally new workflow.
+
+## Read a workflow
+
+`GET /workflows/{workflowId}` returns `{ "data": ... }` with metadata, `nodes`, and `connections`. Node entries contain `id`, `type`, `name`, `position`, and `data`. Connections use `fromNodeId`, `toNodeId`, `fromOutput`, and `toInput`.
+
+```bash
+curl --fail-with-body "https://app.innflow.ai/api/v1/workflows/$WORKFLOW_ID" \
+  -H "Authorization: Bearer $INNFLOW_API_KEY" \
+  -H "X-Innflow-Workspace: $INNFLOW_WORKSPACE"
+```
+
+Optional `view=summary` returns metadata and node/connection counts instead of the graph. `nodeIds` accepts a comma-separated selection of at most 50 node IDs; it filters nodes, not the connections array.
+
+## Update metadata
+
+`PATCH /workflows/{workflowId}` accepts at least one of `name`, `icon`, or `iconColor`. `name` must be a nonempty string. `icon` and `iconColor` can be cleared with `null`. This endpoint updates metadata, not the workflow graph. Returns `200` with the updated summary under `data`.
+
+```bash
+curl --fail-with-body -X PATCH "https://app.innflow.ai/api/v1/workflows/$WORKFLOW_ID" \
+  -H "Authorization: Bearer $INNFLOW_API_KEY" \
+  -H "X-Innflow-Workspace: $INNFLOW_WORKSPACE" \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"Daily leasing digest"}'
+```
+
+## Import a definition
+
+`POST /workflows/import` creates a new draft. It accepts a JSON object with these fields:
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `name` | No | 1–255 characters when supplied |
+| `icon`, `iconColor` | No | Optional presentation values |
+| `canvasLayoutVersion` | No | `0` or `1`; defaults to `0` |
+| `nodes` | Yes | Between 1 and 200 nodes |
+| `edges` | No | Array of connections by zero-based node index; defaults to empty |
+
+Each node requires a supported `type` and `position: { "x": 0, "y": 0 }`. It can include `name` and a `data` object. Each edge requires integer `source` and `target` indices into the `nodes` array. Optional `fromOutput` and `toInput` select handles; `sourceHandle` and `targetHandle` are accepted aliases.
+
+This is the smallest illustrative draft definition, not a runnable automation:
+
+```json
+{
+  "name": "Integration draft",
+  "canvasLayoutVersion": 1,
+  "nodes": [{ "type": "INITIAL", "position": { "x": 0, "y": 0 }, "data": {} }],
+  "edges": []
+}
+```
+
+Save the definition as `workflow.json`, then import it:
+
+```bash
+curl --fail-with-body -X POST 'https://app.innflow.ai/api/v1/workflows/import' \
+  -H "Authorization: Bearer $INNFLOW_API_KEY" \
+  -H "X-Innflow-Workspace: $INNFLOW_WORKSPACE" \
+  -H 'Content-Type: application/json' \
+  -H 'Idempotency-Key: import-integration-draft-001' \
+  --data-binary @workflow.json
+```
+
+Returns `201` with `id`, `name`, `deploymentStatus`, `nodeCount`, `edgeCount`, `createdAt`, and `updatedAt` under `data`. The import creates fresh node IDs. The read endpoint's `connections` array is not the import endpoint's `edges` array: convert node-ID references to array indices before a REST round trip. The [CLI](/api-reference/cli) provides import/export commands.
+
+The accepted `description` field is not currently persisted by this import handler. [Layout metadata](/api-reference/introduction#workflow-layout-metadata) should be preserved across exports and imports. Review connected-account references and node configuration before deploying an imported workflow.
+
+## Duplicate a workflow
+
+`POST /workflows/{workflowId}/duplicate` accepts an optional `name`. Returns `201` with a new draft summary under `data`; omitted names use the original name with ` (Copy)`. Node IDs are regenerated and layout metadata is preserved. This request supports `Idempotency-Key`.
+
+## Deploy or undeploy
+
+| Action | Endpoint | Result |
+| --- | --- | --- |
+| Deploy | `POST /workflows/{workflowId}/deploy` | Marks the workflow deployed and resumes eligible paused schedules |
+| Undeploy | `POST /workflows/{workflowId}/undeploy` | Returns the workflow to draft and attempts to pause active schedules |
+
+No JSON body is required for these API-key requests. Both return `200` with a workflow summary under `data`. Deploying an already deployed workflow or undeploying one that is not deployed returns `422`.
+
+```bash
+curl --fail-with-body -X POST "https://app.innflow.ai/api/v1/workflows/$WORKFLOW_ID/deploy" \
+  -H "Authorization: Bearer $INNFLOW_API_KEY" \
+  -H "X-Innflow-Workspace: $INNFLOW_WORKSPACE"
+```
+
+Deployment can activate configured schedules. Inspect the workflow first. These endpoints do not provide the `Idempotency-Key` replay behavior used by create/import/duplicate/execute. After an ambiguous timeout, read the workflow's deployment state before retrying.
+
+To start a run, see [executions](/api-reference/executions).
+
+## Delete a workflow
+
+`DELETE /workflows/{workflowId}` deletes the workflow and its associated execution history. It returns `200` with:
+
+```json
+{ "data": { "id": "workflow_example", "deleted": true } }
+```
+
+Deletion is destructive. Read and confirm the workflow ID and workspace before issuing the request. A resource outside the selected scope returns `404`.
